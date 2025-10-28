@@ -165,14 +165,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.black.withValues(alpha: 0.3),
-                              Colors.black.withValues(alpha: 0.6),
-                            ],
-                          ),
+                          color: Colors.black.withValues(alpha: 0.7),
                         ),
                       ),
                     ),
@@ -195,11 +188,11 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Text(
-                          "This is placeholder text for the hero section. Students should customise this content.",
+                        const Text(
+                          "This is placeholder text for the hero section.",
                           style: TextStyle(
                             fontSize: 20,
-                            color: Colors.white.withValues(alpha: 0.9),
+                            color: Colors.white,
                             height: 1.5,
                           ),
                           textAlign: TextAlign.center,
@@ -210,7 +203,7 @@ class HomeScreen extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF4d2963),
                             foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero,
                             ),
                           ),
