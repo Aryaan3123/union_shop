@@ -1,24 +1,141 @@
-# Union Shop — Flutter Coursework
+# Union Shop - Flutter E-commerce Application
 
-This repository contains the coursework project for students enrolled in the **Programming Applications and Programming Languages (M30235)** and **User Experience Design and Implementation (M32605)** modules at the University of Portsmouth.
+A Flutter recreation of the University of Portsmouth Student Union's e-commerce website ([shop.upsu.net](https://shop.upsu.net)).
 
-## Overview
+## About
 
-The Student Union has an e-commerce website, which you can access via this link: [shop.upsu.net](https://shop.upsu.net)
+This mobile-first Flutter application recreates the core functionality of the UPSU online shop, including product browsing, cart management, and user authentication. Built as coursework for Programming Applications and User Experience Design modules.
 
-In short, your task is to recreate the same website using Flutter. You must not start from scratch, as you need to begin by forking the GitHub repository that contains the incomplete code. [The getting started section of this document](#getting-started) will explain more. Once you have completed the application, you will submit the link to your forked repository on Moodle for assessment and demonstrate your application in a practical session. See the [submission](#submission) and [demonstration](#demonstration) sections for more information.
+## Features
 
-⚠️ The UPSU.net link on the navbar of the union website is a link to an external site. This is not part of the application that you need to develop. So ignore the link highlighted below:
+### ✅ Implemented
+- **Responsive Homepage** - Mobile-first design with hero section
+- **Product Navigation** - Browse products with image cards
+- **Cross-platform Layout** - Adaptive UI for mobile and desktop
+- **Navigation System** - Route-based navigation between pages
 
-![Union Shop Header](https://raw.githubusercontent.com/manighahrmani/sandwich_shop/refs/heads/main/images/screenshot_union_site_header.png)
+### 🚧 In Development
+- **Firebase Authentication** - User login/signup system
+- **Dynamic Product Data** - Firestore database integration
+- **Shopping Cart** - Add/remove items with state management
+- **Search Functionality** - Product search and filtering
 
-## Getting Started
+### 📋 Planned
+- **User Profiles** - Account management and order history
+- **Checkout System** - Complete purchase workflow
+- **Admin Panel** - Product management interface
+
+## 🎯 Progress Checklist
+
+### **Phase 1: Foundation & Quick Wins (Days 1-3)** 
+*Target: 40% Basic + 25% Software Practices = 65% total marks*
+
+#### **📚 Software Development Practices (25% of total marks)**
+- [ ] **Git Setup**: Fork repository and set up proper git workflow
+- [ ] **README**: Create comprehensive README with progress checklist *(5% marks)*
+- [ ] **First Commits**: Make 5+ meaningful commits with clear messages *(8% marks - ongoing)*
+- [ ] **External Services Planning**: Research Firebase setup for Auth + Firestore *(6% marks - prep)*
+
+#### **🏠 Basic Features - Static UI (40% of total marks)**
+- [x] **Static Homepage**: Layout with hero section and product cards *(5% marks)*
+- [ ] **Static Navbar**: Responsive navigation bar with mobile menu *(5% marks)*
+- [ ] **About Us Page**: Create static about page *(5% marks)*
+- [ ] **Footer Component**: Add footer to all pages *(4% marks)*
+- [ ] **Collections Page**: Static grid of product collections *(5% marks)*
+- [ ] **Collection Detail Page**: Products within a collection *(5% marks)*
+- [ ] **Product Detail Page**: Individual product view *(4% marks)*
+- [ ] **Sale Collection**: Sale items page with discounts *(4% marks)*
+- [ ] **Auth UI**: Login/signup forms (non-functional) *(3% marks)*
+
+### **Phase 2: External Services Integration (Days 4-6)**
+*Target: 6% External Services marks*
+
+#### **🔥 Firebase Setup**
+- [ ] **Firebase Project**: Create new Firebase project
+- [ ] **Firebase Auth**: Set up authentication service
+- [ ] **Firestore Database**: Set up product database
+- [ ] **Flutter Integration**: Add Firebase packages to pubspec.yaml
+- [ ] **Environment Setup**: Configure Firebase in Flutter app
+- [ ] **README Documentation**: Document Firebase integration
+
+### **Phase 3: Dynamic Features (Days 7-9)**
+*Target: 35% Intermediate marks*
+
+#### **🔄 Dynamic Data (Intermediate - 35% marks)**
+- [ ] **Navigation System**: Full app navigation between pages *(3% marks)*
+- [ ] **Dynamic Collections**: Load collections from Firestore *(6% marks)*
+- [ ] **Dynamic Collection Page**: Products loaded from database *(6% marks)*
+- [ ] **Functional Product Pages**: Real data with working widgets *(6% marks)*
+- [ ] **Shopping Cart**: Add to cart, view cart functionality *(6% marks)*
+- [ ] **Print Shack**: Text personalization page *(3% marks)*
+- [ ] **Responsive Design**: Desktop + mobile layouts *(5% marks)*
+
+### **Phase 4: Advanced Features (Days 10-11)**
+*Target: 25% Advanced marks + Final Testing*
+
+#### **🚀 Advanced Features (25% marks)**
+- [ ] **Authentication System**: Full working auth with Google *(8% marks)*
+- [ ] **Cart Management**: Full cart with quantity, persistence *(6% marks)*
+- [ ] **Search System**: Working search functionality *(4% marks)*
+- [ ] **Testing**: Write comprehensive widget tests *(6% marks)*
+- [ ] **Final Polish**: Bug fixes and final commits
+
+### **📊 Current Progress Summary**
+- **Basic Features**: 1/9 completed (5/40% earned)
+- **Software Practices**: 0/4 completed (0/25% earned)
+- **Intermediate Features**: 0/7 completed (0/35% earned)
+- **Advanced Features**: 0/4 completed (0/25% earned)
+- **Overall Progress**: ~5% / 125% total possible
+
+*Last Updated: November 23, 2025*
+
+### **🎯 Daily Targets**
+- **Day 1-3**: Complete all Basic Features (40% marks) + README/Git setup (13% marks)
+- **Day 4-6**: Firebase integration (6% marks) + Start Dynamic Features
+- **Day 7-9**: Complete Intermediate Features (35% marks)
+- **Day 10-11**: Advanced Features (25% marks) + Testing (6% marks)
+
+### **📈 Commit Strategy**
+*Target: 8% marks for regular, meaningful commits*
+- [ ] Commit #1: "Initial README update with progress checklist"
+- [ ] Commit #2: "Add responsive navbar component"
+- [ ] Commit #3: "Create About Us page"
+- [ ] Commit #4: "Add footer component to all pages"
+- [ ] Commit #5: "Create collections page layout"
+- [ ] *Continue with micro-commits for each feature...*
+
+---
+
+## Installation & Setup
 
 ### Prerequisites
+- Flutter SDK (3.0+)
+- Dart SDK (2.17.0+)
+- Android Studio/VS Code
+- Git
 
-You have three options for your development environment:
+### Getting Started
 
-1. **Firebase Studio** (browser-based, no installation required)
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/[your-username]/union_shop.git
+   cd union_shop
+   ```
+
+2. **Install dependencies**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Run the application**
+   ```bash
+   flutter run
+   ```
+
+4. **For web development**
+   ```bash
+   flutter run -d chrome
+   ```
 2. **University Windows computers** (via AppsAnywhere)
 3. **Personal computer** (Windows or macOS)
 
