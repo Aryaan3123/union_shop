@@ -143,14 +143,35 @@ class HomeScreen extends StatelessWidget {
           // Footer
           Container(
             width: double.infinity,
-            color: Colors.grey[50],
-            padding: const EdgeInsets.all(24),
-            child: const Text(
-              'Placeholder Footer',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+            color: Colors.grey[100],
+            padding: const EdgeInsets.all(40),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Left: Opening Times
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'OPENING HOURS',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Text('Monday - Friday: 9:00 AM - 6:00 PM'),
+                      Text('Saturday: 10:00 AM - 4:00 PM'),
+                      Text('Sunday: Closed'),
+                    ],
+                  ),
+                  // Space between columns
+                  const SizedBox(width: 120),
+                  // Right: Copyright
+                  Text('© ${DateTime.now().year} UPSU. All rights reserved.'),
+                ],
               ),
             ),
           ),
