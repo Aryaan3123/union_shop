@@ -107,6 +107,30 @@ class PageLayout extends StatelessWidget {
                                     value: 'clothing',
                                     child: Text('Clothing'),
                                   ),
+                                  const PopupMenuItem<String>(
+                                    value: 'merchandise',
+                                    child: Text('Merchandise'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'hallowen',
+                                    child: Text('Halloween'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'signature-essentials',        // → /shop/signature-essentials
+                                    child: Text('Signature & Essential Range'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'portsmouth-city',            // → /shop/portsmouth-city
+                                    child: Text('Portsmouth City Collection'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'pride-collection',           
+                                    child: Text('Pride Collection'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'graduation',                 
+                                    child: Text('Graduation'),
+                                  ),
                                 ],
                               ),
                               TextButton(
