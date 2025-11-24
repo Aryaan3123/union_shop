@@ -574,3 +574,366 @@ class HomeScreen extends StatelessWidget {
 *Next session: Complete shop category implementation and create category pages*
 
 ---
+
+## November 24, 2025 - Footer Layout & Column Spacing 📐
+
+### **What I Accomplished Today:**
+✅ Implemented a two-column footer layout with opening hours and copyright  
+✅ Mastered different centering techniques in Flutter  
+✅ Learned multiple methods for spacing between columns  
+✅ Fixed indentation and syntax issues in footer structure  
+
+### **Key Learning Moments:**
+
+#### **1. Multi-Column Footer Design Patterns**
+- **Two-Column Layout:** Opening hours (left) + Copyright (right)
+- **Three-Column Layout:** Contact | Navigation | Newsletter/Forms
+- **Layout Structure:** Use Row with proper alignment and spacing
+
+#### **2. Centering Techniques Discovered:**
+```dart
+// Method 1: Center Widget (wraps entire content)
+Center(
+  child: Row(...),
+)
+
+// Method 2: MainAxisAlignment.center (centers Row content)
+Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [...],
+)
+
+// Method 3: ConstrainedBox + Center (limits width and centers)
+Center(
+  child: ConstrainedBox(
+    constraints: BoxConstraints(maxWidth: 800),
+    child: Row(...),
+  ),
+)
+```
+
+#### **3. Column Spacing Methods Mastered:**
+```dart
+// Method 1: SizedBox (most common - fixed spacing)
+children: [
+  Column(...), // Left content
+  SizedBox(width: 120), // Fixed 120px space
+  Text(...), // Right content
+],
+
+// Method 2: Spacer (flexible spacing)
+children: [
+  Column(...),
+  Spacer(), // Takes all available space
+  Text(...),
+],
+
+// Method 3: Expanded with ratios
+children: [
+  Column(...),
+  Expanded(flex: 2, child: Container()), // 2x space
+  Text(...),
+  Expanded(flex: 1, child: Container()), // 1x space
+],
+```
+
+#### **4. MainAxisAlignment Options Learned:**
+- **`MainAxisAlignment.spaceBetween`** - Pushes items to edges (left/right extremes)
+- **`MainAxisAlignment.center`** - Groups items together in center
+- **`MainAxisAlignment.spaceEvenly`** - Equal spacing including edges
+- **`MainAxisAlignment.spaceAround`** - Equal spacing around each item
+
+#### **5. Footer Content Structure Best Practices:**
+```dart
+Container(
+  padding: EdgeInsets.all(40),
+  child: Center(  // Centers the entire footer content
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center, // Groups columns together
+      crossAxisAlignment: CrossAxisAlignment.start, // Aligns tops
+      children: [
+        Column(...), // Opening hours column
+        SizedBox(width: 120), // Consistent spacing
+        Text(...), // Copyright text
+      ],
+    ),
+  ),
+)
+```
+
+#### **6. Syntax & Indentation Debugging:**
+- **Problem:** Missing `child:` property in Container widget
+- **Problem:** Misaligned brackets and improper nesting
+- **Solution:** Proper Flutter widget tree structure with consistent indentation
+- **Learned:** Always ensure each Container/widget has proper child relationship
+
+### **Technical Implementation Details:**
+
+**Footer Layout Structure:**
+```dart
+// Final working footer implementation
+Container(
+  width: double.infinity,
+  color: Colors.grey[100],
+  padding: const EdgeInsets.all(40),
+  child: Center(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Opening Hours Column
+        const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('OPENING HOURS', style: boldStyle),
+            SizedBox(height: 12),
+            Text('Monday - Friday: 9:00 AM - 6:00 PM'),
+            Text('Saturday: 10:00 AM - 4:00 PM'),
+            Text('Sunday: Closed'),
+          ],
+        ),
+        const SizedBox(width: 120), // Perfect spacing amount
+        Text('© ${DateTime.now().year} UPSU. All rights reserved.'),
+      ],
+    ),
+  ),
+)
+```
+
+### **Problem-Solving Process Today:**
+1. **Discussed 3-column footer theory** - Different approaches and use cases
+2. **Implemented 2-column layout** - Opening hours + copyright
+3. **Struggled with centering** - Learned difference between Center widget vs MainAxisAlignment
+4. **Fixed syntax errors** - Missing child properties and bracket alignment  
+5. **Added column spacing** - Discovered SizedBox for consistent gaps
+6. **Refined layout** - Achieved professional-looking centered footer
+
+### **Flutter Concepts Mastered:**
+- **Center widget** - Wraps content to center it within available space
+- **MainAxisAlignment options** - Different ways to distribute Row children
+- **CrossAxisAlignment** - Controls vertical alignment in Row
+- **SizedBox for spacing** - Creating consistent gaps between widgets
+- **Container child structure** - Proper nesting and syntax requirements
+- **Footer layout patterns** - Professional multi-column footer design
+
+### **Design Insights Gained:**
+- **Visual Balance:** Two columns need proper spacing to not look cramped
+- **Content Hierarchy:** Opening hours (functional) vs Copyright (legal) placement
+- **Responsive Considerations:** Center alignment works well for various screen sizes
+- **Spacing Psychology:** 120px creates comfortable visual separation without being too wide
+
+---
+
+### **Updated Coursework Progress:**
+- ✅ **Static Navbar (5% marks)** - COMPLETED with full dropdown functionality!
+- ✅ **Multi-page Navigation** - Home, About, and Shop (with categories) fully connected
+- ✅ **Advanced UI Components** - PopupMenuButton dropdown + professional footer layout
+- ✅ **Professional File Organization** - Proper separation with maintained component sharing
+- ✅ **E-commerce Navigation** - Category-based shop structure planned and initiated
+- ✅ **Footer Enhancement** - Two-column layout with opening hours and copyright
+- 🚧 **Email Subscription Footer** - Discussed implementation with thank you message functionality
+- 🚧 **Category Pages Implementation** - Ready to create individual shop category pages
+
+### **Next Development Priorities:**
+🚧 **Move footer to PageLayout** - Make footer consistent across all pages  
+🚧 **Implement email subscription** - Add newsletter signup with thank you message  
+🚧 **Create remaining category pages** - Build all 7 shop category pages  
+🚧 **Add shop routes to main.dart** - Enable navigation to category pages  
+🚧 **Connect remaining nav buttons** - Link "The Print Shack" and "SALE!" to pages  
+
+---
+
+*Next session: Move footer to shared PageLayout and implement email subscription functionality*
+
+---
+
+## November 24, 2025 (Session 2) - Global Footer Implementation & Layout Architecture 🏗️
+
+### **What I Accomplished Today:**
+✅ Successfully implemented global footer system across all pages  
+✅ Mastered Flutter layout architecture troubleshooting  
+✅ Resolved 434px overflow issue through proper structure analysis  
+✅ Converted sticky footer to page footer for better UX  
+✅ Added visual spacing between content and footer  
+✅ Fixed About page background color issue  
+
+### **Major Achievement: Global Footer System**
+
+#### **1. The Layout Architecture Challenge:**
+**Problem Discovered:** 434px overflow due to structural issues
+- **Root Cause:** Footer placed inside fixed-height header container
+- **Analysis Method:** Step-by-step layout deconstruction
+- **Technical Issue:** `Container(height: 100)` couldn't contain ~500px of content
+
+#### **2. Layout Structure Evolution:**
+**Phase 1 - Broken Structure:**
+```dart
+Container(height: 100) {     // ← Fixed constraint problem
+  TopBanner (~32px)
+  MainNavigation (~50px)
+  Footer (~434px)            // ← Overflow source
+}
+```
+
+**Phase 2 - Sticky Footer (First Fix):**
+```dart
+Column(
+  children: [
+    Header,                  // ← No height constraint
+    Expanded(SingleChildScrollView(child)), // ← Content scrolls
+    Footer,                  // ← Always visible at screen bottom
+  ],
+)
+```
+
+**Phase 3 - Page Footer (Final Solution):**
+```dart
+SingleChildScrollView(
+  Column(
+    Header,                  // ← Scrolls with content
+    child,                   // ← Page content
+    Spacer,                  // ← Visual separation
+    Footer,                  // ← Appears at content bottom
+  ),
+)
+```
+
+#### **3. Problem-Solving Process Mastered:**
+1. **Issue Identification:** 434px overflow error analysis
+2. **Root Cause Analysis:** Traced to container height constraints
+3. **Structure Diagnosis:** Identified duplicate footer and layout conflicts
+4. **Solution Iteration:** Sticky → Page footer based on UX requirements
+5. **Implementation:** Clean rebuild of layout architecture
+
+#### **4. Flutter Layout Concepts Mastered:**
+**Container Height Constraints:**
+- **Fixed Height:** `Container(height: 100)` creates rigid constraints
+- **Auto Height:** No height property allows natural sizing
+- **Overflow Prevention:** Match container size to content requirements
+
+**Layout Hierarchy Understanding:**
+```dart
+// Bad: Nested constraints conflict
+SingleChildScrollView(
+  Column(
+    Container(height: 100) {
+      TooMuchContent  // ← Overflow inevitable
+    }
+  )
+)
+
+// Good: Proper separation of concerns
+SingleChildScrollView(
+  Column(
+    FlexibleHeader,   // ← Sizes to content
+    Content,
+    Footer,
+  )
+)
+```
+
+**Scrolling Architecture:**
+- **Sticky Footer:** `Column(Header, Expanded(Content), Footer)`
+- **Page Footer:** `SingleChildScrollView(Column(Header, Content, Footer))`
+- **Choice Factor:** UX requirements determine architecture
+
+#### **5. Global Footer Implementation Details:**
+**Key Implementation Changes:**
+1. **Removed Fixed Height:** Deleted `height: 100` from header
+2. **Eliminated Duplicate Footer:** Removed footer from header container  
+3. **Layout Structure Switch:** Column → SingleChildScrollView(Column)
+4. **Added Visual Spacing:** 40px white space before footer
+5. **Background Color Fix:** Added `Colors.white` to About page
+
+**Final Footer Structure:**
+```dart
+// Global Footer in PageLayout
+Container(
+  width: double.infinity,
+  color: Colors.grey[100],
+  padding: const EdgeInsets.all(40),
+  child: Center(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        OpeningHoursColumn,
+        SizedBox(width: 120),
+        CopyrightText,
+      ],
+    ),
+  ),
+)
+```
+
+#### **6. UX Design Decisions:**
+**Footer Behavior Analysis:**
+- **Sticky Footer:** Always visible, content scrolls above
+- **Page Footer:** Appears at content end, scrolls with content
+- **Decision:** Chose page footer for standard website behavior
+
+**Visual Separation Enhancement:**
+```dart
+// Added between content and footer
+Container(
+  height: 40,
+  color: Colors.white,
+), 
+```
+
+### **Technical Problem-Solving Skills Developed:**
+#### **1. Layout Debugging Methodology:**
+- **Error Analysis:** Read overflow errors for pixel measurements
+- **Structure Mapping:** Visualize widget tree hierarchy
+- **Constraint Tracing:** Follow size constraints through widget chain
+- **Isolation Testing:** Test individual components separately
+
+#### **2. Flutter Architecture Patterns:**
+- **Shared Layout Components:** PageLayout for consistent structure
+- **Global vs Local Components:** Footer in layout vs individual pages
+- **Responsive Considerations:** Content adaptation to different screen sizes
+
+#### **3. Code Quality Improvements:**
+- **File Organization:** Clean separation of layout from content
+- **State Management:** Proper StatelessWidget usage
+- **Error Prevention:** Explicit color specifications for consistency
+
+### **Learning Outcomes:**
+#### **Flutter Concepts Mastered:**
+- **Layout Constraint System:** How containers, expanded, and scrollviews interact
+- **Widget Tree Architecture:** Parent-child relationships and constraint passing
+- **Global Component Design:** Shared layout patterns across pages
+- **Scrolling Behavior:** SingleChildScrollView vs Column+Expanded patterns
+
+#### **Problem-Solving Process:**
+- **Systematic Debugging:** Step-by-step isolation of issues
+- **Architecture Iteration:** Multiple solution approaches with UX evaluation
+- **Documentation Discipline:** Proper tracking of changes and decisions
+
+#### **Design Pattern Recognition:**
+- **Layout Templates:** Reusable page structure components
+- **Content Separation:** Clear boundaries between header, content, footer
+- **Visual Hierarchy:** Proper spacing and color usage for clarity
+
+---
+
+### **Updated Coursework Progress:**
+- ✅ **Static Navbar (5% marks)** - COMPLETED with full dropdown functionality!
+- ✅ **Multi-page Navigation** - Home, About, and Shop (with categories) fully connected
+- ✅ **Advanced UI Components** - PopupMenuButton dropdown + professional footer layout
+- ✅ **Professional File Organization** - Proper separation with maintained component sharing
+- ✅ **E-commerce Navigation** - Category-based shop structure planned and initiated
+- ✅ **Global Footer System** - Implemented across all pages with proper page footer behavior
+- ✅ **Layout Architecture Mastery** - Solved complex layout constraints and overflow issues
+- ✅ **Visual Design Enhancement** - Added spacing, background colors, professional appearance
+- 🚧 **Category Pages Implementation** - Ready to create individual shop category pages
+
+### **Next Development Priorities:**
+🚧 **Create remaining category pages** - Build all 7 shop category pages using PageLayout  
+🚧 **Add shop routes to main.dart** - Enable navigation to category pages  
+🚧 **Connect remaining nav buttons** - Link "The Print Shack" and "SALE!" to pages  
+🚧 **Implement email subscription** - Add newsletter signup with thank you message  
+🚧 **Write unit tests** - Create tests for navigation and layout components  
+
+---
+
+*Next session: Complete shop category implementation and begin testing framework*
