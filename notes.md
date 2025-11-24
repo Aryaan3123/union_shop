@@ -88,3 +88,99 @@ Flutter layout is all about understanding how widgets share and distribute space
 ---
 
 *Next session: Work on additional static pages to secure more coursework marks*
+
+---
+
+## November 24, 2025 - Navigation & Routing to About Page 🗺️
+
+### **What I Accomplished Today:**
+✅ Learned how Flutter navigation and routing works
+✅ Connected About button to navigate to a separate page
+✅ Understood the relationship between routes, imports, and button callbacks
+
+### **Key Learning Moments:**
+
+#### **1. Understanding Flutter Navigation System**
+- **Problem:** About button wasn't navigating to the About page
+- **Discovery:** Navigation requires TWO parts: route definition AND button connection
+- **Solution:** Need both the route mapping and correct onPressed callback
+
+#### **2. The Route Definition Pattern**
+- **How routes work in MaterialApp:**
+```dart
+routes: {
+  '/product': (context) => const ProductPage(),
+  '/about': (context) => const AboutPage(),    // ← Need to add this!
+},
+```
+- **Pattern:** String path maps to widget constructor
+- **Key insight:** Every navigable page needs a route entry
+
+#### **3. Import Requirements**
+- **Problem:** Can't use `AboutPage()` without importing it
+- **Solution:** Need `import 'package:union_shop/about_page.dart';`
+- **Learning:** Flutter needs to know where to find each page class
+
+#### **4. Button Connection Process**
+- **Before (non-working):**
+```dart
+onPressed: placeholderCallbackForButtons,  // Does nothing
+```
+- **After (working):**
+```dart
+onPressed: () => navigateToAbout(context),  // Calls navigation method
+```
+
+#### **5. Navigation Method Structure**
+```dart
+void navigateToAbout(BuildContext context) {
+  Navigator.pushNamedAndRemoveUntil(context, '/about', (route) => false);
+}
+```
+- **pushNamedAndRemoveUntil:** Clears navigation history
+- **Context:** Required for navigation to work
+- **Route name:** Must match the key in routes map
+
+### **Problem-Solving Process:**
+1. **Identified the issue:** Button not navigating despite having navigation method
+2. **Analyzed route system:** Discovered missing route definition
+3. **Added import:** Connected AboutPage class to main.dart
+4. **Added route mapping:** Connected '/about' path to AboutPage widget
+5. **Fixed button callback:** Changed from placeholder to actual navigation method
+6. **Result:** Working navigation to About page! 🎉
+
+### **Flutter Concepts Mastered:**
+- **Named routes:** Using string paths for navigation
+- **Route mapping:** Connecting paths to widget constructors  
+- **Import system:** How to use classes from other files
+- **Navigation context:** Why BuildContext is needed for navigation
+- **Button callbacks:** Connecting UI interactions to navigation methods
+
+### **Technical Implementation:**
+
+**Complete navigation setup requires:**
+1. **Import the page:** `import 'package:union_shop/about_page.dart';`
+2. **Add the route:** `'/about': (context) => const AboutPage(),`
+3. **Connect the button:** `onPressed: () => navigateToAbout(context),`
+4. **Navigation method:** Already existed but wasn't connected
+
+### **Coursework Progress Update:**
+- ✅ **Static Navbar (5% marks)** - COMPLETED!
+- ✅ **Navigation System** - Basic routing implemented
+- 🚧 **About Us Page (5% marks)** - Navigation working, content needs enhancement
+
+### **Next Learning Goals:**
+- [ ] Enhance About page content (currently just basic structure)
+- [ ] Add more static pages (Collections, etc.)
+- [ ] Implement proper page layouts with consistent styling
+- [ ] Add navigation back to home from About page
+
+### **Personal Reflection:**
+Understanding Flutter's routing system was another "aha!" moment. The connection between imports, route definitions, and button callbacks makes perfect sense now. It's like building a map - you need to define all the destinations (routes) before you can travel to them (navigation).
+
+### **Key Takeaway:**
+Flutter navigation is a three-step process: Import → Route → Connect. Missing any step breaks the navigation flow.
+
+---
+
+*Next session: Enhance About page content and add more static pages*
