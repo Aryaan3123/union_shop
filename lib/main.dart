@@ -91,7 +91,68 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          const Spacer(),
+                          Expanded(
+                              child:
+                                  SizedBox()), // ← First one goes HERE (after logo)
+                          Row(
+                            children: [
+                              const SizedBox(width: 16),
+                              TextButton(
+                                onPressed: placeholderCallbackForButtons,
+                                child: const Text(
+                                  'Home',
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: placeholderCallbackForButtons,
+                                child: const Text(
+                                  'Shop',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: placeholderCallbackForButtons,
+                                child: const Text(
+                                  'The Print Shack',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: placeholderCallbackForButtons,
+                                child: const Text(
+                                  'SALE!',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: placeholderCallbackForButtons,
+                                child: const Text(
+                                  'About',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Expanded(
+                              child:
+                                  SizedBox()), // ← Second one goes HERE (after nav)
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
                             child: Row(
