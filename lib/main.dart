@@ -37,6 +37,11 @@ class HomeScreen extends StatelessWidget {
     Navigator.pushNamed(context, '/product');
   }
 
+  void navigateToAbout(BuildContext context) {
+    // Placeholder for navigating to the About page
+    Navigator.pushNamedAndRemoveUntil(context, '/about', (route) => false);
+  }
+
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
   }
