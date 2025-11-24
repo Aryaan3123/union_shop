@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/main.dart';
 
 class PageLayout extends StatelessWidget {
   final Widget child;
@@ -92,8 +91,10 @@ class PageLayout extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              TextButton(
-                                onPressed: placeholderCallbackForButtons,
+                              PopupMenuButton<String>(
+                                onSelected: (value) {
+                                  Navigator.pushNamed(context, '/shop/$value');
+                                },
                                 child: const Text(
                                   'Shop',
                                   style: TextStyle(
@@ -101,6 +102,12 @@ class PageLayout extends StatelessWidget {
                                     fontSize: 14,
                                   ),
                                 ),
+                                itemBuilder: (BuildContext context) => [
+                                  const PopupMenuItem<String>(
+                                    value: 'clothing',
+                                    child: Text('Clothing'),
+                                  ),
+                                ],
                               ),
                               TextButton(
                                 onPressed: placeholderCallbackForButtons,
@@ -186,8 +193,7 @@ class PageLayout extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-            // Child content goes here
+            ), // Child content goes here
             child,
           ],
         ),
