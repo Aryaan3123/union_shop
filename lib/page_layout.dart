@@ -80,7 +80,9 @@ class PageLayout extends StatelessWidget {
                             children: [
                               const SizedBox(width: 16),
                               TextButton(
-                                onPressed: placeholderCallbackForButtons,
+                                onPressed: () {
+                                  navigateToHome(context);
+                                },
                                 child: const Text(
                                   'Home',
                                   style: TextStyle(
