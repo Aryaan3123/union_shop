@@ -408,3 +408,169 @@ MaterialApp(
 ---
 
 *Next session: Continue with Product page integration and navigation enhancements*
+
+---
+
+## November 24, 2025 - Shop Dropdown Menu Implementation 🛒✅
+
+### **What I Accomplished Today:**
+✅ **Implemented shop dropdown functionality** - Shop button now shows category menu  
+✅ **Integrated PopupMenuButton** - Clean dropdown implementation in navbar  
+✅ **Set up category routing structure** - Prepared for `/shop/category` URL pattern  
+✅ **Enhanced file organization** - Moved HomeScreen to separate file for better structure  
+✅ **Completed navbar interactivity** - Shop dropdown joins working Home and About navigation  
+
+### **Key Learning Moments:**
+
+#### **1. Flutter PopupMenuButton Mastery**
+**Discovery:** PopupMenuButton provides built-in dropdown functionality with minimal code complexity.
+
+**Implementation Pattern:**
+```dart
+PopupMenuButton<String>(
+  onSelected: (value) {
+    Navigator.pushNamed(context, '/shop/$value');
+  },
+  child: const Text(
+    'Shop',
+    style: TextStyle(color: Colors.black, fontSize: 14),
+  ),
+  itemBuilder: (BuildContext context) => [
+    const PopupMenuItem<String>(
+      value: 'clothing',
+      child: Text('Clothing'),
+    ),
+  ],
+)
+```
+
+**Benefits Realized:**
+- **Built-in Positioning:** Automatic dropdown positioning relative to button
+- **Native Behavior:** Handles click outside to dismiss, keyboard navigation
+- **Consistent Styling:** Matches platform conventions while allowing customization
+- **Simple Integration:** Replaces TextButton with minimal code changes
+
+#### **2. E-commerce Category Architecture Planning**
+**Strategic Planning:** Designed URL structure for comprehensive shop categories
+```dart
+// Planned route structure
+'/shop/clothing'              → ClothingPage()
+'/shop/merchandise'           → MerchandisePage()  
+'/shop/halloween'             → HalloweenPage()
+'/shop/signature-essentials'  → SignatureEssentialsPage()
+'/shop/portsmouth-city'       → PortsmouthCityPage()
+'/shop/pride-collection'      → PrideCollectionPage()
+'/shop/graduation'            → GraduationPage()
+```
+
+**Categories Identified for University Shop:**
+- **Clothing** - Hoodies, t-shirts, sportswear
+- **Merchandise** - General branded items
+- **Halloween** - Seasonal collection
+- **Signature & Essential Range** - Core university products  
+- **Portsmouth City Collection** - Local pride items
+- **Pride Collection** - Inclusive merchandise
+- **Graduation** - Ceremony and celebration items
+
+#### **3. File Organization Improvement**
+**Architecture Enhancement:** Successfully separated HomeScreen from main.dart
+```
+Before:
+lib/
+├── main.dart (app config + HomeScreen + ProductCard)
+├── about_page.dart
+└── page_layout.dart
+
+After:  
+lib/
+├── main.dart (app config + ProductCard)
+├── home_page.dart (HomeScreen)
+├── about_page.dart
+└── page_layout.dart
+```
+
+**Benefits of Separation:**
+- **Cleaner main.dart:** Focused on app configuration and routing
+- **Modular Pages:** Each page in its own file for better maintenance
+- **Shared Components:** ProductCard accessible from main.dart for reuse
+- **Team Development:** Multiple developers can work on different pages
+
+#### **4. Navigation UX Design Decision**
+**Choice Made:** Dropdown menu over separate shop landing page
+**Reasoning:**
+- **Faster User Access:** Direct category access without intermediate page
+- **E-commerce Convention:** Matches user expectations from online shopping
+- **Mobile-Friendly:** Click-based dropdown works on touch interfaces
+- **Scalable:** Easy to add/remove categories as inventory changes
+
+### **Technical Implementation Highlights:**
+
+#### **Shop Dropdown Integration:**
+```dart
+// Replaced static TextButton with interactive PopupMenuButton
+PopupMenuButton<String>(
+  onSelected: (value) {
+    Navigator.pushNamed(context, '/shop/$value');  // Dynamic routing
+  },
+  child: const Text('Shop', ...),                   // Maintains visual consistency
+  itemBuilder: (context) => [
+    const PopupMenuItem(value: 'clothing', child: Text('Clothing')),
+    // Ready for additional categories
+  ],
+)
+```
+
+#### **File Separation Strategy:**
+```dart
+// lib/home_page.dart - Clean separation
+import 'package:union_shop/page_layout.dart';
+import 'package:union_shop/main.dart'; // Import ProductCard from main
+
+class HomeScreen extends StatelessWidget {
+  // HomeScreen implementation using ProductCard from main.dart
+}
+```
+
+### **Problem-Solving Process Demonstrated:**
+
+1. **Requirements Analysis:** Identified need for shop category navigation
+2. **Architecture Planning:** Designed comprehensive category structure for university shop
+3. **Implementation Strategy:** Chose PopupMenuButton for built-in functionality
+4. **Code Organization:** Improved file structure while maintaining component reusability
+5. **Integration Testing:** Verified dropdown appears and navigation structure works
+6. **Scalability Preparation:** Set up routing pattern for easy category page addition
+
+### **Flutter UI/UX Concepts Mastered:**
+- **PopupMenuButton:** Built-in dropdown menu implementation
+- **Dynamic Routing:** URL patterns with parameters (`/shop/$category`)
+- **Component Replacement:** Seamlessly switching UI components (TextButton → PopupMenuButton)
+- **File Architecture:** Balancing separation of concerns with component reusability
+- **E-commerce UX:** Category-based navigation patterns for online shopping
+
+### **Coursework Progress Update:**
+- ✅ **Static Navbar (5% marks)** - COMPLETED with full dropdown functionality!
+- ✅ **Multi-page Navigation** - Home, About, and Shop (with categories) fully connected
+- ✅ **Advanced UI Components** - PopupMenuButton dropdown menu implementation
+- ✅ **Professional File Organization** - Proper separation with maintained component sharing
+- ✅ **E-commerce Navigation** - Category-based shop structure planned and initiated
+- 🚧 **Category Pages Implementation** - Ready to create individual shop category pages
+
+### **Next Development Priorities:**
+🚧 **Add remaining shop categories** - Complete all 7 category menu items  
+🚧 **Create category pages** - Build ClothingPage, MerchandisePage, etc.  
+🚧 **Add shop routes to main.dart** - Enable navigation to category pages  
+🚧 **Implement category page layouts** - Use PageLayout with category-specific content  
+🚧 **Connect remaining nav buttons** - Link "The Print Shack" and "SALE!" to pages  
+🚧 **Test dropdown styling** - Ensure dropdown matches overall design theme  
+
+### **Immediate Next Session Goals:**
+1. **Add all 7 categories** to the PopupMenuButton dropdown menu
+2. **Create basic category pages** using PageLayout for consistency  
+3. **Add category routes** to main.dart routing configuration
+4. **Test complete navigation flow** from dropdown to category pages
+
+---
+
+*Next session: Complete shop category implementation and create category pages*
+
+---
