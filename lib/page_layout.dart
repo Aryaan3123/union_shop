@@ -16,7 +16,7 @@ class PageLayout extends StatelessWidget {
 
   void navigateToAbout(BuildContext context) {
     // Placeholder for navigating to the About page
-    Navigator.pushNamedAndRemoveUntil(context, '/about', (route) => false);
+    Navigator.pushNamed(context, '/about');
   }
 
   void placeholderCallbackForButtons() {
