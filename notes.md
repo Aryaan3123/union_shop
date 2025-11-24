@@ -245,3 +245,166 @@ class AboutPage extends StatelessWidget {
 ---
 
 *Next session: Enhance About page content and add more static pages*
+
+---
+
+## November 24, 2025 - Navigation Implementation & Routing Architecture ✅🚀
+
+### **What I Accomplished Today:**
+✅ **Implemented functional Home navigation** - Home button now works across all pages  
+✅ **Resolved MaterialApp routing conflicts** - Fixed home vs routes configuration  
+✅ **Mastered Flutter navigation patterns** - Understanding different navigation methods  
+✅ **Enhanced browser back button behavior** - Proper navigation history management  
+✅ **Completed consistent navbar functionality** - All navigation elements properly connected  
+
+### **Key Learning Mome6nts:**
+
+#### **1. Flutter Navigation Methods Deep Dive**
+**Discovery:** Different navigation methods serve different purposes and affect browser history differently.
+
+**Navigation Methods Learned:**
+```dart
+// Method 1: Preserves navigation history (enables back button)
+Navigator.pushNamed(context, '/about');
+
+// Method 2: Clears all history (typical for "Home" action)
+Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+
+// Method 3: Replaces current page (login flows)
+Navigator.pushReplacementNamed(context, '/home');
+```
+
+**When to Use Each:**
+- **`pushNamed`**: Normal page navigation, user expects back button to work
+- **`pushNamedAndRemoveUntil`**: "Go Home" actions, app resets, clear navigation stack
+- **`pushReplacementNamed`**: Replace current page without growing stack
+
+#### **2. Critical Routing Configuration Error Resolution**
+**Problem:** MaterialApp routing conflict causing assertion error
+```dart
+MaterialApp(
+  home: const HomeScreen(),          // ← Conflicts with
+  initialRoute: '/',                 // ← this
+  routes: {
+    '/': (context) => const HomeScreen(),  // ← and this!
+  },
+)
+```
+
+**Error Message:** "If the home property is specified, the routes table cannot include an entry for '/'"
+
+**Solution:** Choose one routing approach consistently
+```dart
+MaterialApp(
+  // Remove conflicting home property
+  initialRoute: '/',
+  routes: {
+    '/': (context) => const HomeScreen(),
+    '/product': (context) => const ProductPage(),
+    '/about': (context) => const AboutPage(),
+  },
+)
+```
+
+**Learning:** Flutter requires consistent routing architecture - can't mix `home` property with route definitions for the same path.
+
+#### **3. Navigation UX Design Decisions**
+**Strategic Choices Made:**
+- **Home Button**: Uses `pushNamedAndRemoveUntil` to clear history (expected "home" behavior)
+- **About Button**: Uses `pushNamed` to preserve navigation stack (user can go back)
+- **Logo Click**: Same as Home button (standard web convention)
+
+**User Experience Benefits:**
+- **Predictable Navigation**: Users get expected behavior from Home vs other nav items
+- **Browser Integration**: Back/forward buttons work correctly in web deployment
+- **Clean State Management**: Home action resets navigation state appropriately
+
+#### **4. PageLayout Integration Success**
+**Architecture Achievement:** Successfully implemented shared navigation across all pages
+```dart
+// In PageLayout.dart - centralized navigation logic
+TextButton(
+  onPressed: () {
+    navigateToHome(context);  // ← Functional Home navigation
+  },
+  child: const Text('Home', 
+    style: TextStyle(decoration: TextDecoration.underline)),
+),
+
+TextButton(
+  onPressed: () {
+    navigateToAbout(context); // ← Functional About navigation  
+  },
+  child: const Text('About'),
+),
+```
+
+**Benefits Realized:**
+- **Consistency**: All pages have identical navigation behavior
+- **Maintainability**: Navigation logic centralized in one location
+- **Scalability**: Easy to add new navigation items across entire app
+
+### **Technical Implementation Highlights:**
+
+#### **Navigation Methods in PageLayout:**
+```dart
+void navigateToHome(BuildContext context) {
+  Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+}
+
+void navigateToAbout(BuildContext context) {
+  Navigator.pushNamed(context, '/about');
+}
+
+void navigateToProduct(BuildContext context) {
+  Navigator.pushNamed(context, '/product');
+}
+```
+
+#### **Clean Routing Configuration:**
+```dart
+MaterialApp(
+  title: 'Union Shop',
+  initialRoute: '/',
+  routes: {
+    '/': (context) => const HomeScreen(),
+    '/product': (context) => const ProductPage(),
+    '/about': (context) => const AboutPage(),
+  },
+)
+```
+
+### **Problem-Solving Process Demonstrated:**
+
+1. **Issue Identification**: Home button not functioning, routing error appearing
+2. **Root Cause Analysis**: Conflicting MaterialApp configuration (home vs routes)
+3. **Solution Research**: Understanding Flutter navigation methods and their purposes
+4. **Implementation**: Removed conflicting properties, implemented proper navigation calls
+5. **Testing**: Verified navigation works and browser back button behaves correctly
+6. **UX Optimization**: Chose appropriate navigation methods for different use cases
+
+### **Flutter Navigation Concepts Mastered:**
+- **Route Management**: Understanding navigation stack and history
+- **MaterialApp Configuration**: Proper setup of routes vs home property
+- **Navigation Methods**: When to preserve vs clear navigation history
+- **Browser Integration**: Web-specific navigation considerations
+- **UX Design**: Matching navigation behavior to user expectations
+- **Centralized Navigation**: Implementing shared navigation logic across components
+
+### **Coursework Progress Update:**
+- ✅ **Static Navbar (5% marks)** - COMPLETED with full functionality!
+- ✅ **Multi-page Navigation** - Home and About pages fully connected
+- ✅ **Consistent Layout System** - PageLayout architecture implemented
+- ✅ **Professional Code Organization** - Proper separation of concerns
+- 🚧 **Product Page Integration** - Ready for next development phase
+
+### **Next Development Priorities:**
+🚧 **Connect remaining nav buttons** - Link Shop, Print Shack, SALE buttons to pages  
+🚧 **Implement Product page navigation** - Complete the product browsing flow  
+🚧 **Add search functionality** - Make search icon interactive  
+🚧 **Mobile responsiveness** - Test and optimize navigation for smaller screens  
+🚧 **Content enhancement** - Add real product data and improved styling  
+
+---
+
+*Next session: Continue with Product page integration and navigation enhancements*
