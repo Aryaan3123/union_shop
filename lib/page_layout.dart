@@ -215,38 +215,74 @@ class PageLayout extends StatelessWidget {
             Container(
               height: 40,
               color: Colors.white,
-            ),
-            // Global Footer
+            ), // Global Footer
             Container(
               width: double.infinity,
               color: Colors.grey[100],
               padding: const EdgeInsets.all(40),
               child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Left: Opening Times
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'OPENING HOURS',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    // Use responsive layout based on available width
+                    if (constraints.maxWidth > 800) {
+                      // Wide screen: side-by-side layout
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Left: Opening Times
+                          const Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'OPENING HOURS',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                SizedBox(height: 12),
+                                Text(
+                                    "❄️ Winter Break Closure Dates ❄️ \n\n Closing 4pm 19/12/2025\n\n Reopening 10am 05/01/2026\n\n Last post date: 12pm on 18/12/2025\n\n ------------------------\n\n (Term Time)\n\n Monday - Friday 10am - 4pm\n\n (Outside of Term Time / Consolidation Weeks)\n\n Monday - Friday 10am - 3pm\n\n Purchase online 24/7")
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 12),
-                        Text(
-                            "❄️ Winter Break Closure Dates ❄️ \n\n Closing 4pm 19/12/2025\n\n Reopening 10am 05/01/2026\n\n Last post date: 12pm on 18/12/2025\n\n ------------------------\n\n (Term Time)\n\n Monday - Friday 10am - 4pm\n\n (Outside of Term Time / Consolidation Weeks)\n\n Monday - Friday 10am - 3pm\n\n Purchase online 24/7")
-                      ],
-                    ),
-                    // Space between columns
-                    const SizedBox(width: 120),
-                    // Right: Copyright
-                    Text('© ${DateTime.now().year} UPSU. All rights reserved.'),
-                  ],
+                          // Space between columns
+                          const SizedBox(width: 120),
+                          // Right: Copyright
+                          Text(
+                              '© ${DateTime.now().year} UPSU. All rights reserved.'),
+                        ],
+                      );
+                    } else {
+                      // Narrow screen: stacked layout
+                      return Column(
+                        children: [
+                          // Top: Opening Times
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'OPENING HOURS',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(height: 12),
+                              Text(
+                                  "❄️ Winter Break Closure Dates ❄️ \n\n Closing 4pm 19/12/2025\n\n Reopening 10am 05/01/2026\n\n Last post date: 12pm on 18/12/2025\n\n ------------------------\n\n (Term Time)\n\n Monday - Friday 10am - 4pm\n\n (Outside of Term Time / Consolidation Weeks)\n\n Monday - Friday 10am - 3pm\n\n Purchase online 24/7")
+                            ],
+                          ),
+                          const SizedBox(height: 24),
+                          // Bottom: Copyright
+                          Text(
+                              '© ${DateTime.now().year} UPSU. All rights reserved.'),
+                        ],
+                      );
+                    }
+                  },
                 ),
               ),
             ),

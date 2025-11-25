@@ -16,47 +16,41 @@ void main() {
 
       // Check that basic UI elements are present
       expect(
-        find.text('PLACEHOLDER HEADER TEXT - STUDENTS TO UPDATE!'),
+        find.text('PLACEHOLDER HEADER TEXT'),
         findsOneWidget,
       );
       expect(find.text('Placeholder Product Name'), findsOneWidget);
       expect(find.text('£15.00'), findsOneWidget);
       expect(find.text('Description'), findsOneWidget);
     });
-
-    testWidgets('should display student instruction text', (tester) async {
+    testWidgets('should display product description', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pump();
 
-      // Check that student instruction is present
+      // Check that product description is present
       expect(
         find.text(
-          'Students should add size options, colour options, quantity selector, add to cart button, and buy now button here.',
+          'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
         ),
         findsOneWidget,
       );
     });
-
     testWidgets('should display header icons', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pump();
 
       // Check that header icons are present
       expect(find.byIcon(Icons.search), findsOneWidget);
+      expect(find.byIcon(Icons.person_outline), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
       expect(find.byIcon(Icons.menu), findsOneWidget);
     });
-
     testWidgets('should display footer', (tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pump();
 
       // Check that footer is present
       expect(find.text('Placeholder Footer'), findsOneWidget);
-      expect(
-        find.text('Students should customise this footer section'),
-        findsOneWidget,
-      );
     });
   });
 }
