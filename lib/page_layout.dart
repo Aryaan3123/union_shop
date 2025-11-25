@@ -41,10 +41,10 @@ class PageLayout extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
-                  ),
-                  // Main header
+                  ), // Main header
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 20),
                     child: Row(
                       children: [
                         GestureDetector(
@@ -52,14 +52,14 @@ class PageLayout extends StatelessWidget {
                             navigateToHome(context);
                           },
                           child: Image.network(
-                            'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                            height: 18,
+                            'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614315854',
+                            height: 40,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
                                 color: Colors.grey[300],
-                                width: 18,
-                                height: 18,
+                                width: 40,
+                                height: 40,
                                 child: const Center(
                                   child: Icon(Icons.image_not_supported,
                                       color: Colors.grey),
@@ -162,6 +162,8 @@ class PageLayout extends StatelessWidget {
                           ],
                         ),
                         const Expanded(child: SizedBox()),
+                        // Balance the logo on the left with equivalent space on the right
+                        SizedBox(width: 160), // Match logo width
                         ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 600),
                           child: Row(
