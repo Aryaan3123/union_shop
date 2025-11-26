@@ -1,9 +1,19 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:union_shop/page_layout.dart';
 import 'package:union_shop/main.dart'; // ← Import ProductCard from main
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late PageController _pageController;
+  late Timer _timer;
+  int _currentPage = 0;
 
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
@@ -144,9 +154,7 @@ class HomeScreen extends StatefulWidget {
       ),
     );
   }
-}
 
-class _HomeScreenState extends State<HomeScreen> {
   final List<CarouselSlide> slides = const [
     CarouselSlide(
       imageUrl:
@@ -167,16 +175,20 @@ class _HomeScreenState extends State<HomeScreen> {
       route: '/shop/clothing',
     ),
     CarouselSlide(
-      imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
       title: 'Portsmouth Pride',
-      subtitle: 'Show your city pride with our exclusive Portsmouth collection. Local designs, global quality.',
+      subtitle:
+          'Show your city pride with our exclusive Portsmouth collection. Local designs, global quality.',
       buttonText: 'SHOP COLLECTION',
       route: '/shop/portsmouth-city',
     ),
     CarouselSlide(
-      imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
       title: 'Graduation Ready',
-      subtitle: 'Celebrate your achievement with our graduation collection. Perfect for ceremonies and beyond.',
+      subtitle:
+          'Celebrate your achievement with our graduation collection. Perfect for ceremonies and beyond.',
       buttonText: 'SHOP GRADUATION',
       route: '/shop/graduation',
     ),
