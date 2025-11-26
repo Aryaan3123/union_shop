@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _autoSlide() {
-    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 6), (timer) {
       if (_currentPage < slides.length - 1) {
         _currentPage++;
       } else {
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
       _pageController.animateToPage(_currentPage,
-          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+          duration: const Duration(milliseconds: 2000), curve: Curves.easeInOut);
     });
   }
 
