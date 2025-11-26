@@ -936,4 +936,196 @@ Container(
 
 ---
 
-*Next session: Complete shop category implementation and begin testing framework*
+## November 26, 2025 - Hero Carousel Implementation 🎠✨
+
+### **What I Accomplished Today:**
+✅ **Converted static hero section to dynamic carousel** - Replaced single image with 4-slide carousel  
+✅ **Implemented auto-advance functionality** - Timer-based slide progression every 6 seconds  
+✅ **Built smooth slide transitions** - 2-second duration with easeInOut curve  
+✅ **Created dynamic slide content** - Each slide has unique titles, subtitles, and routes  
+✅ **Mastered StatefulWidget lifecycle** - Proper initState() and dispose() implementation  
+
+### **Key Learning Moments:**
+
+#### **1. StatefulWidget Architecture Deep Dive**
+**Discovery:** StatefulWidget requires proper separation of concerns between widget and state
+```dart
+// Widget Class - Simple factory
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+// State Class - Contains all logic and UI
+class _HomeScreenState extends State<HomeScreen> {
+  // Variables, controllers, methods, build() - everything goes here
+}
+```
+
+**Critical Learning:**
+- **Widget Class:** Just creates the state, no logic or UI
+- **State Class:** Contains variables, controllers, lifecycle methods, build()
+- **Proper Structure:** `build()` method belongs in State class, NOT Widget class
+
+#### **2. PageView.builder Mastery**
+**Implementation Pattern:**
+```dart
+PageView.builder(
+  controller: _pageController,           // Controls navigation
+  itemCount: slides.length,             // How many slides
+  onPageChanged: (index) {              // Track current slide
+    setState(() {
+      _currentPage = index;
+    });
+  },
+  itemBuilder: (context, index) {       // Build each slide
+    return _buildSlide(slides[index]);
+  },
+)
+```
+
+**Benefits Realized:**
+- **Dynamic Content:** Each slide built from data structure
+- **Smooth Navigation:** PageController enables programmatic control
+- **User Interaction:** Supports both auto-advance and manual swiping
+- **State Tracking:** onPageChanged keeps UI in sync with current slide
+
+#### **3. Timer-Based Auto-Advance Logic**
+**Core Implementation:**
+```dart
+void _autoSlide() {
+  _timer = Timer.periodic(const Duration(seconds: 6), (timer) {
+    if (_currentPage < slides.length - 1) {
+      _currentPage++;                    // Next slide
+    } else {
+      _currentPage = 0;                  // Loop back to first
+    }
+    
+    _pageController.animateToPage(
+      _currentPage,
+      duration: const Duration(milliseconds: 2000),  // 2-second transition
+      curve: Curves.easeInOut,
+    );
+  });
+}
+```
+
+**Key Concepts Mastered:**
+- **Timer.periodic:** Creates repeating timer for auto-advance
+- **Loop Logic:** Cycles through slides 0 → 1 → 2 → 3 → 0
+- **animateToPage:** Smooth programmatic navigation
+- **Duration Control:** Separate timing for interval (6s) vs transition (2s)
+
+#### **4. Lifecycle Management (Critical for Memory Safety)**
+**initState() Purpose:**
+- **When:** Called once when widget first created
+- **Order:** super.initState() first, then custom setup
+- **Purpose:** Initialize controllers, start timers, setup listeners
+
+**dispose() Purpose:**
+- **When:** Called when widget is destroyed/removed
+- **Order:** Clean up resources first, then super.dispose()
+- **Critical:** Prevents memory leaks from running timers
+
+```dart
+@override
+void initState() {
+  super.initState();                    // Flutter setup first
+  _pageController = PageController();   // Create controller
+  _autoSlide();                        // Start timer
+}
+
+@override
+void dispose() {
+  _pageController.dispose();           // Clean up controller
+  _timer.cancel();                     // Stop timer
+  super.dispose();                     // Flutter cleanup last
+}
+```
+
+#### **5. Data-Driven Carousel Architecture**
+**Slide Data Structure:**
+```dart
+class CarouselSlide {
+  final String imageUrl;
+  final String title;
+  final String subtitle;
+  final String buttonText;
+  final String route;
+}
+
+final List<CarouselSlide> slides = [
+  CarouselSlide(/* slide 1 data */),
+  CarouselSlide(/* slide 2 data */),
+  // etc...
+];
+```
+
+**Dynamic Slide Builder:**
+```dart
+Widget _buildSlide(CarouselSlide slide) {
+  return Stack([
+    // Background: slide.imageUrl
+    // Title: slide.title  
+    // Subtitle: slide.subtitle
+    // Button: slide.buttonText → slide.route
+  ]);
+}
+```
+
+**Benefits:**
+- **Scalable:** Easy to add/remove slides by modifying data
+- **Maintainable:** Content separated from UI logic
+- **Reusable:** Same builder creates all slides with different data
+- **Dynamic:** Each slide can navigate to different routes
+
+### **Technical Implementation Highlights:**
+
+#### **Carousel Performance Optimizations:**
+- **PageController:** Efficient slide management without rebuilding entire carousel
+- **Timer Management:** Proper cleanup prevents background resource usage
+- **Smooth Animations:** 2000ms duration with easeInOut curve for professional feel
+- **State Synchronization:** onPageChanged keeps UI state accurate
+
+#### **User Experience Enhancements:**
+- **Auto-Advance:** 6-second intervals give users time to read content
+- **Manual Control:** Users can swipe to override auto-advance
+- **Smooth Transitions:** 2-second animation duration feels natural
+- **Dynamic Routes:** Each slide navigates to relevant shop sections
+
+### **Problem-Solving Process Demonstrated:**
+
+1. **Requirements Analysis:** Convert static hero to multi-slide carousel with auto-advance
+2. **Architecture Planning:** StatefulWidget for state management, PageView for carousel
+3. **Step-by-Step Implementation:** Data structure → Controllers → Timer → UI replacement
+4. **Lifecycle Management:** Proper initialization and cleanup for memory safety
+5. **Performance Tuning:** Adjusted timing for optimal user experience (6s interval, 2s transition)
+
+### **Flutter Carousel Concepts Mastered:**
+- **PageView.builder:** Dynamic carousel implementation
+- **PageController:** Programmatic slide navigation
+- **Timer.periodic:** Automated slide advancement
+- **StatefulWidget Lifecycle:** initState() and dispose() patterns
+- **Animation Control:** Duration and curve customization
+- **Data-Driven UI:** Separation of content and presentation
+- **Memory Management:** Proper resource cleanup
+
+### **Coursework Progress Update:**
+- ✅ **Enhanced Homepage UX** - Professional auto-advancing carousel
+- ✅ **StatefulWidget Mastery** - Complete lifecycle understanding  
+- ✅ **Timer Management** - Background process handling
+- ✅ **Advanced UI Components** - PageView with dynamic content
+- ✅ **Performance Optimization** - Proper memory management
+- ✅ **E-commerce Best Practices** - Multi-promotional carousel display
+- 🚧 **Shop Category Routes** - Ready to connect carousel buttons to shop pages
+
+### **Next Development Priorities:**
+🚧 **Add dot indicators** - Visual feedback for current slide position  
+🚧 **Pause on user interaction** - Stop auto-advance during manual swiping  
+🚧 **Connect carousel routes** - Link buttons to actual shop category pages  
+🚧 **Add shop routes to main.dart** - Enable navigation from carousel buttons  
+🚧 **Implement responsive behavior** - Adapt carousel for different screen sizes  
+
+---
+
+*Next session: Add dot indicators and connect carousel navigation to shop routes*
