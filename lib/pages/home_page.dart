@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/page_layout.dart';
 import 'package:union_shop/main.dart'; // ← Import ProductCard from main
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   void placeholderCallbackForButtons() {
