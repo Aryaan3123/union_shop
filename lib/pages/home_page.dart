@@ -46,11 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildSlide(CarouselSlide slide) {
-    return Stack(
-      children: [
-        // Background Image
-        Positioned.fill(
-          child: Container(
+    return Stack(children: [
+      // Background Image
+      Positioned.fill(
+        child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(slide.imageUrl),
@@ -58,45 +57,56 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.7,)
-              )
-            )
-          ),
-        ),
-        // Slide Content
-        Positioned(
+                decoration: BoxDecoration(
+                    color: Colors.black.withValues(
+              alpha: 0.7,
+            )))),
+      ),
+      // Slide Content
+      Positioned(
           left: 24,
           right: 24,
           top: 80,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                slide.title, // Dynamic title
-                style: const TextStyle(
-                  fontSize: 36,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.2,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Text(
+              slide.title, // Dynamic title
+              style: const TextStyle(
+                fontSize: 36,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              slide.subtitle, // Dynamic subtitle
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, slide.route); // Dynamic route
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4d2963),
+                foregroundColor: Colors.white,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
                 ),
               ),
-              const SizedBox(height: 16),
-              Text(
-                slide.subtitle, // Dynamic subtitle
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  height: 1.5,
-                ),
-                textAlign: TextAlign.center,
+              child: Text(
+                slide.buttonText, // Dynamic button text
+                style: const TextStyle(fontSize: 14, letterSpacing: 1),
               ),
-              
-            ]
-          )
-        )
-      ]
-    )
+            ),
+          ]))
+    ]);
   }
 
   @override
