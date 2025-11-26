@@ -145,3 +145,56 @@ class HomeScreen extends StatefulWidget {
     );
   }
 }
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<CarouselSlide> slides = const [
+    CarouselSlide(
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+      title: 'The Print Shack',
+      subtitle:
+          "Let's create something unique together with our custom printing services -- From £3 for one line of text!",
+      buttonText: 'BROWSE PRODUCTS',
+      route: '/products',
+    ),
+    CarouselSlide(
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      title: 'Winter Sale!',
+      subtitle:
+          'Up to 50% off hoodies, sweatshirts and winter essentials. Limited time only!',
+      buttonText: 'SHOP SALE',
+      route: '/shop/clothing',
+    ),
+    CarouselSlide(
+      imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+      title: 'Portsmouth Pride',
+      subtitle: 'Show your city pride with our exclusive Portsmouth collection. Local designs, global quality.',
+      buttonText: 'SHOP COLLECTION',
+      route: '/shop/portsmouth-city',
+    ),
+    CarouselSlide(
+      imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      title: 'Graduation Ready',
+      subtitle: 'Celebrate your achievement with our graduation collection. Perfect for ceremonies and beyond.',
+      buttonText: 'SHOP GRADUATION',
+      route: '/shop/graduation',
+    ),
+  ];
+}
+
+class CarouselSlide {
+  final String imageUrl;
+  final String title;
+  final String subtitle;
+  final String buttonText;
+  final String route;
+
+  const CarouselSlide({
+    required this.imageUrl,
+    required this.title,
+    required this.subtitle,
+    required this.buttonText,
+    required this.route,
+  });
+}
