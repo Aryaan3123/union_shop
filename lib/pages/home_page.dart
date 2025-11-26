@@ -15,6 +15,32 @@ class _HomeScreenState extends State<HomeScreen> {
   late Timer _timer;
   int _currentPage = 0;
 
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _autoSlide();
+  }
+
+  void _autoSlide() {
+    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+      if (_currentPage < slides.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+
+      _pageController.animateToPage(_currentPage,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _timer.cancel();
+    super.dispose();
+  }
+
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
   }
