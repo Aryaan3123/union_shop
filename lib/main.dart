@@ -3,6 +3,7 @@ import 'package:union_shop/pages/about_page.dart';
 import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/page_layout.dart';
 import 'package:union_shop/pages/home_page.dart';
+import 'package:union_shop/shop/clothing_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -25,10 +26,10 @@ class UnionShopApp extends StatelessWidget {
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutPage(),
         // Add these missing carousel routes:
-        '/shop/signature-essentials': (context) => const SignatureEssentialsPage(),
+        // '/shop/signature-essentials': (context) => const SignatureEssentialsPage(),
         '/shop/clothing': (context) => const ClothingPage(),
-        '/shop/portsmouth-city': (context) => const PortsmouthCityPage(),
-        '/shop/graduation': (context) => const GraduationPage(),
+        //'/shop/portsmouth-city': (context) => const PortsmouthCityPage(),
+        //'/shop/graduation': (context) => const GraduationPage(),
       },
     );
   }
