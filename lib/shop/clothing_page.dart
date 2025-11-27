@@ -48,7 +48,7 @@ class ClothingPage extends StatelessWidget {
                     crossAxisCount: 3,
                     crossAxisSpacing: 24,
                     mainAxisSpacing: 48,
-                    childAspectRatio: 0.7,
+                    childAspectRatio: 1.2,
                     children: const [
                       ProductCard(
                           title: 'Classic Hoodie - Purple',
