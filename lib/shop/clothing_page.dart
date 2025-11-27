@@ -13,9 +13,9 @@ class ClothingPage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(40.0),
           color: Colors.white,
-          child: const Column(
+          child: Column(
             children: [
-              Text(
+              const Text(
                 'Clothing',
                 style: TextStyle(
                   fontSize: 32,
@@ -24,15 +24,79 @@ class ClothingPage extends StatelessWidget {
                   letterSpacing: 1,
                 ),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 'Explore our wide range of clothing options, from casual wear to formal attire. Find the perfect outfit for any occasion!',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
                 ),
                 textAlign: TextAlign.center,
-              )
+              ),
+              Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 40.0, vertical: 16.0),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: Colors.grey, width: 0.5),
+                      bottom: BorderSide(color: Colors.grey, width: 0.5),
+                    ),
+                  ),
+                  child: Row(children: [
+                    Row(children: [
+                      const Text(
+                        'Filter by',
+                        style: TextStyle(
+                            fontSize: 16, color: Colors.grey, letterSpacing: 1),
+                      ),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: 'All',
+                        items: <String>[
+                          'All',
+                          'Clothing',
+                          'Merchandise',
+                          'Popular',
+                          'PSUT'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          // Handle filter change
+                        },
+                      ),
+                    ]),
+                    const SizedBox(width: 60),
+                    Row(children: [
+                      const Text(
+                        'Sort by',
+                        style: TextStyle(
+                            fontSize: 16, color: Colors.grey, letterSpacing: 1),
+                      ),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: 'Popularity',
+                        items: <String>[
+                          'Popularity',
+                          'Price: Low to High',
+                          'Price: High to Low',
+                          'A-Z',
+                          'Z-A'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          // Handle sort change
+                        },
+                      )
+                    ])
+                  ]))
             ],
           ),
         ),
