@@ -24,6 +24,11 @@ class UnionShopApp extends StatelessWidget {
         '/': (context) => const HomeScreen(),
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutPage(),
+        // Add these missing carousel routes:
+        '/shop/signature-essentials': (context) => const SignatureEssentialsPage(),
+        '/shop/clothing': (context) => const ClothingPage(),
+        '/shop/portsmouth-city': (context) => const PortsmouthCityPage(),
+        '/shop/graduation': (context) => const GraduationPage(),
       },
     );
   }

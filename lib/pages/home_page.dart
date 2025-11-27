@@ -30,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
       _pageController.animateToPage(_currentPage,
-          duration: const Duration(milliseconds: 2000), curve: Curves.easeInOut);
+          duration: const Duration(milliseconds: 2000),
+          curve: Curves.easeInOut);
     });
   }
 
