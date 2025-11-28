@@ -15,31 +15,157 @@ class _ClothingPageState extends State<ClothingPage> {
 
   final List<Map<String, String>> allProducts = [
     // Page 1 products (0-8):
-    {'title': 'Classic Hoodie - Purple', 'price': '£25.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'University T-Shirt', 'price': '£15.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Sweatshirt - Green', 'price': '£23.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Polo Shirt', 'price': '£18.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Zip-Up Hoodie', 'price': '£30.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Long Sleeve Tee', 'price': '£20.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Sports Jacket', 'price': '£45.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Casual Shorts', 'price': '£16.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Varsity Sweater', 'price': '£35.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
+    {
+      'title': 'Classic Hoodie - Purple',
+      'price': '£25.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'University T-Shirt',
+      'price': '£15.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Sweatshirt - Green',
+      'price': '£23.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Polo Shirt',
+      'price': '£18.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Zip-Up Hoodie',
+      'price': '£30.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Long Sleeve Tee',
+      'price': '£20.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Sports Jacket',
+      'price': '£45.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Casual Shorts',
+      'price': '£16.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Varsity Sweater',
+      'price': '£35.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
 
     // Page 2 products (9-17):
-    {'title': 'Denim Jacket', 'price': '£40.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Track Pants', 'price': '£22.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Graphic Tee', 'price': '£14.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Bomber Jacket', 'price': '£38.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Cargo Shorts', 'price': '£19.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Henley Shirt', 'price': '£21.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Fleece Pullover', 'price': '£28.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Basketball Shorts', 'price': '£17.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Crew Neck Sweatshirt', 'price': '£26.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
+    {
+      'title': 'Denim Jacket',
+      'price': '£40.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Track Pants',
+      'price': '£22.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Graphic Tee',
+      'price': '£14.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Bomber Jacket',
+      'price': '£38.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Cargo Shorts',
+      'price': '£19.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Henley Shirt',
+      'price': '£21.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Fleece Pullover',
+      'price': '£28.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Basketball Shorts',
+      'price': '£17.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Crew Neck Sweatshirt',
+      'price': '£26.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
 
     // Page 3 products (18-19):
-    {'title': 'Windbreaker', 'price': '£33.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-    {'title': 'Thermal Shirt', 'price': '£24.00', 'imageUrl': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
+    {
+      'title': 'Windbreaker',
+      'price': '£33.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
+    {
+      'title': 'Thermal Shirt',
+      'price': '£24.00',
+      'imageUrl':
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
+    },
   ];
+
+  // Function 1: Calculate which products to show on current page
+
+  List<Map<String, String>> get paginatedProducts {
+    int startIndex = currentPage * itemsPerPage;
+    int endIndex = startIndex + itemsPerPage;
+
+    if (endIndex > allProducts.length) {
+      endIndex = allProducts.length;
+    }
+
+    return allProducts.sublist(startIndex, endIndex);
+  }
+
+  int getTotalPages() {
+    return (allProducts.length / itemsPerPage).ceil();
+  }
+
+  void goToPage(int pageIndex) {
+    if (currentPage < getTotalPages() - 1) {
+      setState(() {
+        currentPage++;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageLayout(
