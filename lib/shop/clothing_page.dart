@@ -166,6 +166,14 @@ class _ClothingPageState extends State<ClothingPage> {
     }
   }
 
+  void goToPreviousPage() {
+    if (currentPage > 0) {
+      setState(() {
+        currentPage--;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageLayout(
