@@ -158,7 +158,7 @@ class _ClothingPageState extends State<ClothingPage> {
     return (allProducts.length / itemsPerPage).ceil();
   }
 
-  void goToPage(int pageIndex) {
+  void goToNextPage() {
     if (currentPage < getTotalPages() - 1) {
       setState(() {
         currentPage++;
@@ -170,6 +170,14 @@ class _ClothingPageState extends State<ClothingPage> {
     if (currentPage > 0) {
       setState(() {
         currentPage--;
+      });
+    }
+  }
+
+  void goToSpecificPage(int pageIndex) {
+    if (pageIndex >= 0 && pageIndex < getTotalPages()) {
+      setState(() {
+        currentPage = pageIndex;
       });
     }
   }
@@ -282,43 +290,43 @@ class _ClothingPageState extends State<ClothingPage> {
                     crossAxisSpacing: 24,
                     mainAxisSpacing: 48,
                     childAspectRatio: 1.2,
-                    children: const [
-                      ProductCard(
-                          title: 'Classic Hoodie - Purple',
-                          price: '£25.00',
-                          imageUrl:
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'),
-                      ProductCard(
-                        title: 'University T-Shirt',
-                        price: '£15.00',
-                        imageUrl:
-                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-                      ),
-                      ProductCard(
-                        title: 'Sweatshirt - Green',
-                        price: '£23.00',
-                        imageUrl:
-                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                      ),
-                      ProductCard(
-                        title: 'Polo Shirt',
-                        price: '£18.00',
-                        imageUrl:
-                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-                      ),
-                      ProductCard(
-                        title: 'Zip-Up Hoodie',
-                        price: '£30.00',
-                        imageUrl:
-                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                      ),
-                      ProductCard(
-                        title: 'Long Sleeve Tee',
-                        price: '£20.00',
-                        imageUrl:
-                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-                      ),
-                    ])))
+                    children: paginatedProducts.map((product) {
+                      return ProductCard(
+                        title: product['title']!,
+                        price: product['price']!,
+                        imageUrl: product['imageUrl']!,
+                      );
+                    }).toList()))),
+        // Pagination Controls
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: currentPage > 0 ? goToPreviousPage : null,
+                tooltip: 'Previous Page',
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  'Page ${currentPage + 1} of ${getTotalPages()}',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+              ),
+
+              // Next Page Button
+              IconButton(
+                onPressed:
+                    currentPage < getTotalPages() - 1 ? goToNextPage : null,
+                icon: const Icon(Icons.arrow_forward),
+                tooltip: 'Next Page',
+              )
+            ],
+          ),
+        ),
       ],
     ));
   }
