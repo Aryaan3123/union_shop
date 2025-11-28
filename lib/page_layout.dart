@@ -48,29 +48,30 @@ class PageLayout extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 20),
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              navigateToHome(context);
+                      child: Row(children: [
+                        GestureDetector(
+                          onTap: () {
+                            navigateToHome(context);
+                          },
+                          child: Image.network(
+                            'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614315854',
+                            height: 40,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: Colors.grey[300],
+                                width: 40,
+                                height: 40,
+                                child: const Center(
+                                  child: Icon(Icons.image_not_supported,
+                                      color: Colors.grey),
+                                ),
+                              );
                             },
-                            child: Image.network(
-                              'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614315854',
-                              height: 40,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  color: Colors.grey[300],
-                                  width: 40,
-                                  height: 40,
-                                  child: const Center(
-                                    child: Icon(Icons.image_not_supported,
-                                        color: Colors.grey),
-                                  ),
-                                );
-                              },
-                            ),
                           ),
+                        ),
+                        if (!isMobile) ...[
+                          // Desktop Navigation
                           const Expanded(child: SizedBox()),
                           Row(
                             children: [
@@ -208,8 +209,23 @@ class PageLayout extends StatelessWidget {
                               ],
                             ),
                           ),
+                        ] else ...[
+                          // Mobile Navigation
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.search,
+                                size: 20, color: Colors.grey),
+                            onPressed: placeholderCallbackForButtons,
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.menu,
+                                size: 20, color: Colors.grey),
+                            onPressed: () {
+                              Scaffold.of(context).openDrawer();
+                            },
+                          ),
                         ],
-                      ),
+                      ]),
                     ),
                   ],
                 ),
@@ -249,7 +265,7 @@ class PageLayout extends StatelessWidget {
                                   ),
                                   SizedBox(height: 12),
                                   Text(
-                                      "❄️ Winter Break Closure Dates ❄️ \n\n Closing 4pm 19/12/2025\n\n Reopening 10am 05/01/2026\n\n Last post date: 12pm on 18/12/2025\n\n ------------------------\n\n (Term Time)\n\n Monday - Friday 10am - 4pm\n\n (Outside of Term Time / Consolidation Weeks)\n\n Monday - Friday 10am - 3pm\n\n Purchase online 24/7")
+                                      "❄️ Winter Break Closure Dates ❄️ \n\n Closing 4pm 19/12/2025\n\n Reopening 10am 05/01/2026\n\n Last post date: 12pm on 18/12/2025\n\n ------------------------\n\n (Term Time)\n\n Monday - Friday 10am - 4pm\n\n (Outside of Term Time / Consolidation Weeks)\n\n Monday - Friday 10am - 3pm\n\n Purchase online 24/7"),
                                 ],
                               ),
                             ),
