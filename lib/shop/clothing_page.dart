@@ -13,6 +13,9 @@ class _ClothingPageState extends State<ClothingPage> {
   int currentPage = 0;
   int itemsPerPage = 9;
 
+  String currentFilter = 'All';
+  String currentSort = 'Popularity';
+
   final List<Map<String, String>> allProducts = [
     // Page 1 products (0-8):
     {
@@ -255,8 +258,9 @@ class _ClothingPageState extends State<ClothingPage> {
                       ),
                       const SizedBox(width: 8),
                       DropdownButton<String>(
-                        value: 'Popularity',
+                        value: 'Featured',
                         items: <String>[
+                          'Featured',
                           'Popularity',
                           'Price: Low to High',
                           'Price: High to Low',
