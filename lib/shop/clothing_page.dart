@@ -144,6 +144,16 @@ class _ClothingPageState extends State<ClothingPage> {
     },
   ];
 
+  List<Map<String, String>> get filteredProducts {
+    if (currentFilter == 'All') {
+      return allProducts;
+    }
+
+    return allProducts.where((product) {
+      // Add filtering logic 
+      return true; // Placeholder: return all products for now
+    }).toList();
+  }
   // Function 1: Calculate which products to show on current page
 
   List<Map<String, String>> get paginatedProducts {
