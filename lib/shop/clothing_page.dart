@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/page_layout.dart';
 import 'package:union_shop/main.dart'; // For ProductCard
 
-class ClothingPage extends StatelessWidget {
+class ClothingPage extends StatefulWidget {
   const ClothingPage({super.key});
 
+  @override
+  State<ClothingPage> createState() => _ClothingPageState();
+}
+
+class _ClothingPageState extends State<ClothingPage> {
+  
   @override
   Widget build(BuildContext context) {
     return PageLayout(
