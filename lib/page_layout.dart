@@ -20,12 +20,67 @@ class PageLayout extends StatelessWidget {
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
   }
+
+  Widget _buildMobileDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Color(0xFF4d2963),
+            ),
+            child: Image.network(
+              'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614315854',
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  width: 40,
+                  height: 40,
+                  child: const Center(
+                    child: Icon(Icons.image_not_supported, color: Colors.grey),
+                  ),
+                );
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text('Home'),
+            onTap: () {
+              navigateToHome(context);
+            },
+          ),
+          ListTile(
+            title: const Text('Shop'),
+            onTap: placeholderCallbackForButtons,
+          ),
+          ListTile(
+            title: const Text('The Print Shack'),
+            onTap: placeholderCallbackForButtons,
+          ),
+          ListTile(
+            title: const Text('SALE!'),
+            onTap: placeholderCallbackForButtons,
+          ),
+          ListTile(
+            title: const Text('About'),
+            onTap: () {
+              navigateToAbout(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       bool isMobile = constraints.maxWidth < 600;
 
       return Scaffold(
+        drawer: isMobile ? _buildMobileDrawer(context) : null,
         body: SingleChildScrollView(
           child: Column(
             children: [
