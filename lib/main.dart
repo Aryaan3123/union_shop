@@ -1,7 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:union_shop/pages/about_page.dart';
 import 'package:union_shop/pages/product_page.dart';
-import 'package:union_shop/page_layout.dart';
 import 'package:union_shop/pages/home_page.dart';
 import 'package:union_shop/shop/clothing_page.dart';
 
@@ -15,6 +16,10 @@ class UnionShopApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
+        scrollbars: false,
+      ),
       title: 'Union Shop',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

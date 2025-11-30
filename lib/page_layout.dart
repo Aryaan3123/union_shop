@@ -84,6 +84,7 @@ class PageLayout extends StatelessWidget {
         body: Builder(
           builder: (BuildContext scaffoldContext) {
             return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   // Header
