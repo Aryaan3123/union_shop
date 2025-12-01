@@ -247,8 +247,10 @@ class _PageLayoutState extends State<PageLayout> {
                           ),
                         ), // Main header
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 20),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: MediaQuery.of(context).size.width > 600 ? 10 : 6,
+                              vertical: MediaQuery.of(context).size.width > 600 ? 20 : 12,
+                          ),
                           child: Row(children: [
                             GestureDetector(
                               onTap: () {
@@ -404,7 +406,7 @@ class _PageLayoutState extends State<PageLayout> {
                                       icon: const Icon(
                                         Icons.menu,
                                         size: 18,
-                                        color: Colors.grey,
+                                        color: Colors.black,
                                       ),
                                       padding: const EdgeInsets.all(8),
                                       constraints: const BoxConstraints(
@@ -419,8 +421,31 @@ class _PageLayoutState extends State<PageLayout> {
                               const Spacer(),
                               IconButton(
                                 icon: const Icon(Icons.search,
-                                    size: 20, color: Colors.grey),
+                                    size: 20, color: Colors.black),
                                 onPressed: placeholderCallbackForButtons,
+                                padding: const EdgeInsets.all(4),
+                                constraints: const BoxConstraints(
+                                  minWidth: 28,
+                                  minHeight: 28,
+                                ),
+                              ),
+                               IconButton(
+                                icon: const Icon(Icons.person_outline, size: 20, color: Colors.black), 
+                                onPressed: placeholderCallbackForButtons,
+                                padding: const EdgeInsets.all(4), 
+                                constraints: const BoxConstraints(
+                                  minWidth: 28,
+                                  minHeight: 28,
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.shopping_bag_outlined, size: 20, color: Colors.black),
+                                onPressed: placeholderCallbackForButtons,
+                                padding: const EdgeInsets.all(4), 
+                                constraints: const BoxConstraints(
+                                  minWidth: 28,
+                                  minHeight: 28,
+                                ),
                               ),
                               IconButton(
                                 icon: Icon(
@@ -431,6 +456,11 @@ class _PageLayoutState extends State<PageLayout> {
                                   color: Colors.grey,
                                 ),
                                 onPressed: toggleMobileMenu,
+                                padding: const EdgeInsets.all(4), 
+                                constraints: const BoxConstraints(
+                                  minWidth: 28,
+                                  minHeight: 28,
+                                ),
                               ),
                             ],
                           ]),
