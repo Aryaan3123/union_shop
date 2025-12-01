@@ -279,90 +279,29 @@ class PageLayout extends StatelessWidget {
                                     size: 20, color: Colors.grey),
                                 onPressed: placeholderCallbackForButtons,
                               ),
-                              PopupMenuButton<String>(
-                                // The icon that users tap to open the dropdown
-                                icon: const Icon(Icons.menu, size: 20, color: Colors.grey),
-                                
-                                // What happens when a menu item is selected
-                                onSelected: (String value) {
-                                  switch (value) {
-                                    case 'home':
-                                      navigateToHome(context);
-                                      break;
-                                    case 'shop':
-                                      // Could open another popup or navigate to shop main page
-                                      Navigator.pushNamed(context, '/shop');
-                                      break;
-                                    case 'clothing':
-                                      Navigator.pushNamed(context, '/shop/clothing');
-                                      break;
-                                    case 'merchandise':
-                                      Navigator.pushNamed(context, '/shop/merchandise');
-                                      break;
-                                    case 'print-shack':
-                                      placeholderCallbackForButtons();
-                                      break;
-                                    case 'sale':
-                                      placeholderCallbackForButtons();
-                                      break;
-                                    case 'about':
-                                      navigateToAbout(context);
-                                      break;
-                                  }
+                              Builder(
+                                builder: (context) {
+                                  return StatefulBuilder(builder: (context, setState) {
+                                    bool isExpanded = false;
+                                  
+                                    return Stack(
+                                      children: [
+                                        IconButton(
+                                          icon: Icon(
+                                            isExpanded ? Icons.close : Icons.menu,
+                                            size: 20,
+                                            color: Colors.grey,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              isExpanded = !isExpanded;
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  });
                                 },
-                                itemBuilder: (BuildContext context) => [
-                                  const PopupMenuItem<String>(
-                                    value: 'home',
-                                    child: Text('Home'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'shop',
-                                    child: Text('Shop'),
-                                  ),
-                                  // Shop subcategories (flat list approach)
-                                  const PopupMenuItem<String>(
-                                    value: 'clothing',
-                                    child: Text('  • Clothing'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'merchandise',
-                                    child: Text('  • Merchandise'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'halloween',
-                                    child: Text('  • Halloween'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'signature-essentials',
-                                    child: Text('  • Signature & Essential Range'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'portsmouth-city',
-                                    child: Text('  • Portsmouth City Collection'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'pride-collection',
-                                    child: Text('  • Pride Collection'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'graduation',
-                                    child: Text('  • Graduation'),
-                                  ),
-                                  // Divider for visual separation
-                                  const PopupMenuDivider(),
-                                  const PopupMenuItem<String>(
-                                    value: 'print-shack',
-                                    child: Text('The Print Shack'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'sale',
-                                    child: Text('SALE!'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'about',
-                                    child: Text('About'),
-                                  ),
-                                ],
                               ),
                             ],
                           ]),
