@@ -21,66 +21,11 @@ class PageLayout extends StatelessWidget {
     // This is the event handler for buttons that don't work yet
   }
 
-  Widget _buildMobileDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: const BoxDecoration(
-              color: Color(0xFF4d2963),
-            ),
-            child: Image.network(
-              'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614315854',
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[300],
-                  width: 40,
-                  height: 40,
-                  child: const Center(
-                    child: Icon(Icons.image_not_supported, color: Colors.grey),
-                  ),
-                );
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text('Home'),
-            onTap: () {
-              navigateToHome(context);
-            },
-          ),
-          ListTile(
-            title: const Text('Shop'),
-            onTap: placeholderCallbackForButtons,
-          ),
-          ListTile(
-            title: const Text('The Print Shack'),
-            onTap: placeholderCallbackForButtons,
-          ),
-          ListTile(
-            title: const Text('SALE!'),
-            onTap: placeholderCallbackForButtons,
-          ),
-          ListTile(
-            title: const Text('About'),
-            onTap: () {
-              navigateToAbout(context);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       bool isMobile = constraints.maxWidth < 600;
-
       return Scaffold(
-        drawer: isMobile ? _buildMobileDrawer(context) : null,
         body: Builder(
           builder: (BuildContext scaffoldContext) {
             return SingleChildScrollView(
@@ -278,109 +223,12 @@ class PageLayout extends StatelessWidget {
                                 icon: const Icon(Icons.search,
                                     size: 20, color: Colors.grey),
                                 onPressed: placeholderCallbackForButtons,
-                              ),                              Builder(
-                                builder: (context) {
-                                  bool isExpanded = false; // Move outside StatefulBuilder
-                                  return StatefulBuilder(builder: (context, setState) {
-                                  
-                                    return Stack(
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            isExpanded ? Icons.close : Icons.menu,
-                                            size: 20,
-                                            color: Colors.grey,
-                                          ),
-                                          onPressed: () {
-                                            print('Hamburger tapped! Current state: $isExpanded');
-                                            setState(() {
-                                              isExpanded = !isExpanded;
-                                            });
-                                            print('New state: $isExpanded');
-                                          },
-                                        ),
-
-                                        // Dropdown Menu Overlay
-                                        if (isExpanded)
-                                          Positioned(
-                                            top: 40, // underbutton
-                                            right: 0, // align to right edge
-                                            child: Material(
-                                              elevation: 8,
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.circular(8),
-                                              child: Container(
-                                                width: 250, // Fixed width for menu
-                                                constraints: const BoxConstraints(maxHeight: 400),
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: [
-                                                    ListTile(
-                                                      title: const Text('Home'),
-                                                      onTap: () {
-                                                        setState(() {
-                                                          isExpanded = false;
-                                                        });
-                                                        navigateToHome(context);
-                                                      },
-                                                    ),
-                                                     ExpansionTile(
-                                                      title: const Text('Shop'),
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets.only(left: 16),
-                                                          child: Column(
-                                                            children: [
-                                                              ListTile(
-                                                                title: const Text('Clothing'),
-                                                                onTap: () {
-                                                                  setState(() { isExpanded = false; });
-                                                                  Navigator.pushNamed(context, '/shop/clothing');
-                                                                },
-                                                              ),
-                                                              ListTile(
-                                                                title: const Text('Merchandise'),
-                                                                onTap: () {
-                                                                  setState(() { isExpanded = false; });
-                                                                  Navigator.pushNamed(context, '/shop/merchandise');
-                                                                },
-                                                              ),
-                                                              // ... other categories
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    ListTile(
-                                                      title: const Text('The Print Shack'),
-                                                      onTap: () {
-                                                        setState(() { isExpanded = false; });
-                                                        placeholderCallbackForButtons();
-                                                      },
-                                                    ),
-                                                    ListTile(
-                                                      title: const Text('SALE!'),
-                                                      onTap: () {
-                                                        setState(() { isExpanded = false; });
-                                                        placeholderCallbackForButtons();
-                                                      },
-                                                    ),
-                                                    ListTile(
-                                                      title: const Text('About'),
-                                                      onTap: () {
-                                                        setState(() { isExpanded = false; });
-                                                        navigateToAbout(context);
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    );
-                                  });
-                                },
+                              ),
+                              _MobileMenu(
+                                onNavigateHome: () => navigateToHome(context),
+                                onNavigateAbout: () => navigateToAbout(context),
+                                onPlaceholderCallback:
+                                    placeholderCallbackForButtons,
                               ),
                             ],
                           ]),
@@ -477,6 +325,16 @@ class PageLayout extends StatelessWidget {
 }
 
 class _MobileMenu extends StatefulWidget {
+  final VoidCallback onNavigateHome;
+  final VoidCallback onNavigateAbout;
+  final VoidCallback onPlaceholderCallback;
+
+  const _MobileMenu({
+    required this.onNavigateHome,
+    required this.onNavigateAbout,
+    required this.onPlaceholderCallback,
+  });
+
   @override
   __MobileMenuState createState() => __MobileMenuState();
 }
@@ -495,18 +353,18 @@ class __MobileMenuState extends State<_MobileMenu> {
             color: Colors.grey,
           ),
           onPressed: () {
-            print('Hamburger tapped! Current state: $isExpanded'); // Add this
+            print('Hamburger tapped! Current state: $isExpanded');
             setState(() {
               isExpanded = !isExpanded;
             });
-            print('New state: $isExpanded'); // And this
+            print('New state: $isExpanded');
           },
         ),
 
         // Dropdown Menu Overlay
         if (isExpanded)
           Positioned(
-            top: 40, // underbutton
+            top: 40, // below button
             right: 0, // align to right edge
             child: Material(
               elevation: 8,
@@ -524,10 +382,119 @@ class __MobileMenuState extends State<_MobileMenu> {
                         setState(() {
                           isExpanded = false;
                         });
-                        // Navigate to Home
+                        widget.onNavigateHome();
                       },
                     ),
-                    // ... other menu items
+                    ExpansionTile(
+                      title: const Text('Shop'),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                title: const Text('Clothing'),
+                                onTap: () {
+                                  setState(() {
+                                    isExpanded = false;
+                                  });
+                                  Navigator.pushNamed(
+                                      context, '/shop/clothing');
+                                },
+                              ),
+                              ListTile(
+                                title: const Text('Merchandise'),
+                                onTap: () {
+                                  setState(() {
+                                    isExpanded = false;
+                                  });
+                                  Navigator.pushNamed(
+                                      context, '/shop/merchandise');
+                                },
+                              ),
+                              ListTile(
+                                title: const Text('Halloween'),
+                                onTap: () {
+                                  setState(() {
+                                    isExpanded = false;
+                                  });
+                                  Navigator.pushNamed(
+                                      context, '/shop/halloween');
+                                },
+                              ),
+                              ListTile(
+                                title:
+                                    const Text('Signature & Essential Range'),
+                                onTap: () {
+                                  setState(() {
+                                    isExpanded = false;
+                                  });
+                                  Navigator.pushNamed(
+                                      context, '/shop/signature-essentials');
+                                },
+                              ),
+                              ListTile(
+                                title: const Text('Portsmouth City Collection'),
+                                onTap: () {
+                                  setState(() {
+                                    isExpanded = false;
+                                  });
+                                  Navigator.pushNamed(
+                                      context, '/shop/portsmouth-city');
+                                },
+                              ),
+                              ListTile(
+                                title: const Text('Pride Collection'),
+                                onTap: () {
+                                  setState(() {
+                                    isExpanded = false;
+                                  });
+                                  Navigator.pushNamed(
+                                      context, '/shop/pride-collection');
+                                },
+                              ),
+                              ListTile(
+                                title: const Text('Graduation'),
+                                onTap: () {
+                                  setState(() {
+                                    isExpanded = false;
+                                  });
+                                  Navigator.pushNamed(
+                                      context, '/shop/graduation');
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    ListTile(
+                      title: const Text('The Print Shack'),
+                      onTap: () {
+                        setState(() {
+                          isExpanded = false;
+                        });
+                        widget.onPlaceholderCallback();
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('SALE!'),
+                      onTap: () {
+                        setState(() {
+                          isExpanded = false;
+                        });
+                        widget.onPlaceholderCallback();
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('About'),
+                      onTap: () {
+                        setState(() {
+                          isExpanded = false;
+                        });
+                        widget.onNavigateAbout();
+                      },
+                    ),
                   ],
                 ),
               ),
