@@ -11,6 +11,7 @@ class PageLayout extends StatefulWidget {
 
 class _PageLayoutState extends State<PageLayout> {
   bool isMobileMenuExpanded = false;
+  bool isShopSubmenuOpen = false;
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -27,102 +28,193 @@ class _PageLayoutState extends State<PageLayout> {
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
   }
-
   void toggleMobileMenu() {
     setState(() {
       isMobileMenuExpanded = !isMobileMenuExpanded;
+      if (!isMobileMenuExpanded) {
+        isShopSubmenuOpen = false; // Reset submenu when closing main menu
+      }
     });
   }
-    Widget _buildMobileMenuOptions() {
+
+  void openShopSubmenu() {
+    setState(() {
+      isShopSubmenuOpen = true;
+    });
+  }
+
+  void closeShopSubmenu() {
+    setState(() {
+      isShopSubmenuOpen = false;
+    });
+  }
+
+  Widget _buildMobileMenuOptions() {
     return Container(
       width: double.infinity,
-      color: Colors.grey[100], // Light background
+      color: Colors.grey[100],
+      child: IntrinsicHeight(
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 250),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: isShopSubmenuOpen
+                    ? const Offset(-1.0, 0.0)
+                    : const Offset(1.0, 0.0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+          child: isShopSubmenuOpen ? _buildShopSubmenu() : _buildMainMenu(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMainMenu() {
+    return Container(
+      key: const ValueKey('main_menu'),
+      width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          ListTile(
-            title: const Text('Home'),
+          _buildHoverableListTile(
+            title: 'Home',
             onTap: () {
-              toggleMobileMenu(); // Close menu
+              toggleMobileMenu();
               navigateToHome(context);
             },
           ),
-          ExpansionTile(
-            title: const Text('Shop'),
-            children: [
-              ListTile(
-                title: const Text('Clothing'),
-                onTap: () {
-                  toggleMobileMenu();
-                  Navigator.pushNamed(context, '/shop/clothing');
-                },
-              ),
-              ListTile(
-                title: const Text('Merchandise'),
-                onTap: () {
-                  toggleMobileMenu();
-                  Navigator.pushNamed(context, '/shop/merchandise');
-                },
-              ),
-              ListTile(
-                title: const Text('Halloween'),
-                onTap: () {
-                  toggleMobileMenu();
-                  Navigator.pushNamed(context, '/shop/halloween');
-                },
-              ),
-              ListTile(
-                title: const Text('Signature & Essential Range'),
-                onTap: () {
-                  toggleMobileMenu();
-                  Navigator.pushNamed(context, '/shop/signature-essentials');
-                },
-              ),
-              ListTile(
-                title: const Text('Portsmouth City Collection'),
-                onTap: () {
-                  toggleMobileMenu();
-                  Navigator.pushNamed(context, '/shop/portsmouth-city');
-                },
-              ),
-              ListTile(
-                title: const Text('Pride Collection'),
-                onTap: () {
-                  toggleMobileMenu();
-                  Navigator.pushNamed(context, '/shop/pride-collection');
-                },
-              ),
-              ListTile(
-                title: const Text('Graduation'),
-                onTap: () {
-                  toggleMobileMenu();
-                  Navigator.pushNamed(context, '/shop/graduation');
-                },
-              ),
-            ],
+          _buildHoverableListTile(
+            title: 'Shop',
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            onTap: openShopSubmenu,
           ),
-          ListTile(
-            title: const Text('The Print Shack'),
+          _buildHoverableListTile(
+            title: 'The Print Shack',
             onTap: () {
               toggleMobileMenu();
               placeholderCallbackForButtons();
             },
           ),
-          ListTile(
-            title: const Text('SALE!'),
+          _buildHoverableListTile(
+            title: 'SALE!',
             onTap: () {
               toggleMobileMenu();
               placeholderCallbackForButtons();
             },
           ),
-          ListTile(
-            title: const Text('About'),
+          _buildHoverableListTile(
+            title: 'About',
             onTap: () {
               toggleMobileMenu();
               navigateToAbout(context);
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildShopSubmenu() {
+    return Container(
+      key: const ValueKey('shop_submenu'),
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildHoverableListTile(
+            title: 'Back to Menu',
+            leading: const Icon(Icons.arrow_back_ios, size: 16),
+            onTap: closeShopSubmenu,
+          ),
+          const Divider(),
+          _buildHoverableListTile(
+            title: 'Clothing',
+            onTap: () {
+              toggleMobileMenu();
+              Navigator.pushNamed(context, '/shop/clothing');
+            },
+          ),
+          _buildHoverableListTile(
+            title: 'Merchandise',
+            onTap: () {
+              toggleMobileMenu();
+              Navigator.pushNamed(context, '/shop/merchandise');
+            },
+          ),
+          _buildHoverableListTile(
+            title: 'Halloween',
+            onTap: () {
+              toggleMobileMenu();
+              Navigator.pushNamed(context, '/shop/halloween');
+            },
+          ),
+          _buildHoverableListTile(
+            title: 'Signature & Essential Range',
+            onTap: () {
+              toggleMobileMenu();
+              Navigator.pushNamed(context, '/shop/signature-essentials');
+            },
+          ),
+          _buildHoverableListTile(
+            title: 'Portsmouth City Collection',
+            onTap: () {
+              toggleMobileMenu();
+              Navigator.pushNamed(context, '/shop/portsmouth-city');
+            },
+          ),
+          _buildHoverableListTile(
+            title: 'Pride Collection',
+            onTap: () {
+              toggleMobileMenu();
+              Navigator.pushNamed(context, '/shop/pride-collection');
+            },
+          ),
+          _buildHoverableListTile(
+            title: 'Graduation',
+            onTap: () {
+              toggleMobileMenu();
+              Navigator.pushNamed(context, '/shop/graduation');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHoverableListTile({
+    required String title,
+    Widget? leading,
+    Widget? trailing,
+    required VoidCallback onTap,
+  }) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(8),
+            onTap: onTap,
+            hoverColor: Colors.grey[200],
+            child: ListTile(
+              leading: leading,
+              title: Text(title),
+              trailing: trailing,
+              dense: true,
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -329,9 +421,12 @@ class _PageLayoutState extends State<PageLayout> {
                                 icon: const Icon(Icons.search,
                                     size: 20, color: Colors.grey),
                                 onPressed: placeholderCallbackForButtons,
-                              ),                              IconButton(
+                              ),
+                              IconButton(
                                 icon: Icon(
-                                  isMobileMenuExpanded ? Icons.close : Icons.menu,
+                                  isMobileMenuExpanded
+                                      ? Icons.close
+                                      : Icons.menu,
                                   size: 20,
                                   color: Colors.grey,
                                 ),
@@ -343,12 +438,13 @@ class _PageLayoutState extends State<PageLayout> {
                       ],
                     ),
                   ),
-                  AnimatedContainer(
+                  AnimatedSize(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOutCubic,
-                    height: isMobileMenuExpanded ? 300 : 0,
-                    child: isMobileMenuExpanded ? _buildMobileMenuOptions() : SizedBox.shrink(),
-                  ),                  // Page content
+                    child: isMobileMenuExpanded
+                        ? _buildMobileMenuOptions()
+                        : const SizedBox.shrink(),
+                  ), // Page content
                   widget.child,
                   // Blank white space before footer
                   Container(
@@ -435,5 +531,3 @@ class _PageLayoutState extends State<PageLayout> {
     });
   }
 }
-
-
