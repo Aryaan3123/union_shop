@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
-class PageLayout extends StatelessWidget {
+class PageLayout extends StatefulWidget {
+
+  @override
+  State<PageLayout> createState() => _PageLayoutState();
+}
+
+class _PageLayoutState extends State<PageLayout> {
+  bool isMobileMenuExpanded = false;
+
   final Widget child;
 
   const PageLayout({super.key, required this.child});
@@ -19,6 +27,12 @@ class PageLayout extends StatelessWidget {
 
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
+  }
+
+  void toggleMobileMenu() {
+    setState(() {
+      isMobileMenuExpanded = !isMobileMenuExpanded;
+    });
   }
 
   @override
