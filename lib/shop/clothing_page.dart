@@ -150,7 +150,7 @@ class _ClothingPageState extends State<ClothingPage> {
     }
 
     return allProducts.where((product) {
-      // Add filtering logic 
+      // Add filtering logic
       return true; // Placeholder: return all products for now
     }).toList();
   }
@@ -201,7 +201,8 @@ class _ClothingPageState extends State<ClothingPage> {
         child: Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(40.0),
+          padding: EdgeInsets.all(
+              MediaQuery.of(context).size.width > 600 ? 40.0 : 20.0),
           color: Colors.white,
           child: Column(
             children: [
@@ -224,85 +225,156 @@ class _ClothingPageState extends State<ClothingPage> {
                 textAlign: TextAlign.center,
               ),
               Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0, vertical: 16.0),
+                  padding: EdgeInsets.symmetric(
+                      horizontal:
+                          MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0,
+                      vertical: 16.0),
                   decoration: const BoxDecoration(
                     border: Border(
                       top: BorderSide(color: Colors.grey, width: 0.5),
                       bottom: BorderSide(color: Colors.grey, width: 0.5),
                     ),
                   ),
-                  child: Row(children: [
-                    Row(children: [
-                      const Text(
-                        'Filter by',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.grey, letterSpacing: 1),
-                      ),
-                      const SizedBox(width: 8),
-                      DropdownButton<String>(
-                        value: 'All',
-                        items: <String>[
-                          'All',
-                          'Clothing',
-                          'Merchandise',
-                          'Popular',
-                          'PSUT'
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          // Handle filter change
-                        },
-                      ),
-                    ]),
-                    const SizedBox(width: 60),
-                    Row(children: [
-                      const Text(
-                        'Sort by',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.grey, letterSpacing: 1),
-                      ),
-                      const SizedBox(width: 8),
-                      DropdownButton<String>(
-                        value: 'Featured',
-                        items: <String>[
-                          'Featured',
-                          'Popularity',
-                          'Price: Low to High',
-                          'Price: High to Low',
-                          'A-Z',
-                          'Z-A'
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          // Handle sort change
-                        },
-                      )
-                    ])
-                  ]))
+                  child: MediaQuery.of(context).size.width > 600
+                      ? Row(children: [
+                          // Desktop: Side-by-side layout
+                          Row(children: [
+                            const Text(
+                              'Filter by',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                  letterSpacing: 1),
+                            ),
+                            const SizedBox(width: 8),
+                            DropdownButton<String>(
+                              value: 'All',
+                              items: <String>[
+                                'All',
+                                'Clothing',
+                                'Merchandise',
+                                'Popular',
+                                'PSUT'
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                // Handle filter change
+                              },
+                            ),
+                          ]),
+                          const SizedBox(width: 60),
+                          Row(children: [
+                            const Text(
+                              'Sort by',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                  letterSpacing: 1),
+                            ),
+                            const SizedBox(width: 8),
+                            DropdownButton<String>(
+                              value: 'Featured',
+                              items: <String>[
+                                'Featured',
+                                'Popularity',
+                                'Price: Low to High',
+                                'Price: High to Low',
+                                'A-Z',
+                                'Z-A'
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                // Handle sort change
+                              },
+                            )
+                          ])
+                        ])
+                      : Column(children: [
+                          // Mobile: Stacked vertically
+                          Row(children: [
+                            const Text(
+                              'Filter by',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                  letterSpacing: 1),
+                            ),
+                            const SizedBox(width: 8),
+                            DropdownButton<String>(
+                              value: 'All',
+                              items: <String>[
+                                'All',
+                                'Clothing',
+                                'Merchandise',
+                                'Popular',
+                                'PSUT'
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                // Handle filter change
+                              },
+                            ),
+                          ]),
+                          const SizedBox(height: 12),
+                          Row(children: [
+                            const Text(
+                              'Sort by',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                  letterSpacing: 1),
+                            ),
+                            const SizedBox(width: 8),
+                            DropdownButton<String>(
+                              value: 'Featured',
+                              items: <String>[
+                                'Featured',
+                                'Popularity',
+                                'Price: Low to High',
+                                'Price: High to Low',
+                                'A-Z',
+                                'Z-A'
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                // Handle sort change
+                              },
+                            )
+                          ])
+                        ]))
             ],
           ),
-        ),
-
-        // Product Grid
+        ), // Product Grid
         Container(
             color: Colors.white,
             child: Padding(
-                padding: const EdgeInsets.all(40.0),
+                padding: EdgeInsets.all(
+                    MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0),
                 child: GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 24,
-                    mainAxisSpacing: 48,
+                    crossAxisCount:
+                        MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                    crossAxisSpacing:
+                        MediaQuery.of(context).size.width > 600 ? 24 : 12,
+                    mainAxisSpacing:
+                        MediaQuery.of(context).size.width > 600 ? 48 : 24,
                     childAspectRatio: 1.2,
                     children: paginatedProducts.map((product) {
                       return ProductCard(
