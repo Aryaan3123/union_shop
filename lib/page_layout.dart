@@ -278,11 +278,10 @@ class PageLayout extends StatelessWidget {
                                 icon: const Icon(Icons.search,
                                     size: 20, color: Colors.grey),
                                 onPressed: placeholderCallbackForButtons,
-                              ),
-                              Builder(
+                              ),                              Builder(
                                 builder: (context) {
+                                  bool isExpanded = false; // Move outside StatefulBuilder
                                   return StatefulBuilder(builder: (context, setState) {
-                                    bool isExpanded = false;
                                   
                                     return Stack(
                                       children: [
@@ -293,9 +292,11 @@ class PageLayout extends StatelessWidget {
                                             color: Colors.grey,
                                           ),
                                           onPressed: () {
+                                            print('Hamburger tapped! Current state: $isExpanded');
                                             setState(() {
                                               isExpanded = !isExpanded;
                                             });
+                                            print('New state: $isExpanded');
                                           },
                                         ),
 
@@ -472,5 +473,67 @@ class PageLayout extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+class _MobileMenu extends StatefulWidget {
+  @override
+  __MobileMenuState createState() => __MobileMenuState();
+}
+
+class __MobileMenuState extends State<_MobileMenu> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        IconButton(
+          icon: Icon(
+            isExpanded ? Icons.close : Icons.menu,
+            size: 20,
+            color: Colors.grey,
+          ),
+          onPressed: () {
+            print('Hamburger tapped! Current state: $isExpanded'); // Add this
+            setState(() {
+              isExpanded = !isExpanded;
+            });
+            print('New state: $isExpanded'); // And this
+          },
+        ),
+
+        // Dropdown Menu Overlay
+        if (isExpanded)
+          Positioned(
+            top: 40, // underbutton
+            right: 0, // align to right edge
+            child: Material(
+              elevation: 8,
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                width: 250, // Fixed width for menu
+                constraints: const BoxConstraints(maxHeight: 400),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(
+                      title: const Text('Home'),
+                      onTap: () {
+                        setState(() {
+                          isExpanded = false;
+                        });
+                        // Navigate to Home
+                      },
+                    ),
+                    // ... other menu items
+                  ],
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
   }
 }
