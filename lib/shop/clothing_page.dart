@@ -225,10 +225,11 @@ class _ClothingPageState extends State<ClothingPage> {
       return allProducts;
     }
 
-    return allProducts.where((product) {
-      // Add filtering logic
-      return true; // Placeholder: return all products for now
-    }).toList();
+    if (currentFilter == 'Popular') {
+      return allProducts.where((product) => product['popularity'] >= 80).toList();
+    }
+
+    return allProducts.where((product) => product['category'] == currentFilter).toList();
   }
   // Function 1: Calculate which products to show on current page
 
@@ -324,7 +325,7 @@ class _ClothingPageState extends State<ClothingPage> {
                             ),
                             const SizedBox(width: 8),
                             DropdownButton<String>(
-                              value: 'All',
+                              value: currentFilter,
                               items: <String>[
                                 'All',
                                 'Clothing',
@@ -338,7 +339,10 @@ class _ClothingPageState extends State<ClothingPage> {
                                 );
                               }).toList(),
                               onChanged: (String? newValue) {
-                                // Handle filter change
+                                setState(() {
+                                  currentFilter = newValue ?? 'All';
+                                  currentPage = 0; // Reset to first page
+                                });
                               },
                             ),
                           ]),
@@ -353,7 +357,7 @@ class _ClothingPageState extends State<ClothingPage> {
                             ),
                             const SizedBox(width: 8),
                             DropdownButton<String>(
-                              value: 'Featured',
+                              value: currentSort,
                               items: <String>[
                                 'Featured',
                                 'Popularity',
@@ -369,6 +373,10 @@ class _ClothingPageState extends State<ClothingPage> {
                               }).toList(),
                               onChanged: (String? newValue) {
                                 // Handle sort change
+                                setState(() {
+                                  currentSort = newValue ?? 'Featured';
+                                  currentPage = 0; // Reset to first page
+                                });
                               },
                             )
                           ])
@@ -385,7 +393,7 @@ class _ClothingPageState extends State<ClothingPage> {
                             ),
                             const SizedBox(width: 8),
                             DropdownButton<String>(
-                              value: 'All',
+                              value: currentFilter,
                               items: <String>[
                                 'All',
                                 'Clothing',
@@ -399,7 +407,11 @@ class _ClothingPageState extends State<ClothingPage> {
                                 );
                               }).toList(),
                               onChanged: (String? newValue) {
-                                // Handle filter change
+                                setState(() {
+                                  currentFilter = newValue ?? 'All';
+                                  currentPage =
+                                      0; // Reset to first page when filtering
+                                });
                               },
                             ),
                           ]),
@@ -414,7 +426,7 @@ class _ClothingPageState extends State<ClothingPage> {
                             ),
                             const SizedBox(width: 8),
                             DropdownButton<String>(
-                              value: 'Featured',
+                              value: currentSort,
                               items: <String>[
                                 'Featured',
                                 'Popularity',
@@ -429,7 +441,11 @@ class _ClothingPageState extends State<ClothingPage> {
                                 );
                               }).toList(),
                               onChanged: (String? newValue) {
-                                // Handle sort change
+                                setState(() {
+                                  currentSort = newValue ?? 'Featured';
+                                  currentPage =
+                                      0; // Reset to first page when sorting
+                                });
                               },
                             )
                           ])
