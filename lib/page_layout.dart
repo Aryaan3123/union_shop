@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PageLayout extends StatefulWidget {
+  final Widget child;
+
+  const PageLayout({super.key, required this.child});
 
   @override
   State<PageLayout> createState() => _PageLayoutState();
@@ -8,10 +11,6 @@ class PageLayout extends StatefulWidget {
 
 class _PageLayoutState extends State<PageLayout> {
   bool isMobileMenuExpanded = false;
-
-  final Widget child;
-
-  const PageLayout({super.key, required this.child});
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -33,6 +32,99 @@ class _PageLayoutState extends State<PageLayout> {
     setState(() {
       isMobileMenuExpanded = !isMobileMenuExpanded;
     });
+  }
+    Widget _buildMobileMenuOptions() {
+    return Container(
+      width: double.infinity,
+      color: Colors.grey[100], // Light background
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        children: [
+          ListTile(
+            title: const Text('Home'),
+            onTap: () {
+              toggleMobileMenu(); // Close menu
+              navigateToHome(context);
+            },
+          ),
+          ExpansionTile(
+            title: const Text('Shop'),
+            children: [
+              ListTile(
+                title: const Text('Clothing'),
+                onTap: () {
+                  toggleMobileMenu();
+                  Navigator.pushNamed(context, '/shop/clothing');
+                },
+              ),
+              ListTile(
+                title: const Text('Merchandise'),
+                onTap: () {
+                  toggleMobileMenu();
+                  Navigator.pushNamed(context, '/shop/merchandise');
+                },
+              ),
+              ListTile(
+                title: const Text('Halloween'),
+                onTap: () {
+                  toggleMobileMenu();
+                  Navigator.pushNamed(context, '/shop/halloween');
+                },
+              ),
+              ListTile(
+                title: const Text('Signature & Essential Range'),
+                onTap: () {
+                  toggleMobileMenu();
+                  Navigator.pushNamed(context, '/shop/signature-essentials');
+                },
+              ),
+              ListTile(
+                title: const Text('Portsmouth City Collection'),
+                onTap: () {
+                  toggleMobileMenu();
+                  Navigator.pushNamed(context, '/shop/portsmouth-city');
+                },
+              ),
+              ListTile(
+                title: const Text('Pride Collection'),
+                onTap: () {
+                  toggleMobileMenu();
+                  Navigator.pushNamed(context, '/shop/pride-collection');
+                },
+              ),
+              ListTile(
+                title: const Text('Graduation'),
+                onTap: () {
+                  toggleMobileMenu();
+                  Navigator.pushNamed(context, '/shop/graduation');
+                },
+              ),
+            ],
+          ),
+          ListTile(
+            title: const Text('The Print Shack'),
+            onTap: () {
+              toggleMobileMenu();
+              placeholderCallbackForButtons();
+            },
+          ),
+          ListTile(
+            title: const Text('SALE!'),
+            onTap: () {
+              toggleMobileMenu();
+              placeholderCallbackForButtons();
+            },
+          ),
+          ListTile(
+            title: const Text('About'),
+            onTap: () {
+              toggleMobileMenu();
+              navigateToAbout(context);
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -237,12 +329,13 @@ class _PageLayoutState extends State<PageLayout> {
                                 icon: const Icon(Icons.search,
                                     size: 20, color: Colors.grey),
                                 onPressed: placeholderCallbackForButtons,
-                              ),
-                              _MobileMenu(
-                                onNavigateHome: () => navigateToHome(context),
-                                onNavigateAbout: () => navigateToAbout(context),
-                                onPlaceholderCallback:
-                                    placeholderCallbackForButtons,
+                              ),                              IconButton(
+                                icon: Icon(
+                                  isMobileMenuExpanded ? Icons.close : Icons.menu,
+                                  size: 20,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: toggleMobileMenu,
                               ),
                             ],
                           ]),
@@ -250,8 +343,13 @@ class _PageLayoutState extends State<PageLayout> {
                       ],
                     ),
                   ),
-                  // Page content
-                  child,
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOutCubic,
+                    height: isMobileMenuExpanded ? 300 : 0,
+                    child: isMobileMenuExpanded ? _buildMobileMenuOptions() : SizedBox.shrink(),
+                  ),                  // Page content
+                  widget.child,
                   // Blank white space before footer
                   Container(
                     height: 40,
@@ -338,183 +436,4 @@ class _PageLayoutState extends State<PageLayout> {
   }
 }
 
-class _MobileMenu extends StatefulWidget {
-  final VoidCallback onNavigateHome;
-  final VoidCallback onNavigateAbout;
-  final VoidCallback onPlaceholderCallback;
 
-  const _MobileMenu({
-    required this.onNavigateHome,
-    required this.onNavigateAbout,
-    required this.onPlaceholderCallback,
-  });
-
-  @override
-  __MobileMenuState createState() => __MobileMenuState();
-}
-
-class __MobileMenuState extends State<_MobileMenu> {
-  bool isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        IconButton(
-          icon: Icon(
-            isExpanded ? Icons.close : Icons.menu,
-            size: 20,
-            color: Colors.grey,
-          ),
-          onPressed: () {
-            print('Hamburger tapped! Current state: $isExpanded');
-            setState(() {
-              isExpanded = !isExpanded;
-            });
-            print('New state: $isExpanded');
-          },
-        ),
-
-        // Dropdown Menu Overlay
-        if (isExpanded)
-          Positioned(
-            top: 40, // below button
-            right: 0, // align to right edge
-            child: Material(
-              elevation: 8,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                width: 250, // Fixed width for menu
-                constraints: const BoxConstraints(maxHeight: 400),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListTile(
-                      title: const Text('Home'),
-                      onTap: () {
-                        setState(() {
-                          isExpanded = false;
-                        });
-                        widget.onNavigateHome();
-                      },
-                    ),
-                    ExpansionTile(
-                      title: const Text('Shop'),
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: const Text('Clothing'),
-                                onTap: () {
-                                  setState(() {
-                                    isExpanded = false;
-                                  });
-                                  Navigator.pushNamed(
-                                      context, '/shop/clothing');
-                                },
-                              ),
-                              ListTile(
-                                title: const Text('Merchandise'),
-                                onTap: () {
-                                  setState(() {
-                                    isExpanded = false;
-                                  });
-                                  Navigator.pushNamed(
-                                      context, '/shop/merchandise');
-                                },
-                              ),
-                              ListTile(
-                                title: const Text('Halloween'),
-                                onTap: () {
-                                  setState(() {
-                                    isExpanded = false;
-                                  });
-                                  Navigator.pushNamed(
-                                      context, '/shop/halloween');
-                                },
-                              ),
-                              ListTile(
-                                title:
-                                    const Text('Signature & Essential Range'),
-                                onTap: () {
-                                  setState(() {
-                                    isExpanded = false;
-                                  });
-                                  Navigator.pushNamed(
-                                      context, '/shop/signature-essentials');
-                                },
-                              ),
-                              ListTile(
-                                title: const Text('Portsmouth City Collection'),
-                                onTap: () {
-                                  setState(() {
-                                    isExpanded = false;
-                                  });
-                                  Navigator.pushNamed(
-                                      context, '/shop/portsmouth-city');
-                                },
-                              ),
-                              ListTile(
-                                title: const Text('Pride Collection'),
-                                onTap: () {
-                                  setState(() {
-                                    isExpanded = false;
-                                  });
-                                  Navigator.pushNamed(
-                                      context, '/shop/pride-collection');
-                                },
-                              ),
-                              ListTile(
-                                title: const Text('Graduation'),
-                                onTap: () {
-                                  setState(() {
-                                    isExpanded = false;
-                                  });
-                                  Navigator.pushNamed(
-                                      context, '/shop/graduation');
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    ListTile(
-                      title: const Text('The Print Shack'),
-                      onTap: () {
-                        setState(() {
-                          isExpanded = false;
-                        });
-                        widget.onPlaceholderCallback();
-                      },
-                    ),
-                    ListTile(
-                      title: const Text('SALE!'),
-                      onTap: () {
-                        setState(() {
-                          isExpanded = false;
-                        });
-                        widget.onPlaceholderCallback();
-                      },
-                    ),
-                    ListTile(
-                      title: const Text('About'),
-                      onTap: () {
-                        setState(() {
-                          isExpanded = false;
-                        });
-                        widget.onNavigateAbout();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-}
