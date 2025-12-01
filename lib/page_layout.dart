@@ -298,6 +298,84 @@ class PageLayout extends StatelessWidget {
                                             });
                                           },
                                         ),
+
+                                        // Dropdown Menu Overlay
+                                        if (isExpanded)
+                                          Positioned(
+                                            top: 40, // underbutton
+                                            right: 0, // align to right edge
+                                            child: Material(
+                                              elevation: 8,
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(8),
+                                              child: Container(
+                                                width: 250, // Fixed width for menu
+                                                constraints: const BoxConstraints(maxHeight: 400),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    ListTile(
+                                                      title: const Text('Home'),
+                                                      onTap: () {
+                                                        setState(() {
+                                                          isExpanded = false;
+                                                        });
+                                                        navigateToHome(context);
+                                                      },
+                                                    ),
+                                                     ExpansionTile(
+                                                      title: const Text('Shop'),
+                                                      children: [
+                                                        Padding(
+                                                          padding: EdgeInsets.only(left: 16),
+                                                          child: Column(
+                                                            children: [
+                                                              ListTile(
+                                                                title: const Text('Clothing'),
+                                                                onTap: () {
+                                                                  setState(() { isExpanded = false; });
+                                                                  Navigator.pushNamed(context, '/shop/clothing');
+                                                                },
+                                                              ),
+                                                              ListTile(
+                                                                title: const Text('Merchandise'),
+                                                                onTap: () {
+                                                                  setState(() { isExpanded = false; });
+                                                                  Navigator.pushNamed(context, '/shop/merchandise');
+                                                                },
+                                                              ),
+                                                              // ... other categories
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    ListTile(
+                                                      title: const Text('The Print Shack'),
+                                                      onTap: () {
+                                                        setState(() { isExpanded = false; });
+                                                        placeholderCallbackForButtons();
+                                                      },
+                                                    ),
+                                                    ListTile(
+                                                      title: const Text('SALE!'),
+                                                      onTap: () {
+                                                        setState(() { isExpanded = false; });
+                                                        placeholderCallbackForButtons();
+                                                      },
+                                                    ),
+                                                    ListTile(
+                                                      title: const Text('About'),
+                                                      onTap: () {
+                                                        setState(() { isExpanded = false; });
+                                                        navigateToAbout(context);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     );
                                   });
