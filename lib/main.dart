@@ -6,6 +6,7 @@ import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/pages/home_page.dart';
 import 'package:union_shop/shop/clothing_page.dart';
 import 'package:union_shop/shop/merchandise_page.dart';
+import 'package:union_shop/shop/signature_essentials_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -33,7 +34,7 @@ class UnionShopApp extends StatelessWidget {
         '/about': (context) => const AboutPage(),
         // Add these missing carousel routes:
         '/shop/merchandise': (context) => const MerchandisePage(),
-        // '/shop/signature-essentials': (context) => const SignatureEssentialsPage(),
+        '/shop/signature-essentials': (context) => const SignatureEssentialsPage(),
         '/shop/clothing': (context) => const ClothingPage(),
         //'/shop/portsmouth-city': (context) => const PortsmouthCityPage(),
         //'/shop/graduation': (context) => const GraduationPage(),
@@ -87,22 +88,23 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),),
-            Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 4),
-              Text(
-                title,
-                style: const TextStyle(fontSize: 14, color: Colors.black),
-                maxLines: 2,
-              ),
-              const SizedBox(height: 4),
-              Text(
-                price,
-                style: const TextStyle(fontSize: 13, color: Colors.grey),
-              ),
-            ],
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 4),
+                Text(
+                  title,
+                  style: const TextStyle(fontSize: 14, color: Colors.black),
+                  maxLines: 2,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  price,
+                  style: const TextStyle(fontSize: 13, color: Colors.grey),
+                ),
+              ],
+            ),
           ),
         ],
       ),
