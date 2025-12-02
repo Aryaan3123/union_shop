@@ -252,4 +252,28 @@ class _MerchandisePageState extends State<MerchandisePage> {
     return (allProducts.length / itemsPerPage).ceil();
   }
 
+  void goToNextPage() {
+    if (currentPage < getTotalPages() - 1) {
+      setState(() {
+        currentPage++;
+      });
+    }
+  }
+
+  void goToPreviousPage() {
+    if (currentPage > 0) {
+      setState(() {
+        currentPage--;
+      });
+    }
+  }
+
+  void goToSpecificPage(int pageIndex) {
+    if (pageIndex >= 0 && pageIndex < getTotalPages()) {
+      setState(() {
+        currentPage = pageIndex;
+      });
+    }
+  }
+
   
