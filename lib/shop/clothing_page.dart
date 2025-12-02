@@ -452,7 +452,19 @@ class _ClothingPageState extends State<ClothingPage> {
                         ]))
             ],
           ),
-        ), // Product Grid
+        ), 
+        
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0, 
+          vertical: 12.0
+          ),
+          child: Text(
+            '${filteredProducts.length} products found',
+            style: const TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+          ),
+        ),
+        // Product Grid
         Container(
             color: Colors.white,
             child: Padding(
