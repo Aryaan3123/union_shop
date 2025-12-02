@@ -525,6 +525,7 @@ class _ClothingPageState extends State<ClothingPage> {
                         title: product['title']!,
                         price: product['price']!,
                         imageUrl: product['imageUrl']!,
+                        productData: product,
                       );
                     }).toList()))),
         // Pagination Controls

@@ -478,6 +478,7 @@ class _MerchandisePageState extends State<MerchandisePage> {
                         title: product['title']!,
                         price: product['price']!,
                         imageUrl: product['imageUrl']!,
+                        productData: product,
                       );
                     }).toList()))),
         // Pagination Controls

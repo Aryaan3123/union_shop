@@ -47,19 +47,32 @@ class ProductCard extends StatelessWidget {
   final String title;
   final String price;
   final String imageUrl;
+  final Map<String, dynamic>? productData;
 
   const ProductCard({
     super.key,
     required this.title,
     required this.price,
     required this.imageUrl,
+    this.productData,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/product');
+        Navigator.pushNamed(
+          context, 
+          '/product',
+          arguments: productData ?? {
+            'title': title,
+            'price': price,
+            'imageUrl': imageUrl,
+            'category': 'Unknown',
+            'popularity': 0,
+            'featured': false,
+          },
+        );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

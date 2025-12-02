@@ -486,6 +486,7 @@ class _SignatureEssentialsPageState extends State<SignatureEssentialsPage> {
                         title: product['title']!,
                         price: product['price']!,
                         imageUrl: product['imageUrl']!,
+                        productData: product,
                       );
                     }).toList()))),
         Container(
