@@ -276,4 +276,241 @@ class _MerchandisePageState extends State<MerchandisePage> {
     }
   }
 
-  
+  @override
+  Widget build(BuildContext context) {
+    return PageLayout(
+        child: Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(
+              MediaQuery.of(context).size.width > 600 ? 40.0 : 20.0),
+          color: Colors.white,
+          child: Column(
+            children: [
+              const Text(
+                'Merchandise',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: 1,
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Discover our collection of university merchandise, from stationery essentials to tech accessories. Perfect for students and alumni!',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal:
+                          MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0,
+                      vertical: 16.0),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: Colors.grey, width: 0.5),
+                      bottom: BorderSide(color: Colors.grey, width: 0.5),
+                    ),
+                  ),
+                  child: MediaQuery.of(context).size.width > 600
+                      ? Row(children: [
+                          // Desktop: Side-by-side layout
+                          Row(children: [
+                            const Text(
+                              'Filter by',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                  letterSpacing: 1),
+                            ),
+                            const SizedBox(width: 8),
+                            DropdownButton<String>(
+                              value: currentFilter,
+                              items: <String>[
+                                'All',
+                                'Stationery',
+                                'Accessories',
+                                'Bags',
+                                'Tech',
+                                'Popular'
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  currentFilter = newValue ?? 'All';
+                                  currentPage = 0; // Reset to first page
+                                });
+                              },
+                            ),
+                          ]),
+                          const SizedBox(width: 60),
+                          Row(children: [
+                            const Text(
+                              'Sort by',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                  letterSpacing: 1),
+                            ),
+                            const SizedBox(width: 8),
+                            DropdownButton<String>(
+                              value: currentSort,
+                              items: <String>[
+                                'Featured',
+                                'Popularity',
+                                'Price: Low to High',
+                                'Price: High to Low',
+                                'A-Z',
+                                'Z-A'
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  currentSort = newValue ?? 'Featured';
+                                  currentPage = 0; // Reset to first page
+                                });
+                              },
+                            )
+                          ])
+                        ])
+                      : Column(children: [
+                          // Mobile: Stacked vertically
+                          Row(children: [
+                            const Text(
+                              'Filter by',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                  letterSpacing: 1),
+                            ),
+                            const SizedBox(width: 8),
+                            DropdownButton<String>(
+                              value: currentFilter,
+                              items: <String>[
+                                'All',
+                                'Stationery',
+                                'Accessories',
+                                'Bags',
+                                'Tech',
+                                'Popular'
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  currentFilter = newValue ?? 'All';
+                                  currentPage =
+                                      0; // Reset to first page when filtering
+                                });
+                              },
+                            ),
+                          ]),
+                          const SizedBox(height: 12),
+                          Row(children: [
+                            const Text(
+                              'Sort by',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                  letterSpacing: 1),
+                            ),
+                            const SizedBox(width: 8),
+                            DropdownButton<String>(
+                              value: currentSort,
+                              items: <String>[
+                                'Featured',
+                                'Popularity',
+                                'Price: Low to High',
+                                'Price: High to Low',
+                                'A-Z',
+                                'Z-A'
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  currentSort = newValue ?? 'Featured';
+                                  currentPage =
+                                      0; // Reset to first page when sorting
+                                });
+                              },
+                            )
+                          ])
+                        ]))
+            ],
+          ),
+        ), // Product Grid
+        Container(
+            color: Colors.white,
+            child: Padding(
+                padding: EdgeInsets.all(
+                    MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0),
+                child: GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount:
+                        MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                    crossAxisSpacing:
+                        MediaQuery.of(context).size.width > 600 ? 24 : 12,
+                    mainAxisSpacing:
+                        MediaQuery.of(context).size.width > 600 ? 48 : 24,
+                    childAspectRatio: 1.2,
+                    children: paginatedProducts.map((product) {
+                      return ProductCard(
+                        title: product['title']!,
+                        price: product['price']!,
+                        imageUrl: product['imageUrl']!,
+                      );
+                    }).toList()))),
+        // Pagination Controls
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: currentPage > 0 ? goToPreviousPage : null,
+                tooltip: 'Previous Page',
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  'Page ${currentPage + 1} of ${getTotalPages()}',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+              ),
+              // Next Page Button
+              IconButton(
+                onPressed:
+                    currentPage < getTotalPages() - 1 ? goToNextPage : null,
+                icon: const Icon(Icons.arrow_forward),
+                tooltip: 'Next Page',
+              )
+            ],
+          ),
+        ),
+      ],
+    ));
+  }
+}
+
