@@ -226,26 +226,66 @@ class _ClothingPageState extends State<ClothingPage> {
     }
 
     if (currentFilter == 'Popular') {
-      return allProducts.where((product) => product['popularity'] >= 80).toList();
+      return allProducts
+          .where((product) => product['popularity'] >= 80)
+          .toList();
     }
 
-    return allProducts.where((product) => product['category'] == currentFilter).toList();
+    return allProducts
+        .where((product) => product['category'] == currentFilter)
+        .toList();
   }
   // Function 1: Calculate which products to show on current page
+
+  List<Map<String, dynamic>> get sortedProducts {
+    List<Map<String, dynamic>> products = List.from(filteredProducts);
+    switch (currentSort) {
+      case 'Featured':
+        products.sort((a, b) {
+          // featured items first
+          if (a['featured'] && !b['featured']) return -1;
+          if (!a['featured'] && b['featured']) return 1;
+          return b['popularity'].compareTo(a['popularity']);
+        });
+        break;
+
+      case 'Popularity':
+        products.sort((a, b) => b['popularity'].compareTo(a['popularity']));
+        break;
+
+      case 'Price: Low to High':
+        products.sort((a, b) => a['priceValue'].compareTo(b['priceValue']));
+        break;
+
+      case 'Price: High to Low':
+        products.sort((a, b) => b['priceValue'].compareTo(a['priceValue']));
+        break;
+
+      case 'A-Z':
+        products.sort((a, b) => a['title'].compareTo(b['title']));
+        break;
+
+      case 'Z-A':
+        products.sort((a, b) => b['title'].compareTo(a['title']));
+        break;
+    }
+
+    return products;
+  }
 
   List<Map<String, dynamic>> get paginatedProducts {
     int startIndex = currentPage * itemsPerPage;
     int endIndex = startIndex + itemsPerPage;
 
-    if (endIndex > allProducts.length) {
-      endIndex = allProducts.length;
+    if (endIndex > sortedProducts.length) {
+      endIndex = sortedProducts.length;
     }
 
-    return allProducts.sublist(startIndex, endIndex);
+    return sortedProducts.sublist(startIndex, endIndex);
   }
 
   int getTotalPages() {
-    return (allProducts.length / itemsPerPage).ceil();
+    return (filteredProducts.length / itemsPerPage).ceil();
   }
 
   void goToNextPage() {
@@ -452,12 +492,12 @@ class _ClothingPageState extends State<ClothingPage> {
                         ]))
             ],
           ),
-        ), 
-        
+        ),
+
         Container(
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0, 
-          vertical: 12.0
-          ),
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0,
+              vertical: 12.0),
           child: Text(
             '${filteredProducts.length} products found',
             style: const TextStyle(
