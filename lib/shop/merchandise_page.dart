@@ -220,4 +220,36 @@ class _MerchandisePageState extends State<MerchandisePage> {
           'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'
     },
   ];
-}
+
+  List<Map<String, dynamic>> get filteredProducts {
+    if (currentFilter == 'All') {
+      return allProducts;
+    }
+
+    if (currentFilter == 'Popular') {
+      return allProducts
+          .where((product) => product['popularity'] >= 80)
+          .toList();
+    }
+
+    return allProducts
+        .where((product) => product['category'] == currentFilter)
+        .toList();
+  }
+
+  List<Map<String, dynamic>> get paginatedProducts {
+    int startIndex = currentPage * itemsPerPage;
+    int endIndex = startIndex + itemsPerPage;
+
+    if (endIndex > allProducts.length) {
+      endIndex = allProducts.length;
+    }
+
+    return allProducts.sublist(startIndex, endIndex);
+  }
+
+  int getTotalPages() {
+    return (allProducts.length / itemsPerPage).ceil();
+  }
+
+  
