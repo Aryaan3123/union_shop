@@ -14,10 +14,19 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> productData =
+      ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    final String title = productData?['title'] ?? 'Placeholder Product Name';
+    final String price = productData?['price'] ?? '£15.00';
+    final String imageUrl = productData?['imageUrl'] ?? 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282';
+    final String category = productData?['category'] ?? 'Unknown Category';
+    final int popularity = productData?['popularity'] ?? 0;
+    final bool featured = productData?['featured'] ?? false;
+
     return PageLayout(
       child: Column(
         children: [
-
           // Product details
           Container(
             color: Colors.white,
@@ -36,7 +45,8 @@ class ProductPage extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
-                      'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                      imageUrl,
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
@@ -67,21 +77,59 @@ class ProductPage extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 // Product name
-                const Text(
-                  'Placeholder Product Name',
-                  style: TextStyle(
+                Text(
+                  title,
+                  style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
+
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric (horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        category,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
+                    if (featured) 
+                      Container(
+                        margin: const EdgeInsets.only(left: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.amber[100],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Text(
+                          'Featured',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.amber,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                  ]
+                ),
+
+                const SizedBox(height: 16),
 
                 // Product price
-                const Text(
-                  '£15.00',
-                  style: TextStyle(
+                Text(
+                  price,
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF4d2963),
