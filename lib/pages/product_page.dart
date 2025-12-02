@@ -17,13 +17,13 @@ class ProductPage extends StatelessWidget {
     final Map<String, dynamic> productData =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    final String title = productData?['title'] ?? 'Placeholder Product Name';
-    final String price = productData?['price'] ?? '£15.00';
-    final String imageUrl = productData?['imageUrl'] ??
+    final String title = productData['title'] ?? 'Placeholder Product Name';
+    final String price = productData['price'] ?? '£15.00';
+    final String imageUrl = productData['imageUrl'] ??
         'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282';
-    final String category = productData?['category'] ?? 'Unknown Category';
-    final int popularity = productData?['popularity'] ?? 0;
-    final bool featured = productData?['featured'] ?? false;
+    final String category = productData['category'] ?? 'Unknown Category';
+    final int popularity = productData['popularity'] ?? 0;
+    final bool featured = productData['featured'] ?? false;
 
     return PageLayout(
       child: Column(
