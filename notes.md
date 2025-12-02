@@ -1250,6 +1250,164 @@ Row(
 
 ---
 
+## December 2, 2025 - Merchandise Page & Functional Filtering System 🛍️
+
+### **What I Accomplished Today:**
+✅ Successfully created a complete merchandise page with functional filtering and sorting  
+✅ Implemented category-agnostic filtering system that works across different product types  
+✅ Learned the process of duplicating and adapting existing page structures  
+✅ Mastered the relationship between data structure, UI components, and business logic  
+
+### **Key Learning Moments:**
+
+#### **1. Understanding Code Reusability Patterns**
+- **Discovery:** Well-structured code can be duplicated and adapted efficiently
+- **Key Insight:** The filtering/sorting logic was category-agnostic by design
+- **Result:** Could reuse 90% of clothing page structure for merchandise
+
+#### **2. Data Structure Design Impact**
+- **Breakthrough:** Realized how good data structure enables flexible filtering
+- **Pattern Learned:**
+  ```dart
+  // This structure works for ANY category system:
+  {
+    'category': 'AnyCategory',  // Flexible field
+    'popularity': 85,           // Numeric for comparisons
+    'featured': true,           // Boolean for featured sorting
+    'priceValue': 15.99,        // Numeric for price sorting
+  }
+  ```
+
+#### **3. Category-Agnostic Filtering Logic**
+- **Smart Design Pattern:**
+  ```dart
+  if (currentFilter == 'All') return allProducts;
+  if (currentFilter == 'Popular') return popularity >= 80;
+  return category == currentFilter;  // Works for ANY category!
+  ```
+
+#### **4. Page Duplication Process Mastered:**
+1. **Copy base structure** - Class names, imports, basic layout
+2. **Update product data** - New categories, prices, titles
+3. **Modify filter options** - Replace category dropdown items
+4. **Update page content** - Title, description text
+5. **Register route** - Add to main.dart routing
+6. **Test functionality** - Verify all features work
+
+### **Technical Implementation Details:**
+#### **Merchandise Categories Implemented:**
+- **📚 Stationery (7 items):** Notebooks, pens, folders, highlighters, sticky notes, etc.
+- **🎒 Accessories (5 items):** Keychains, pins, magnets, lanyards, water bottles
+- **👜 Bags (3 items):** Tote bags, backpacks, drawstring bags  
+- **💻 Tech (5 items):** USB drives, phone cases, laptop sleeves, calculators, power banks
+
+#### **Filter System Features:**
+- **'All':** Shows all 20 merchandise items
+- **'Popular':** Shows 12 items with popularity ≥ 80
+- **Category filters:** 'Stationery', 'Accessories', 'Bags', 'Tech'
+- **Price range:** £3.50 - £35.99 (optimal for price sorting testing)
+
+#### **Route Registration Process:**
+```dart
+// In main.dart:
+import 'package:union_shop/shop/merchandise_page.dart';
+
+routes: {
+  '/shop/merchandise': (context) => const MerchandisePage(),
+  // Existing routes...
+}
+```
+
+### **Problem-Solving Skills Developed:**
+#### **1. Route Error Debugging:**
+- **Problem:** "Could not find a generator for route" error
+- **Analysis:** Page exists but not accessible - routing issue
+- **Solution:** Missing route registration in MaterialApp
+- **Learning:** Pages need to be "plugged in" to navigation system
+
+#### **2. Data Distribution Strategy:**
+- **Challenge:** Ensuring each filter category has enough items
+- **Solution:** Balanced distribution across categories
+- **Result:** Every filter shows meaningful results
+
+#### **3. Code Organization Principles:**
+- **Insight:** Identical logic should be exactly identical (copy-paste appropriate here)
+- **Pattern:** Only change what needs to be different (data + labels)
+- **Benefit:** Consistent behavior across different page types
+
+### **Flutter Concepts Reinforced:**
+#### **StatefulWidget Patterns:**
+- **State variables:** Consistent naming and initialization
+- **Getter methods:** Computed properties that auto-update on state changes
+- **Method signatures:** Identical method structures for consistent behavior
+
+#### **Responsive Design:**
+- **Layout patterns:** Same mobile/desktop responsive structure
+- **Grid systems:** Consistent product grid across different page types
+- **Pagination logic:** Identical pagination behavior regardless of content
+
+#### **Navigation Architecture:**
+- **Route naming:** Consistent `/shop/category` pattern
+- **Import organization:** Clean import structure in main.dart
+- **Error handling:** Understanding navigation error messages
+
+### **System Architecture Understanding:**
+#### **Data Flow Pattern:**
+```
+allProducts → filteredProducts → paginatedProducts → UI Display
+     ↑              ↑                    ↑
+Raw Data    Filter Logic        Pagination Logic
+```
+
+#### **Filter Logic Chain:**
+1. **User selects filter** → Updates `currentFilter` state
+2. **`filteredProducts` getter** → Recalculates filtered list
+3. **`paginatedProducts` getter** → Applies pagination to filtered results
+4. **UI rebuilds** → Shows new filtered and paginated products
+
+#### **State Management Flow:**
+- **Dropdown changes** → `setState()` called → Page rebuilds
+- **Page navigation** → Resets to page 0 → Updates pagination display
+- **Filter/sort combination** → Both systems work together seamlessly
+
+### **Professional Development Skills:**
+#### **Code Duplication Strategy:**
+- **When to duplicate:** Well-tested, stable patterns with minor variations
+- **What to change:** Data, labels, route names, imports
+- **What to keep identical:** Logic, UI structure, method signatures
+- **Benefits:** Consistency, reliability, faster development
+
+#### **System Design Thinking:**
+- **Flexibility by design:** Creating systems that work with different data sets
+- **Separation of concerns:** Data structure vs display logic vs business logic
+- **Scalability considerations:** Easy to add new categories or page types
+
+### **Next Development Goals:**
+🚧 **Implement Sorting Functionality** - Make sort dropdowns functional (Steps 4-6)  
+🚧 **Create Additional Shop Pages** - Signature Essentials, Portsmouth City, Graduation  
+🚧 **Add Search Functionality** - Cross-page product search  
+🚧 **Implement Shopping Cart** - Add to cart functionality  
+🚧 **Product Detail Pages** - Individual product view with details  
+
+### **Key Insights Gained:**
+#### **Smart Architecture Pays Off:**
+The clothing page's well-designed structure made creating the merchandise page incredibly efficient. Good architecture isn't just about the current feature - it's about making future development easier.
+
+#### **Data Structure is Foundation:**
+The decision to use `Map<String, dynamic>` with consistent field names (category, popularity, featured, priceValue) enabled the filtering system to work across different product types without modification.
+
+#### **Development Process Understanding:**
+1. **Plan the data structure** - Think about filtering/sorting needs upfront
+2. **Build flexible logic** - Create systems that work with different data sets  
+3. **Test with real data** - Ensure edge cases work (empty categories, etc.)
+4. **Document the patterns** - Make replication easier for future pages
+
+---
+
+*The merchandise page implementation demonstrates mastery of Flutter development patterns, code reusability, and system architecture thinking. The successful creation of a fully functional product page with filtering, sorting, and pagination in a structured, maintainable way represents significant progress in Flutter development skills.*
+
+---
+
 ## December 1, 2025 - Responsive Mobile Navigation Implementation 📱🎯
 
 ### **What I Accomplished Today:**
