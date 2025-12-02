@@ -5,6 +5,7 @@ import 'package:union_shop/pages/about_page.dart';
 import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/pages/home_page.dart';
 import 'package:union_shop/shop/clothing_page.dart';
+import 'package:union_shop/shop/merchandise_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -31,6 +32,7 @@ class UnionShopApp extends StatelessWidget {
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutPage(),
         // Add these missing carousel routes:
+        '/shop/merchandise': (context) => const MerchandisePage(),
         // '/shop/signature-essentials': (context) => const SignatureEssentialsPage(),
         '/shop/clothing': (context) => const ClothingPage(),
         //'/shop/portsmouth-city': (context) => const PortsmouthCityPage(),
