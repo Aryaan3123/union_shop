@@ -453,7 +453,7 @@ class _PageLayoutState extends State<PageLayout> {
                                       ? Icons.close
                                       : Icons.menu,
                                   size: 20,
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                 ),
                                 onPressed: toggleMobileMenu,
                                 padding: const EdgeInsets.all(4), 
