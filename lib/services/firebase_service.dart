@@ -36,18 +36,15 @@ class FirebaseService {
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
   }
 
-  static Stream<Product?> searchProducts(String searchTerm) {
+  // Search Products by Title
+  static Stream<List<Product?>> searchProducts(String searchTerm) {
     return _firestore
         .collection('products')
-        .where('title', isGreaterThanOrEqualTo: searchTerm)
+        .where('title', isGreaterThanOrEqualTo: searchTerm.toLowerCase())
         .where('title', isLessThan: searchTerm + 'z')
         .snapshots()
-        .map((snapshot) {
-      if (snapshot.docs.isNotEmpty) {
-        return Product.fromFirestore(snapshot.docs.first);
-      } else {
-        return null;
-      }
-    });
+        .map((snapshot) => snapshot.docs
+          .map((doc) => Product.fromFirestore(doc))        
+          .toList());                                     
   }
 }
