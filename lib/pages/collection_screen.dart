@@ -31,7 +31,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PageLayout(                           // Your existing layout
+    return PageLayout(                           
       child: Column(
         children: [
           // Dynamic header based on category
@@ -50,4 +50,11 @@ class _CollectionScreenState extends State<CollectionScreen> {
                   ),
                 ),
                 const SizedBox(height: 8),
+                Text(
+                  _getCategoryDescription(widget.categoryName), 
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 18,
+                  ),
+                )
 }
