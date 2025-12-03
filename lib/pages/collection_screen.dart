@@ -168,12 +168,41 @@ class _CollectionScreenState extends State<CollectionScreen> {
                       ),
                     ],
                   );
-                }, // ← This closes the builder function
-              ), // ← This closes the StreamBuilder
-            ), // ← This closes the Padding
-          ), // ← This closes the Container
-        ], // ← This closes Column children
-      ), // ← This closes PageLayout child
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  void _sortProducts(List<Product> products) {
+    switch (currentSort) {
+      case 'Featured':
+        products.sort((a, b) {
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+          return b.popularity.compareTo(a.popularity);
+        });
+        break;
+      case 'Popularity':
+        products.sort((a, b) => b.popularity.compareTo(a.popularity));
+        break;
+      case 'Price: Low to High':
+        products.sort((a, b) => a.priceValue.compareTo(b.priceValue));
+        break;
+      case 'Price: High to Low':
+        products.sort((a, b) => b.priceValue.compareTo(a.priceValue));
+        break;
+      case 'Name: A-Z':
+        products.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+        break;
+      case 'Name: Z-A':
+        products.sort((a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+        break;
+      default:
+        break;
+    }
   }
 }
