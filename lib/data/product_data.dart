@@ -1,0 +1,673 @@
+import '../models/product.dart';
+
+class ProductsData {
+  static List<Product> getAllProducts() {
+    return [
+      // ALL PRODUCTS FROM CLOTHING_PAGE.DART (20 products total)
+      Product(
+        id: 'clothing_1',
+        title: 'Classic Hoodie - Purple',
+        price: '£25.00',
+        priceValue: 25.00,
+        category: 'Clothing',
+        popularity: 95,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_2',
+        title: 'University T-Shirt',
+        price: '£15.00',
+        priceValue: 15.00,
+        category: 'Merchandise',
+        popularity: 87,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_3',
+        title: 'Sweatshirt - Green',
+        price: '£23.00',
+        priceValue: 23.00,
+        category: 'Clothing',
+        popularity: 76,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_4',
+        title: 'Polo Shirt',
+        price: '£18.00',
+        priceValue: 18.00,
+        category: 'Clothing',
+        popularity: 82,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_5',
+        title: 'Zip-Up Hoodie',
+        price: '£30.00',
+        priceValue: 30.00,
+        category: 'Clothing',
+        popularity: 91,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_6',
+        title: 'Long Sleeve Tee',
+        price: '£20.00',
+        priceValue: 20.00,
+        category: 'Clothing',
+        popularity: 74,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_7',
+        title: 'Sports Jacket',
+        price: '£45.00',
+        priceValue: 45.00,
+        category: 'Clothing',
+        popularity: 88,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_8',
+        title: 'Casual Shorts',
+        price: '£16.00',
+        priceValue: 16.00,
+        category: 'Clothing',
+        popularity: 69,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_9',
+        title: 'Varsity Sweater',
+        price: '£35.00',
+        priceValue: 35.00,
+        category: 'Merchandise',
+        popularity: 93,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_10',
+        title: 'Denim Jacket',
+        price: '£40.00',
+        priceValue: 40.00,
+        category: 'Clothing',
+        popularity: 85,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_11',
+        title: 'Track Pants',
+        price: '£22.00',
+        priceValue: 22.00,
+        category: 'Clothing',
+        popularity: 78,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_12',
+        title: 'Graphic Tee',
+        price: '£14.00',
+        priceValue: 14.00,
+        category: 'Merchandise',
+        popularity: 89,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_13',
+        title: 'Bomber Jacket',
+        price: '£38.00',
+        priceValue: 38.00,
+        category: 'Clothing',
+        popularity: 92,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_14',
+        title: 'Cargo Shorts',
+        price: '£19.00',
+        priceValue: 19.00,
+        category: 'Clothing',
+        popularity: 73,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_15',
+        title: 'Henley Shirt',
+        price: '£21.00',
+        priceValue: 21.00,
+        category: 'Clothing',
+        popularity: 79,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_16',
+        title: 'Fleece Pullover',
+        price: '£28.00',
+        priceValue: 28.00,
+        category: 'Clothing',
+        popularity: 84,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_17',
+        title: 'Basketball Shorts',
+        price: '£17.00',
+        priceValue: 17.00,
+        category: 'Clothing',
+        popularity: 71,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_18',
+        title: 'Crew Neck Sweatshirt',
+        price: '£26.00',
+        priceValue: 26.00,
+        category: 'Merchandise',
+        popularity: 86,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_19',
+        title: 'Windbreaker',
+        price: '£33.00',
+        priceValue: 33.00,
+        category: 'Clothing',
+        popularity: 77,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'clothing_20',
+        title: 'Thermal Shirt',
+        price: '£24.00',
+        priceValue: 24.00,
+        category: 'PSUT',
+        popularity: 81,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+
+      // ALL PRODUCTS FROM MERCHANDISE_PAGE.DART (20 products total)
+      Product(
+        id: 'merchandise_1',
+        title: 'University Notebook - Ruled',
+        price: '£8.99',
+        priceValue: 8.99,
+        category: 'Stationery',
+        popularity: 92,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_2',
+        title: 'Campus Pen Set - Blue',
+        price: '£12.50',
+        priceValue: 12.50,
+        category: 'Stationery',
+        popularity: 87,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_3',
+        title: 'University Keychain - Metal',
+        price: '£4.99',
+        priceValue: 4.99,
+        category: 'Accessories',
+        popularity: 95,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_4',
+        title: 'Campus Tote Bag - Canvas',
+        price: '£15.99',
+        priceValue: 15.99,
+        category: 'Bags',
+        popularity: 89,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_5',
+        title: 'University USB Drive - 16GB',
+        price: '£18.99',
+        priceValue: 18.99,
+        category: 'Tech',
+        popularity: 84,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_6',
+        title: 'Campus Folder Set - A4',
+        price: '£6.99',
+        priceValue: 6.99,
+        category: 'Stationery',
+        popularity: 78,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_7',
+        title: 'University Pin Badge Set',
+        price: '£9.99',
+        priceValue: 9.99,
+        category: 'Accessories',
+        popularity: 91,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_8',
+        title: 'Campus Backpack - Navy',
+        price: '£35.99',
+        priceValue: 35.99,
+        category: 'Bags',
+        popularity: 93,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_9',
+        title: 'University Highlighter Set',
+        price: '£7.50',
+        priceValue: 7.50,
+        category: 'Stationery',
+        popularity: 75,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_10',
+        title: 'Campus Phone Case - Clear',
+        price: '£14.99',
+        priceValue: 14.99,
+        category: 'Tech',
+        popularity: 88,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_11',
+        title: 'University Magnet Set',
+        price: '£5.99',
+        priceValue: 5.99,
+        category: 'Accessories',
+        popularity: 72,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_12',
+        title: 'Campus Diary - 2024',
+        price: '£11.99',
+        priceValue: 11.99,
+        category: 'Stationery',
+        popularity: 82,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_13',
+        title: 'University Laptop Sleeve',
+        price: '£22.99',
+        priceValue: 22.99,
+        category: 'Tech',
+        popularity: 85,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_14',
+        title: 'Campus Drawstring Bag',
+        price: '£12.99',
+        priceValue: 12.99,
+        category: 'Bags',
+        popularity: 79,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_15',
+        title: 'University Lanyard - Woven',
+        price: '£3.99',
+        priceValue: 3.99,
+        category: 'Accessories',
+        popularity: 86,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_16',
+        title: 'Campus Calculator - Scientific',
+        price: '£24.99',
+        priceValue: 24.99,
+        category: 'Tech',
+        popularity: 81,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_17',
+        title: 'University Sticky Notes Set',
+        price: '£4.50',
+        priceValue: 4.50,
+        category: 'Stationery',
+        popularity: 77,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_18',
+        title: 'Campus Water Bottle - Steel',
+        price: '£19.99',
+        priceValue: 19.99,
+        category: 'Accessories',
+        popularity: 90,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_19',
+        title: 'University Eraser Set - Fancy',
+        price: '£3.50',
+        priceValue: 3.50,
+        category: 'Stationery',
+        popularity: 74,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'merchandise_20',
+        title: 'Campus Power Bank - Portable',
+        price: '£29.99',
+        priceValue: 29.99,
+        category: 'Tech',
+        popularity: 94,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+
+      // ALL PRODUCTS FROM SIGNATURE_ESSENTIALS_PAGE.DART (20 products total)
+      Product(
+        id: 'essentials_1',
+        title: 'Essential University Hoodie',
+        price: '£29.99',
+        priceValue: 29.99,
+        category: 'Essentials',
+        popularity: 95,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_2',
+        title: 'Premium Leather Notebook',
+        price: '£24.99',
+        priceValue: 24.99,
+        category: 'Premium',
+        popularity: 88,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_3',
+        title: 'Basic Campus T-Shirt',
+        price: '£12.99',
+        priceValue: 12.99,
+        category: 'Basics',
+        popularity: 75,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_4',
+        title: 'Essential Water Bottle',
+        price: '£15.99',
+        priceValue: 15.99,
+        category: 'Essentials',
+        popularity: 92,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_5',
+        title: 'Premium Varsity Jacket',
+        price: '£49.99',
+        priceValue: 49.99,
+        category: 'Premium',
+        popularity: 89,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_6',
+        title: 'Basic Drawstring Bag',
+        price: '£8.99',
+        priceValue: 8.99,
+        category: 'Basics',
+        popularity: 71,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_7',
+        title: 'Essential Study Planner',
+        price: '£18.99',
+        priceValue: 18.99,
+        category: 'Essentials',
+        popularity: 84,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_8',
+        title: 'Premium Coffee Mug',
+        price: '£16.99',
+        priceValue: 16.99,
+        category: 'Premium',
+        popularity: 86,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_9',
+        title: 'Basic Ballpoint Pens',
+        price: '£4.99',
+        priceValue: 4.99,
+        category: 'Basics',
+        popularity: 68,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_10',
+        title: 'Essential Laptop Sleeve',
+        price: '£22.99',
+        priceValue: 22.99,
+        category: 'Essentials',
+        popularity: 90,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_11',
+        title: 'Premium University Scarf',
+        price: '£19.99',
+        priceValue: 19.99,
+        category: 'Premium',
+        popularity: 83,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_12',
+        title: 'Basic Sticky Notes',
+        price: '£3.99',
+        priceValue: 3.99,
+        category: 'Basics',
+        popularity: 64,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_13',
+        title: 'Essential Campus Backpack',
+        price: '£35.99',
+        priceValue: 35.99,
+        category: 'Essentials',
+        popularity: 94,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_14',
+        title: 'Premium Leather Wallet',
+        price: '£32.99',
+        priceValue: 32.99,
+        category: 'Premium',
+        popularity: 87,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_15',
+        title: 'Basic Highlighters Set',
+        price: '£6.99',
+        priceValue: 6.99,
+        category: 'Basics',
+        popularity: 72,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_16',
+        title: 'Essential Phone Charger',
+        price: '£14.99',
+        priceValue: 14.99,
+        category: 'Essentials',
+        popularity: 91,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_17',
+        title: 'Premium Wool Beanie',
+        price: '£21.99',
+        priceValue: 21.99,
+        category: 'Premium',
+        popularity: 85,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_18',
+        title: 'Basic Notebook Pack',
+        price: '£9.99',
+        priceValue: 9.99,
+        category: 'Basics',
+        popularity: 69,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_19',
+        title: 'Essential University Lanyard',
+        price: '£7.99',
+        priceValue: 7.99,
+        category: 'Essentials',
+        popularity: 82,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'essentials_20',
+        title: 'Premium Travel Mug',
+        price: '£26.99',
+        priceValue: 26.99,
+        category: 'Premium',
+        popularity: 88,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+    ];
+  }
+}
