@@ -41,7 +41,7 @@ class FirebaseService {
     return _firestore
         .collection('products')
         .where('title', isGreaterThanOrEqualTo: searchTerm.toLowerCase())
-        .where('title', isLessThan: searchTerm + 'z')
+        .where('title', isLessThan: '${searchTerm.toLowerCase()}z')
         .snapshots()
         .map((snapshot) => snapshot.docs
           .map((doc) => Product.fromFirestore(doc))        
