@@ -120,7 +120,36 @@ class _CollectionScreenState extends State<CollectionScreen> {
                   List<Product> products = snapshot.data!; // Get the products from snapshot
                   _sortProducts(products);
 
-                  
+                
+                  final totalProducts = products.length;
+                  final startIndex = currentPage * itemsPerPage;
+                  final endIndex = (startIndex + itemsPerPage).clamp(0, products.length);
+                  final paginatedProducts = products.sublist(startIndex, endIndex);
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('$totalProducts Products Found'),
+
+                      GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                        crossAxisSpacing: MediaQuery.of(context).size.width > 600 ? 24 : 12,
+                        mainAxisSpacing: MediaQuery.of(context).size.width > 600 ? 48 : 24,
+                        childAspectRatio: 1.2,
+                        children: paginatedProducts.map((product) {
+                          return ProductCard(
+                            title: product.title,
+                            price: product.price,
+                            imageUrl: product.imageUrl,
+                            productData: product.toMap(), // Pass full product data
+                          );
+                        }).toList(),
+
+                      )
+                    ]
+                  )
                 }
               )
             )
