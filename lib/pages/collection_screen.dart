@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../page_layout.dart';                    
-import '../services/firebase_service.dart';      
-import '../models/product.dart';                 
-import '../main.dart';  
+import '../page_layout.dart';
+import '../services/firebase_service.dart';
+import '../models/product.dart';
+import '../main.dart';
 
-class CollectionScreen extends StatefulWidget{
+class CollectionScreen extends StatefulWidget {
   final String categoryName;
 
   const CollectionScreen({super.key, required this.categoryName});
@@ -21,7 +21,8 @@ class _CollectionScreenState extends State<CollectionScreen> {
 
   Stream<List<Product>> get productStream {
     if (currentFilter == 'All') {
-      return FirebaseService.getProductsByCategory(widget.categoryName);  // Use the category passed in
+      return FirebaseService.getProductsByCategory(
+          widget.categoryName); // Use the category passed in
     } else if (currentFilter == 'Featured') {
       return FirebaseService.getFeaturedProducts();
     } else {
@@ -31,7 +32,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PageLayout(                           
+    return PageLayout(
       child: Column(
         children: [
           // Dynamic header based on category
@@ -51,7 +52,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  _getCategoryDescription(widget.categoryName), 
+                  _getCategoryDescription(widget.categoryName),
                   style: const TextStyle(
                     color: Colors.white70,
                     fontSize: 18,
@@ -71,12 +72,13 @@ class _CollectionScreenState extends State<CollectionScreen> {
                   onChanged: (String? newValue) {
                     setState(() {
                       currentFilter = newValue!;
-                      currentPage = 0;           // Reset pagination
+                      currentPage = 0; // Reset pagination
                     });
                   },
                   items: <String>['All', 'Featured']
                       .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(value: value, child: Text(value));
+                    return DropdownMenuItem<String>(
+                        value: value, child: Text(value));
                   }).toList(),
                 ),
                 DropdownButton<String>(
@@ -87,9 +89,16 @@ class _CollectionScreenState extends State<CollectionScreen> {
                       currentPage = 0;
                     });
                   },
-                  items: <String>['Popularity', 'Featured', 'Price: Low to High', 'Price: High to Low', 'Name: A-Z', 'Name: Z-A']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(value: value, child: Text(value));
+                  items: <String>[
+                    'Popularity',
+                    'Featured',
+                    'Price: Low to High',
+                    'Price: High to Low',
+                    'Name: A-Z',
+                    'Name: Z-A'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                        value: value, child: Text(value));
                   }).toList(),
                 ),
               ],
@@ -101,60 +110,70 @@ class _CollectionScreenState extends State<CollectionScreen> {
           Container(
             color: Colors.white,
             child: Padding(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0),
+              padding: EdgeInsets.all(
+                  MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0),
               child: StreamBuilder<List<Product>>(
-                stream: productStream, 
+                stream: productStream,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator()); // Loading icon
+                    return const Center(
+                        child: CircularProgressIndicator()); // Loading icon
                   }
 
                   if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}')); // Error handling
+                    return Center(
+                        child:
+                            Text('Error: ${snapshot.error}')); // Error handling
                   }
 
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No products found')); // No data handling
+                    return const Center(
+                        child: Text('No products found')); // No data handling
                   }
 
-                  List<Product> products = snapshot.data!; // Get the products from snapshot
+                  List<Product> products =
+                      snapshot.data!; // Get the products from snapshot
                   _sortProducts(products);
 
-                
                   final totalProducts = products.length;
                   final startIndex = currentPage * itemsPerPage;
-                  final endIndex = (startIndex + itemsPerPage).clamp(0, products.length);
-                  final paginatedProducts = products.sublist(startIndex, endIndex);
+                  final endIndex =
+                      (startIndex + itemsPerPage).clamp(0, products.length);
+                  final paginatedProducts =
+                      products.sublist(startIndex, endIndex);
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('$totalProducts Products Found'),
-
                       GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-                        crossAxisSpacing: MediaQuery.of(context).size.width > 600 ? 24 : 12,
-                        mainAxisSpacing: MediaQuery.of(context).size.width > 600 ? 48 : 24,
+                        crossAxisCount:
+                            MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                        crossAxisSpacing:
+                            MediaQuery.of(context).size.width > 600 ? 24 : 12,
+                        mainAxisSpacing:
+                            MediaQuery.of(context).size.width > 600 ? 48 : 24,
                         childAspectRatio: 1.2,
                         children: paginatedProducts.map((product) {
                           return ProductCard(
                             title: product.title,
                             price: product.price,
                             imageUrl: product.imageUrl,
-                            productData: product.toMap(), // Pass full product data
+                            productData:
+                                product.toMap(), // Pass full product data
                           );
                         }).toList(),
-
-                      )
-                    ]
-                  )
-                }
-              )
-            )
-          )
-
-
+                      ),
+                    ],
+                  );
+                }, // ← This closes the builder function
+              ), // ← This closes the StreamBuilder
+            ), // ← This closes the Padding
+          ), // ← This closes the Container
+        ], // ← This closes Column children
+      ), // ← This closes PageLayout child
+    );
   }
 }
