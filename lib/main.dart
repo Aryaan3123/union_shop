@@ -1,14 +1,14 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+// import 'package:firebase_core/firebase_core.dart';   
 import 'package:union_shop/pages/about_page.dart';
 import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/pages/home_page.dart';
-import 'package:union_shop/shop/clothing_page.dart';
-import 'package:union_shop/shop/merchandise_page.dart';
-import 'package:union_shop/shop/signature_essentials_page.dart';
+import 'package:union_shop/pages/collection_screen.dart'; 
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(const UnionShopApp());
 }
 
@@ -32,12 +32,12 @@ class UnionShopApp extends StatelessWidget {
         '/': (context) => const HomeScreen(),
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutPage(),
-        // Add these missing carousel routes:
-        '/shop/merchandise': (context) => const MerchandisePage(),
-        '/shop/signature-essentials': (context) => const SignatureEssentialsPage(),
-        '/shop/clothing': (context) => const ClothingPage(),
-        //'/shop/portsmouth-city': (context) => const PortsmouthCityPage(),
-        //'/shop/graduation': (context) => const GraduationPage(),
+        '/shop/clothing': (context) => const CollectionScreen(categoryName: 'Clothing'),
+        '/shop/merchandise': (context) => const CollectionScreen(categoryName: 'Merchandise'),
+        '/shop/signature-essentials': (context) => const CollectionScreen(categoryName: 'Signature Essentials'),
+        '/shop/portsmouth-city': (context) => const CollectionScreen(categoryName: 'Portsmouth City'),
+        '/shop/pride-collection': (context) => const CollectionScreen(categoryName: 'Pride Collection'),
+        '/shop/graduation': (context) => const CollectionScreen(categoryName: 'Graduation'),
       },
     );
   }
