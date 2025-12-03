@@ -205,4 +205,23 @@ class _CollectionScreenState extends State<CollectionScreen> {
         break;
     }
   }
+
+  String _getCategoryDescription(String category) {
+    switch (category.toLowerCase()) {
+      case 'clothing':
+      return 'University branded clothing and apparel';
+    case 'merchandise':
+      return 'University merchandise and accessories';
+    case 'signature essentials':
+      return 'Essential university items at great prices';
+    case 'portsmouth city':
+      return 'Portsmouth City collection items';
+    case 'pride collection':
+      return 'Pride month celebration items';
+    case 'graduation':
+      return 'Graduation ceremony essentials';
+    default:
+      return 'Quality university products';
+  }
+  }
 }
