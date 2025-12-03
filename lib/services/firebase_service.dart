@@ -10,9 +10,8 @@ class FirebaseService {
         .collection('products')
         .orderBy('popularity', descending: true)
         .snapshots() // Updates in real-time
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Product.fromFirestore(doc))
-            .toList());
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
   }
 
   // Get Products by Category
@@ -22,8 +21,33 @@ class FirebaseService {
         .where('category', isEqualTo: category)
         .orderBy('popularity', descending: true)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Product.fromFirestore(doc))
-            .toList());
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
+  }
+
+  // Get Featured Products
+  static Stream<List<Product>> getFeaturedProducts() {
+    return _firestore
+        .collection('products')
+        .where('featured', isEqualTo: true)
+        .orderBy('popularity', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
+  }
+
+  static Stream<Product?> searchProducts(String searchTerm) {
+    return _firestore
+        .collection('products')
+        .where('title', isGreaterThanOrEqualTo: searchTerm)
+        .where('title', isLessThan: searchTerm + 'z')
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return Product.fromFirestore(snapshot.docs.first);
+      } else {
+        return null;
+      }
+    });
   }
 }
