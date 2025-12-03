@@ -36,5 +36,16 @@ class Product {
     );
   }
 
-  
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'priceValue': priceValue,
+      'category': category,
+      'popularity': popularity,
+      'featured': featured,
+      'imageUrl': imageUrl,
+    };
+  }
 }
