@@ -9,7 +9,7 @@ import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/pages/home_page.dart';
 import 'package:union_shop/pages/collection_screen.dart';
 import 'providers/auth_provider.dart';
-import 'pages/auth/login_screen.dart';  
+import 'pages/auth/login_screen.dart';
 import 'pages/auth/register_screen.dart';
 import 'pages/user/orders_screen.dart';
 
@@ -95,12 +95,9 @@ class UnionShopApp extends StatelessWidget {
               const CollectionScreen(categoryName: 'Pride Collection'),
           '/shop/graduation': (context) =>
               const CollectionScreen(categoryName: 'Graduation'),
-          '/login': (context) => 
-              const LoginScreen(),
-          '/register': (context) => 
-              const RegisterScreen(),
-          '/orders': (context) => 
-              const OrdersScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/register': (context) => const RegisterScreen(),
+          '/orders': (context) => const OrdersScreen(),
         },
       ),
     );

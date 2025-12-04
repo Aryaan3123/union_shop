@@ -395,12 +395,15 @@ class _PageLayoutState extends State<PageLayout> {
                                             color: Colors.grey,
                                           ),
                                           padding: const EdgeInsets.all(8),
-                                          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                          constraints: const BoxConstraints(
+                                              minWidth: 32, minHeight: 32),
                                           onPressed: () {
-                                            if (authProvider.isAuthenticated) {
-                                              Navigator.pushNamed(context, '/orders');
+                                            if (authProvider.isLoggedIn) {
+                                              Navigator.pushNamed(
+                                                  context, '/orders');
                                             } else {
-                                              Navigator.pushNamed(context, '/login');
+                                              Navigator.pushNamed(
+                                                  context, '/login');
                                             }
                                           },
                                         );
@@ -440,7 +443,7 @@ class _PageLayoutState extends State<PageLayout> {
                                     icon: const Icon(Icons.person_outline,
                                         size: 20, color: Colors.black),
                                     onPressed: () {
-                                      if (authProvider.isAuthenticated) {
+                                      if (authProvider.isLoggedIn) {
                                         Navigator.pushNamed(context, '/orders');
                                       } else {
                                         Navigator.pushNamed(context, '/login');
@@ -453,16 +456,6 @@ class _PageLayoutState extends State<PageLayout> {
                                     ),
                                   );
                                 },
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.person_outline,
-                                    size: 20, color: Colors.black),
-                                onPressed: () => Navigator.pushNamed(context, '/login'),
-                                padding: const EdgeInsets.all(4),
-                                constraints: const BoxConstraints(
-                                  minWidth: 28,
-                                  minHeight: 28,
-                                ),
                               ),
                               IconButton(
                                 icon: const Icon(Icons.shopping_bag_outlined,
