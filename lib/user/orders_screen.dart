@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/auth_provider.dart';
+import '../providers/auth_provider.dart';
 
 class OrdersScreen extends StatelessWidget {
   const OrdersScreen({super.key});
