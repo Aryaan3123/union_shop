@@ -36,6 +36,35 @@ class CartProvider extends ChangeNotifier {
         .collection('cart');
   }
 
+  // Update item quantity in cart
+  Future<void> updateQuantity(String itemId, int newQuantity) async {
+  if (_cartRef == null) return;
+
+  if (newQuantity <= 0) {
+    await removeFromCart(itemId);
+    return;
+  }
+
+  final itemIndex = _items.indexWhere((item) => item.id == itemId);
+  if (itemIndex >= 0) {
+    final existingItem = _items[itemIndex];
+    final updatedItem = CartItem(
+      id: existingItem.id,
+      productId: existingItem.productId,
+      title: existingItem.title,
+      price: existingItem.price,
+      quantity: newQuantity,
+      color: existingItem.color,
+      size: existingItem.size,
+      imageUrl: existingItem.imageUrl,
+    );
+
+    _items[itemIndex] = updatedItem;
+    await _cartRef!.doc(itemId).update({'quantity': newQuantity});
+    notifyListeners();
+  }
+}
+
   // Load cart items from Firestore
   Future<void> loadCart() async {
     if (_cartRef == null) return; // Check if empty
