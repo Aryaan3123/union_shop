@@ -2,12 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 import '../models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Enum to represent authentication results
 enum AuthState {
-  inital, // App just started
+  initial, // App just started
   loading, // Authenticating...
-  authenticaed, // User is logged in
+  authenticated, // User is logged in
   unauthenticated // User is not logged in
 }
 
@@ -16,13 +17,13 @@ class AuthProvider extends ChangeNotifier {
   final AuthService _authService = AuthService();
 
   // Private state variables
-  AuthState _authState = AuthState.inital;
+  AuthState _authState = AuthState.initial;
   User? _firebaseUser;
   UserModel? _userModel;
   String? _errorMessage;
 
   // Public getters for the UI components
-  AuthState get state => _state;
+  AuthState get state => _authState;
   User? get firebaseUser => _firebaseUser;
   UserModel? get userModel => _userModel;
   String? get errorMessage => _errorMessage;
@@ -45,13 +46,13 @@ class AuthProvider extends ChangeNotifier {
         // User logged in - fetch their extended data from Firestore
         print('Fetching user document for: ${user.uid}');
         _userModel = await _authService.getUserDocument(user.uid);
-        _state = AuthState.authenticated;
+        _authState = AuthState.authenticated;
         print('User authenticated: ${_userModel?.displayName}');
       } else {
         // User logged out - clear all data
         print('User signed out');
         _userModel = null;
-        _state = AuthState.unauthenticated;
+        _authState = AuthState.unauthenticated;
       }
 
       // Clear any previous errors when auth state changes
@@ -117,7 +118,7 @@ class AuthProvider extends ChangeNotifier {
   // Sign out current user
   Future<void> signOut() async {
     print('Signing out user: ${_firebaseUser?.email}');
-    _state = Authstate.loading;
+    _authState = AuthState.loading;
     notifyListeners();
 
     try {
@@ -128,10 +129,50 @@ class AuthProvider extends ChangeNotifier {
       print('Signout error: $e');
       _errorMessage = 'Failed to sign out';
       // Reset state since signout failed
-      _state = _firebaseUser != null
+      _authState = _firebaseUser != null
           ? AuthState.authenticated
           : AuthState.unauthenticated;
       notifyListeners();
+    }
+  }
+
+  // Reset password for given email
+  Future<bool> resetPassword(String email) async {
+    print('Requesting password reset for: $email');
+
+    return _handleAuthOperation(() async {
+      final result = await _authService.resetPassword(email);
+
+      if (!result.success) {
+        _errorMessage = result.error;
+        return false;
+      }
+
+      // For password reset, I want to show the success message
+      _errorMessage = result.message;
+      return true;
+    });
+  }
+
+  Future<bool> _handleAuthOperation(Future<bool> Function() operation) async {
+    _authState = AuthState.loading;
+    _errorMessage = null;
+    notifyListeners();
+
+    try {
+      final result = await operation();
+      return result;
+    } catch (e) {
+      print('Unexpected auth error: $e');
+      _errorMessage = 'An unexpected error occurred';
+      return false;
+    } finally {
+      if (_authState == AuthState.loading) {
+        _authState = _firebaseUser != null
+            ? AuthState.authenticated
+            : AuthState.unauthenticated;
+        notifyListeners();
+      }
     }
   }
 }
