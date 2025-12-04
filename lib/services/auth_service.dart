@@ -109,4 +109,9 @@ class AuthService {
     }
     return null;
   }
+
+  // Private helper to create user document in Firestore
+  Future<void> _createUserDocument(UserModel user) async {
+    await _firestore.collection('users').doc(user.uid).set(user.toMap());
+  }
 }
