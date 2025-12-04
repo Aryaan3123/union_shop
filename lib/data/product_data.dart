@@ -20,7 +20,7 @@ class ProductsData {
         title: 'University T-Shirt',
         price: '£15.00',
         priceValue: 15.00,
-        category: 'Merchandise',
+        category: 'Clothing',
         popularity: 87,
         featured: false,
         imageUrl:
@@ -97,7 +97,7 @@ class ProductsData {
         title: 'Varsity Sweater',
         price: '£35.00',
         priceValue: 35.00,
-        category: 'Merchandise',
+        category: 'Clothing',
         popularity: 93,
         featured: true,
         imageUrl:
@@ -130,7 +130,7 @@ class ProductsData {
         title: 'Graphic Tee',
         price: '£14.00',
         priceValue: 14.00,
-        category: 'Merchandise',
+        category: 'Clothing',
         popularity: 89,
         featured: false,
         imageUrl:
@@ -196,7 +196,7 @@ class ProductsData {
         title: 'Crew Neck Sweatshirt',
         price: '£26.00',
         priceValue: 26.00,
-        category: 'Merchandise',
+        category: 'Clothing',
         popularity: 86,
         featured: false,
         imageUrl:
@@ -218,7 +218,7 @@ class ProductsData {
         title: 'Thermal Shirt',
         price: '£24.00',
         priceValue: 24.00,
-        category: 'PSUT',
+        category: 'Clothing',
         popularity: 81,
         featured: false,
         imageUrl:

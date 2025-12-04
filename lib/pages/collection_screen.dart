@@ -19,20 +19,55 @@ class _CollectionScreenState extends State<CollectionScreen> {
   int itemsPerPage = 9;
   String currentFilter = 'All';
   String currentSort = 'Popularity';
+
   Stream<List<Product>> get productStream {
-    switch (currentFilter) {
-      case 'All':
-        return FirebaseService.getAllProducts();
+    // First filter by the page's category, then apply additional filters
+    Stream<List<Product>> baseStream;
+
+    // Get products for this specific category page
+    switch (widget.categoryName) {
       case 'Clothing':
-        return FirebaseService.getProductsByCategorySmart('Clothing');
+        baseStream = FirebaseService.getProductsByCategorySmart('Clothing');
+        break;
       case 'Merchandise':
-        return FirebaseService.getProductsByCategorySmart('Merchandise');
-      case 'Popular':
-        return FirebaseService.getPopularProducts();
-      case 'PSUT':
-        return FirebaseService.getPSUTProducts();
+        baseStream = FirebaseService.getProductsByCategorySmart('Merchandise');
+        break;
+      case 'Signature Essentials':
+        baseStream =
+            FirebaseService.getProductsByCategorySmart('Signature Essentials');
+        break;
+      case 'Portsmouth City':
+        baseStream = FirebaseService.getPSUTProducts();
+        break;
+      case 'Pride Collection':
+        baseStream =
+            FirebaseService.getProductsByCategorySmart('Pride Collection');
+        break;
+      case 'Graduation':
+        baseStream = FirebaseService.getProductsByCategorySmart('Graduation');
+        break;
       default:
-        return FirebaseService.getAllProducts();
+        baseStream = FirebaseService.getAllProducts();
+        break;
+    }
+    // Apply additional filtering based on dropdown selection
+    if (currentFilter == 'All') {
+      return baseStream;
+    } else if (currentFilter == 'Clothing') {
+      return FirebaseService.getProductsByCategorySmart('Clothing');
+    } else if (currentFilter == 'Merchandise') {
+      return FirebaseService.getProductsByCategorySmart('Merchandise');
+    } else if (currentFilter == 'Popular') {
+      return baseStream.map((products) =>
+          products.where((product) => product.popularity >= 80).toList());
+    } else if (currentFilter == 'PSUT') {
+      return baseStream.map((products) => products
+          .where((product) =>
+              product.title.toLowerCase().contains('psut') ||
+              product.title.toLowerCase().contains('portsmouth'))
+          .toList());
+    } else {
+      return baseStream;
     }
   }
 
@@ -324,11 +359,30 @@ class _CollectionScreenState extends State<CollectionScreen> {
                       (startIndex + itemsPerPage).clamp(0, products.length);
                   final paginatedProducts =
                       products.sublist(startIndex, endIndex);
+                  final totalPages = (totalProducts / itemsPerPage).ceil();
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('$totalProducts Products Found'),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(4),
+                          border:
+                              Border.all(color: Colors.grey[300]!, width: 1),
+                        ),
+                        child: Text(
+                          '$totalProducts products found',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
                       GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -349,6 +403,43 @@ class _CollectionScreenState extends State<CollectionScreen> {
                           );
                         }).toList(),
                       ),
+                      const SizedBox(height: 40),
+                      // Pagination Controls
+                      if (totalPages > 1)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.arrow_back),
+                              onPressed: currentPage > 0
+                                  ? () {
+                                      setState(() {
+                                        currentPage--;
+                                      });
+                                    }
+                                  : null,
+                              tooltip: 'Previous Page',
+                            ),
+                            const SizedBox(width: 20),
+                            Text(
+                              'Page ${currentPage + 1} of $totalPages',
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(width: 20),
+                            IconButton(
+                              icon: const Icon(Icons.arrow_forward),
+                              onPressed: currentPage < totalPages - 1
+                                  ? () {
+                                      setState(() {
+                                        currentPage++;
+                                      });
+                                    }
+                                  : null,
+                              tooltip: 'Next Page',
+                            ),
+                          ],
+                        ),
                     ],
                   );
                 },
@@ -391,7 +482,6 @@ class _CollectionScreenState extends State<CollectionScreen> {
     }
   }
 
-  // Restore original filter options from clothing_page.dart
   List<String> _getFilterOptions() {
     return ['All', 'Clothing', 'Merchandise', 'Popular', 'PSUT'];
   }
