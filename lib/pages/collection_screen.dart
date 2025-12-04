@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../page_layout.dart';
 import '../services/firebase_service.dart';
+import '../services/error_service.dart';
 import '../models/product.dart';
 import '../main.dart';
 
@@ -115,20 +116,77 @@ class _CollectionScreenState extends State<CollectionScreen> {
               child: StreamBuilder<List<Product>>(
                 stream: productStream,
                 builder: (context, snapshot) {
+                  // Professional loading state
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
-                        child: CircularProgressIndicator()); // Loading icon
+                      child: Padding(
+                        padding: EdgeInsets.all(64.0),
+                        child: Column(
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(height: 16),
+                            Text('Loading products...',
+                                style: TextStyle(color: Colors.grey)),
+                          ],
+                        ),
+                      ),
+                    );
                   }
 
+                  // Professional error handling
                   if (snapshot.hasError) {
+                    ErrorService.logError('StreamBuilder error', snapshot.error,
+                        null, 'CollectionScreen');
                     return Center(
-                        child:
-                            Text('Error: ${snapshot.error}')); // Error handling
+                      child: Padding(
+                        padding: const EdgeInsets.all(64.0),
+                        child: Column(
+                          children: [
+                            Icon(Icons.error_outline,
+                                size: 64, color: Colors.red[300]),
+                            SizedBox(height: 16),
+                            Text('Unable to load products',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                            SizedBox(height: 8),
+                            Text(
+                                ErrorService.getFirebaseErrorMessage(
+                                    snapshot.error!),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.grey[600])),
+                            SizedBox(height: 16),
+                            ElevatedButton(
+                              onPressed: () => setState(() {}),
+                              child: Text('Retry'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                   }
 
+                  // Professional empty state
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(
-                        child: Text('No products found')); // No data handling
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(64.0),
+                        child: Column(
+                          children: [
+                            Icon(Icons.inventory_2_outlined,
+                                size: 64, color: Colors.grey[400]),
+                            SizedBox(height: 16),
+                            Text('No products found',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                            SizedBox(height: 8),
+                            Text(
+                                'Try adjusting your filters or check back later',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.grey[600])),
+                          ],
+                        ),
+                      ),
+                    );
                   }
 
                   List<Product> products =
@@ -196,10 +254,12 @@ class _CollectionScreenState extends State<CollectionScreen> {
         products.sort((a, b) => b.priceValue.compareTo(a.priceValue));
         break;
       case 'Name: A-Z':
-        products.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+        products.sort(
+            (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
         break;
       case 'Name: Z-A':
-        products.sort((a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+        products.sort(
+            (a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
         break;
       default:
         break;
@@ -209,19 +269,19 @@ class _CollectionScreenState extends State<CollectionScreen> {
   String _getCategoryDescription(String category) {
     switch (category.toLowerCase()) {
       case 'clothing':
-      return 'University branded clothing and apparel';
-    case 'merchandise':
-      return 'University merchandise and accessories';
-    case 'signature essentials':
-      return 'Essential university items at great prices';
-    case 'portsmouth city':
-      return 'Portsmouth City collection items';
-    case 'pride collection':
-      return 'Pride month celebration items';
-    case 'graduation':
-      return 'Graduation ceremony essentials';
-    default:
-      return 'Quality university products';
-  }
+        return 'University branded clothing and apparel';
+      case 'merchandise':
+        return 'University merchandise and accessories';
+      case 'signature essentials':
+        return 'Essential university items at great prices';
+      case 'portsmouth city':
+        return 'Portsmouth City collection items';
+      case 'pride collection':
+        return 'Pride month celebration items';
+      case 'graduation':
+        return 'Graduation ceremony essentials';
+      default:
+        return 'Quality university products';
+    }
   }
 }

@@ -1,15 +1,58 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-// import 'package:firebase_core/firebase_core.dart';   
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:union_shop/services/migration_service.dart';
 import 'package:union_shop/pages/about_page.dart';
 import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/pages/home_page.dart';
-import 'package:union_shop/pages/collection_screen.dart'; 
+import 'package:union_shop/pages/collection_screen.dart';
 
+/// Professional app initialization with Firebase and data migration
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-  runApp(const UnionShopApp());
+
+  try {
+    // Initialize Firebase
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('🔥 Firebase initialized successfully');
+
+    // Ensure Firestore has product data before starting the app
+    await MigrationService.ensureDataExists();
+    print('📱 App initialization complete');
+
+    runApp(const UnionShopApp());
+  } catch (e) {
+    print('💥 App initialization failed: $e');
+    // In production, you might want to show an error screen
+    runApp(const ErrorApp());
+  }
+}
+
+/// Error app shown when initialization fails
+class ErrorApp extends StatelessWidget {
+  const ErrorApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error, size: 64, color: Colors.red),
+              SizedBox(height: 16),
+              Text('Failed to initialize app', style: TextStyle(fontSize: 18)),
+              Text('Please check your internet connection'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class UnionShopApp extends StatelessWidget {
@@ -32,12 +75,18 @@ class UnionShopApp extends StatelessWidget {
         '/': (context) => const HomeScreen(),
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutPage(),
-        '/shop/clothing': (context) => const CollectionScreen(categoryName: 'Clothing'),
-        '/shop/merchandise': (context) => const CollectionScreen(categoryName: 'Merchandise'),
-        '/shop/signature-essentials': (context) => const CollectionScreen(categoryName: 'Signature Essentials'),
-        '/shop/portsmouth-city': (context) => const CollectionScreen(categoryName: 'Portsmouth City'),
-        '/shop/pride-collection': (context) => const CollectionScreen(categoryName: 'Pride Collection'),
-        '/shop/graduation': (context) => const CollectionScreen(categoryName: 'Graduation'),
+        '/shop/clothing': (context) =>
+            const CollectionScreen(categoryName: 'Clothing'),
+        '/shop/merchandise': (context) =>
+            const CollectionScreen(categoryName: 'Merchandise'),
+        '/shop/signature-essentials': (context) =>
+            const CollectionScreen(categoryName: 'Signature Essentials'),
+        '/shop/portsmouth-city': (context) =>
+            const CollectionScreen(categoryName: 'Portsmouth City'),
+        '/shop/pride-collection': (context) =>
+            const CollectionScreen(categoryName: 'Pride Collection'),
+        '/shop/graduation': (context) =>
+            const CollectionScreen(categoryName: 'Graduation'),
       },
     );
   }
@@ -62,16 +111,17 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
-          context, 
+          context,
           '/product',
-          arguments: productData ?? {
-            'title': title,
-            'price': price,
-            'imageUrl': imageUrl,
-            'category': 'Unknown',
-            'popularity': 0,
-            'featured': false,
-          },
+          arguments: productData ??
+              {
+                'title': title,
+                'price': price,
+                'imageUrl': imageUrl,
+                'category': 'Unknown',
+                'popularity': 0,
+                'featured': false,
+              },
         );
       },
       child: Column(
