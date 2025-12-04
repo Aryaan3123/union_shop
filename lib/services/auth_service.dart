@@ -114,4 +114,33 @@ class AuthService {
   Future<void> _createUserDocument(UserModel user) async {
     await _firestore.collection('users').doc(user.uid).set(user.toMap());
   }
+
+  // Private helper to update lastLoginAt
+  Future<void> _updateLastLogin(String uid) async {
+    await _firestore.collection('users').doc(uid).update({
+      'lastLoginAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  // Error message
+  String _getAuthErrorMessage(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'user-not-found':
+        return 'No account found with this email address.';
+      case 'wrong-password':
+        return 'Incorrect password. Please try again.';
+      case 'email-already-in-use':
+        return 'An account already exists with this email address.';
+      case 'weak-password':
+        return 'Password should be at least 6 characters long.';
+      case 'invalid-email':
+        return 'Please enter a valid email address.';
+      case 'user-disabled':
+        return 'This account has been disabled.';
+      case 'too-many-requests':
+        return 'Too many failed attempts. Please try again later.';
+      default:
+        return 'Authentication failed. Please try again.';
+    }
+  }
 }
