@@ -21,13 +21,13 @@ class AuthProvider extends ChangeNotifier {
   User? _firebaseUser;
   UserModel? _userModel;
   String? _errorMessage;
-
   // Public getters for the UI components
   AuthState get state => _authState;
   User? get firebaseUser => _firebaseUser;
   UserModel? get userModel => _userModel;
   String? get errorMessage => _errorMessage;
   bool get isLoggedIn => _firebaseUser != null;
+  bool get isLoading => _authState == AuthState.loading;
   String get userDisplayName => _userModel?.displayName ?? 'User';
 
   AuthProvider() {
