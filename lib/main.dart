@@ -1,12 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
-import 'package:union_shop/services/migration_service.dart';
+import 'services/migration_service.dart';
 import 'package:union_shop/pages/about_page.dart';
 import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/pages/home_page.dart';
 import 'package:union_shop/pages/collection_screen.dart';
+import 'providers/auth_provider.dart';
+import 'pages/auth/login_screen.dart';  
+import 'pages/auth/register_screen.dart';
 
 /// Professional app initialization with Firebase and data migration
 void main() async {
@@ -37,7 +41,7 @@ class ErrorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
         body: Center(
           child: Column(
@@ -60,34 +64,40 @@ class UnionShopApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      scrollBehavior: const MaterialScrollBehavior().copyWith(
-        dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
-        scrollbars: false,
+    // Wrap MaterialApp with ChangeNotifierProvider
+    return ChangeNotifierProvider(
+      create: (context) => AuthProvider(),
+      child: MaterialApp(
+        scrollBehavior: const MaterialScrollBehavior().copyWith(
+          dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
+          scrollbars: false,
+        ),
+        title: 'Union Shop',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const HomeScreen(),
+          '/product': (context) => const ProductPage(),
+          '/about': (context) => const AboutPage(),
+          '/shop/clothing': (context) =>
+              const CollectionScreen(categoryName: 'Clothing'),
+          '/shop/merchandise': (context) =>
+              const CollectionScreen(categoryName: 'Merchandise'),
+          '/shop/signature-essentials': (context) =>
+              const CollectionScreen(categoryName: 'Signature Essentials'),
+          '/shop/portsmouth-city': (context) =>
+              const CollectionScreen(categoryName: 'Portsmouth City'),
+          '/shop/pride-collection': (context) =>
+              const CollectionScreen(categoryName: 'Pride Collection'),
+          '/shop/graduation': (context) =>
+              const CollectionScreen(categoryName: 'Graduation'),
+          '/login': (context) => const LoginScreen(),
+          '/register': (context) => const RegisterScreen(),
+        },
       ),
-      title: 'Union Shop',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/product': (context) => const ProductPage(),
-        '/about': (context) => const AboutPage(),
-        '/shop/clothing': (context) =>
-            const CollectionScreen(categoryName: 'Clothing'),
-        '/shop/merchandise': (context) =>
-            const CollectionScreen(categoryName: 'Merchandise'),
-        '/shop/signature-essentials': (context) =>
-            const CollectionScreen(categoryName: 'Signature Essentials'),
-        '/shop/portsmouth-city': (context) =>
-            const CollectionScreen(categoryName: 'Portsmouth City'),
-        '/shop/pride-collection': (context) =>
-            const CollectionScreen(categoryName: 'Pride Collection'),
-        '/shop/graduation': (context) =>
-            const CollectionScreen(categoryName: 'Graduation'),
-      },
     );
   }
 }
