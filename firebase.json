@@ -1,8 +1,1 @@
-{
-  "firestore": {
-    "database": "(default)",
-    "location": "eur3",
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  }
-}
+{"firestore":{"database":"(default)","location":"eur3","rules":"firestore.rules","indexes":"firestore.indexes.json"},"flutter":{"platforms":{"android":{"default":{"projectId":"union-shop-190ff","appId":"1:454553956094:android:81c10ae08b1970998e3faf","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"union-shop-190ff","configurations":{"android":"1:454553956094:android:81c10ae08b1970998e3faf","ios":"1:454553956094:ios:8f545aa17e6088ac8e3faf","macos":"1:454553956094:ios:8f545aa17e6088ac8e3faf","web":"1:454553956094:web:6e1c4c1c0c6b697f8e3faf","windows":"1:454553956094:web:82ab22e81a7e1b1e8e3faf"}}}}}}
