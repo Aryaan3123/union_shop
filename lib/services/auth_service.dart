@@ -23,7 +23,7 @@ class AuthService {
   bool get isLoggedIn => currentUser != null;
 
   // Sign up new user
-  Future<UserModel> signUp({
+  Future<AuthResult> signUp({
     required String email,
     required String password,
     required String displayName,
