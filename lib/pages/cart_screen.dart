@@ -42,4 +42,34 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
+  
+  Widget _buildEmptyCart(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Your cart is currently empty.',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF4d2963),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            ),
+            child: const Text(
+              'CONTINUE SHOPPING',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 }
