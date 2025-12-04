@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'providers/auth_provider.dart';
 
 class PageLayout extends StatefulWidget {
   final Widget child;
@@ -384,17 +386,25 @@ class _PageLayoutState extends State<PageLayout> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.person_outline,
-                                        size: 18,
-                                        color: Colors.grey,
-                                      ),
-                                      padding: const EdgeInsets.all(8),
-                                      constraints: const BoxConstraints(
-                                          minWidth: 32, minHeight: 32),
-                                      onPressed: () => Navigator.pushNamed(
-                                          context, '/login'),
+                                    Consumer<AuthProvider>(
+                                      builder: (context, authProvider, child) {
+                                        return IconButton(
+                                          icon: const Icon(
+                                            Icons.person_outline,
+                                            size: 18,
+                                            color: Colors.grey,
+                                          ),
+                                          padding: const EdgeInsets.all(8),
+                                          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                          onPressed: () {
+                                            if (authProvider.isAuthenticated) {
+                                              Navigator.pushNamed(context, '/orders');
+                                            } else {
+                                              Navigator.pushNamed(context, '/login');
+                                            }
+                                          },
+                                        );
+                                      },
                                     ),
                                     IconButton(
                                       icon: const Icon(
@@ -424,15 +434,25 @@ class _PageLayoutState extends State<PageLayout> {
                             ] else ...[
                               // Mobile Navigation
                               const Spacer(),
-                              IconButton(
-                                icon: const Icon(Icons.search,
-                                    size: 20, color: Colors.black),
-                                onPressed: placeholderCallbackForButtons,
-                                padding: const EdgeInsets.all(4),
-                                constraints: const BoxConstraints(
-                                  minWidth: 28,
-                                  minHeight: 28,
-                                ),
+                              Consumer<AuthProvider>(
+                                builder: (context, authProvider, child) {
+                                  return IconButton(
+                                    icon: const Icon(Icons.person_outline,
+                                        size: 20, color: Colors.black),
+                                    onPressed: () {
+                                      if (authProvider.isAuthenticated) {
+                                        Navigator.pushNamed(context, '/orders');
+                                      } else {
+                                        Navigator.pushNamed(context, '/login');
+                                      }
+                                    },
+                                    padding: const EdgeInsets.all(4),
+                                    constraints: const BoxConstraints(
+                                      minWidth: 28,
+                                      minHeight: 28,
+                                    ),
+                                  );
+                                },
                               ),
                               IconButton(
                                 icon: const Icon(Icons.person_outline,
