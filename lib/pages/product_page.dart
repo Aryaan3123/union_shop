@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:union_shop/page_layout.dart';
 import '../providers/cart_provider.dart';
 import '../models/product_model.dart';
+import '../providers/auth_provider.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -186,6 +187,17 @@ class ProductPage extends StatelessWidget {
             child: Column(children: [
               ElevatedButton(
                 onPressed: () async {
+                  // Check if user is authenticated first
+                  final authProvider =
+                      Provider.of<AuthProvider>(context, listen: false);
+
+                  if (!authProvider.isLoggedIn) {
+                    // User not signed in - redirect to login
+                    Navigator.pushNamed(context, '/login');
+                    return;
+                  }
+
+                  // User is signed in - proceed with adding to cart
                   final cartProvider = Provider.of<CartProvider>(context,
                       listen: false); // Create a Product object from the data
                   final product = Product(
