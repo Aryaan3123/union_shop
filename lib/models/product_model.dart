@@ -14,4 +14,26 @@ class Product {
     required this.colors,
     required this.sizes,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'imageUrls': imageUrls,
+      'colors': colors,
+      'sizes': sizes,
+    };
+  }
+
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'] ?? '',
+      title: map['title'] ?? '',
+      price: (map['price'] ?? 0).toDouble(),
+      imageUrls: List<String>.from(map['imageUrls'] ?? []),
+      colors: List<String>.from(map['colors'] ?? []),
+      sizes: List<String>.from(map['sizes'] ?? []),
+    );
+  }
 }
