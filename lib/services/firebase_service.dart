@@ -98,6 +98,49 @@ class FirebaseService {
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
   }
 
+  // Advanced filtering for specific subcategories
+  static Stream<List<Product>> getProductsBySubcategory(
+      String category, String subcategory) {
+    return getAllProducts().map((products) {
+      return products.where((product) {
+        // First filter by main category
+        if (!_matchesCategory(product.category, category)) return false;
+
+        // Then filter by subcategory based on title keywords
+        switch (subcategory.toLowerCase()) {
+          case 'hoodies':
+            return product.title.toLowerCase().contains('hoodie');
+          case 't-shirts':
+            return product.title.toLowerCase().contains('t-shirt') ||
+                product.title.toLowerCase().contains('tee');
+          case 'polo shirts':
+            return product.title.toLowerCase().contains('polo');
+          case 'jackets':
+            return product.title.toLowerCase().contains('jacket');
+          case 'stationery':
+            return product.category == 'Stationery';
+          case 'accessories':
+            return product.category == 'Accessories';
+          case 'bags':
+            return product.category == 'Bags';
+          case 'tech':
+            return product.category == 'Tech';
+          case 'essentials':
+            return product.category == 'Essentials';
+          case 'premium':
+            return product.category == 'Premium';
+          case 'basics':
+            return product.category == 'Basics';
+          case 'popular':
+            return product.popularity >= 80;
+          default:
+            return true;
+        }
+      }).toList()
+        ..sort((a, b) => b.popularity.compareTo(a.popularity));
+    });
+  }
+
   // === PROFESSIONAL DATA MANAGEMENT METHODS ===
 
   /// Add a single product to Firestore with error handling
@@ -188,5 +231,27 @@ class FirebaseService {
       print('❌ Error getting paginated products: $e');
       return [];
     }
+  }
+
+  /// Get Popular Products (popularity >= 80)
+  static Stream<List<Product>> getPopularProducts() {
+    return _firestore
+        .collection('products')
+        .where('popularity', isGreaterThanOrEqualTo: 80)
+        .orderBy('popularity', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
+  }
+
+  /// Get PSUT Products (filtering by category 'PSUT')
+  static Stream<List<Product>> getPSUTProducts() {
+    return _firestore
+        .collection('products')
+        .where('category', isEqualTo: 'PSUT')
+        .orderBy('popularity', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
   }
 }

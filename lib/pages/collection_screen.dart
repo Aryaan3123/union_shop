@@ -20,13 +20,19 @@ class _CollectionScreenState extends State<CollectionScreen> {
   String currentFilter = 'All';
   String currentSort = 'Popularity';
   Stream<List<Product>> get productStream {
-    if (currentFilter == 'All') {
-      return FirebaseService.getProductsByCategorySmart(
-          widget.categoryName); // Use smart fallback method
-    } else if (currentFilter == 'Featured') {
-      return FirebaseService.getFeaturedProducts();
-    } else {
-      return FirebaseService.getProductsByCategorySmart(widget.categoryName);
+    switch (currentFilter) {
+      case 'All':
+        return FirebaseService.getAllProducts();
+      case 'Clothing':
+        return FirebaseService.getProductsByCategorySmart('Clothing');
+      case 'Merchandise':
+        return FirebaseService.getProductsByCategorySmart('Merchandise');
+      case 'Popular':
+        return FirebaseService.getPopularProducts();
+      case 'PSUT':
+        return FirebaseService.getPSUTProducts();
+      default:
+        return FirebaseService.getAllProducts();
     }
   }
 
@@ -35,74 +41,161 @@ class _CollectionScreenState extends State<CollectionScreen> {
     return PageLayout(
       child: Column(
         children: [
-          // Dynamic header based on category
+          // Restore original clean header style
           Container(
-            width: double.infinity,
-            color: const Color(0xFF4d2963),
-            padding: const EdgeInsets.all(40),
+            padding: EdgeInsets.all(
+                MediaQuery.of(context).size.width > 600 ? 40.0 : 20.0),
+            color: Colors.white,
             child: Column(
               children: [
                 Text(
                   widget.categoryName,
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    letterSpacing: 1,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 16),
                 Text(
                   _getCategoryDescription(widget.categoryName),
                   style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 18,
+                    fontSize: 16,
+                    color: Colors.grey,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
-          ),
+          ), // Restore original professional filter UI
           Container(
-            color: Colors.grey[100],
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                DropdownButton<String>(
-                  value: currentFilter,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      currentFilter = newValue!;
-                      currentPage = 0; // Reset pagination
-                    });
-                  },
-                  items: <String>['All', 'Featured']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                        value: value, child: Text(value));
-                  }).toList(),
-                ),
-                DropdownButton<String>(
-                  value: currentSort,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      currentSort = newValue!;
-                      currentPage = 0;
-                    });
-                  },
-                  items: <String>[
-                    'Popularity',
-                    'Featured',
-                    'Price: Low to High',
-                    'Price: High to Low',
-                    'Name: A-Z',
-                    'Name: Z-A'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                        value: value, child: Text(value));
-                  }).toList(),
-                ),
-              ],
+            padding: EdgeInsets.symmetric(
+                horizontal:
+                    MediaQuery.of(context).size.width > 600 ? 40.0 : 16.0,
+                vertical: 16.0),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                top: BorderSide(color: Colors.grey, width: 0.5),
+                bottom: BorderSide(color: Colors.grey, width: 0.5),
+              ),
             ),
+            child: MediaQuery.of(context).size.width > 600
+                ? Row(children: [
+                    // Desktop: Side-by-side layout
+                    Row(children: [
+                      const Text(
+                        'Filter by',
+                        style: TextStyle(
+                            fontSize: 16, color: Colors.grey, letterSpacing: 1),
+                      ),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: currentFilter,
+                        items: _getFilterOptions().map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            currentFilter = newValue ?? 'All';
+                            currentPage = 0; // Reset to first page
+                          });
+                        },
+                      ),
+                    ]),
+                    const SizedBox(width: 60),
+                    Row(children: [
+                      const Text(
+                        'Sort by',
+                        style: TextStyle(
+                            fontSize: 16, color: Colors.grey, letterSpacing: 1),
+                      ),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: currentSort,
+                        items: <String>[
+                          'Featured',
+                          'Popularity',
+                          'Price: Low to High',
+                          'Price: High to Low',
+                          'A-Z',
+                          'Z-A'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            currentSort = newValue ?? 'Featured';
+                            currentPage = 0; // Reset to first page
+                          });
+                        },
+                      )
+                    ])
+                  ])
+                : Column(children: [
+                    // Mobile: Stacked vertically
+                    Row(children: [
+                      const Text(
+                        'Filter by',
+                        style: TextStyle(
+                            fontSize: 16, color: Colors.grey, letterSpacing: 1),
+                      ),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: currentFilter,
+                        items: _getFilterOptions().map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            currentFilter = newValue ?? 'All';
+                            currentPage = 0;
+                          });
+                        },
+                      ),
+                    ]),
+                    const SizedBox(height: 12),
+                    Row(children: [
+                      const Text(
+                        'Sort by',
+                        style: TextStyle(
+                            fontSize: 16, color: Colors.grey, letterSpacing: 1),
+                      ),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: currentSort,
+                        items: <String>[
+                          'Featured',
+                          'Popularity',
+                          'Price: Low to High',
+                          'Price: High to Low',
+                          'A-Z',
+                          'Z-A'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            currentSort = newValue ?? 'Featured';
+                            currentPage = 0;
+                          });
+                        },
+                      )
+                    ])
+                  ]),
           ),
 
           // StreamBuilder for FireBase
@@ -130,25 +223,31 @@ class _CollectionScreenState extends State<CollectionScreen> {
                         ),
                       ),
                     );
-                  }                  // Professional error handling with graceful fallback
+                  } // Professional error handling with graceful fallback
                   if (snapshot.hasError) {
                     ErrorService.logError('StreamBuilder error', snapshot.error,
                         null, 'CollectionScreen');
-                    
+
                     // If it's a Firebase index error, show a more helpful message
-                    if (snapshot.error.toString().contains('failed-precondition') || 
+                    if (snapshot.error
+                            .toString()
+                            .contains('failed-precondition') ||
                         snapshot.error.toString().contains('index')) {
                       return Center(
                         child: Padding(
                           padding: const EdgeInsets.all(64.0),
                           child: Column(
                             children: [
-                              Icon(Icons.cloud_sync, size: 64, color: Colors.orange[300]),
+                              Icon(Icons.cloud_sync,
+                                  size: 64, color: Colors.orange[300]),
                               SizedBox(height: 16),
                               Text('Setting up database...',
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
                               SizedBox(height: 8),
-                              Text('Firebase is preparing your data. This may take a few minutes.',
+                              Text(
+                                  'Firebase is preparing your data. This may take a few minutes.',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(color: Colors.grey[600])),
                               SizedBox(height: 16),
@@ -161,7 +260,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                         ),
                       );
                     }
-                    
+
                     // For other errors, show generic error
                     return Center(
                       child: Padding(
@@ -279,17 +378,22 @@ class _CollectionScreenState extends State<CollectionScreen> {
       case 'Price: High to Low':
         products.sort((a, b) => b.priceValue.compareTo(a.priceValue));
         break;
-      case 'Name: A-Z':
+      case 'A-Z':
         products.sort(
             (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
         break;
-      case 'Name: Z-A':
+      case 'Z-A':
         products.sort(
             (a, b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
         break;
       default:
         break;
     }
+  }
+
+  // Restore original filter options from clothing_page.dart
+  List<String> _getFilterOptions() {
+    return ['All', 'Clothing', 'Merchandise', 'Popular', 'PSUT'];
   }
 
   String _getCategoryDescription(String category) {
