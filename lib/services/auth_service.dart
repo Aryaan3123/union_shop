@@ -38,16 +38,16 @@ class AuthService {
       if (result.user != null) {
         // Update display name in Firebase Auth
         await result.user!.updateDisplayName(displayName);
-        
+
         // Create your UserModel
         final userModel = UserModel.fromAuthUser(result.user!, displayName);
-        
+
         // Save to Firestore
         await _createUserDocument(userModel);
-        
+
         return AuthResult.success(result.user!);
       }
-  
+
       return AuthResult.failure('Failed to create user account');
     } on FirebaseAuthException catch (e) {
       // Handle specific Firebase Auth errors
@@ -59,28 +59,54 @@ class AuthService {
   }
 
   Future<AuthResult> signIn({
-    required String email, 
+    required String email,
     required String password,
-    }) async {
-      try {
-        final UserCredential result = await _auth.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+  }) async {
+    try {
+      final UserCredential result = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-        if (result.user != null) {
-          // Update lastLoginAt in Firestore
-          await _updateLastLogin(result.user!.uid);
-          return AuthResult.success(result.user!);
-        }
-
-        return AuthResult.failure('Failed to sign in');
-      } on FirebaseAuthException catch (e) {
-        return AuthResult.failure(_getAuthErrorMessage(e));
-      } catch (e) {
-        return AuthResult.failure('Unexpected error: $e');
+      if (result.user != null) {
+        // Update lastLoginAt in Firestore
+        await _updateLastLogin(result.user!.uid);
+        return AuthResult.success(result.user!);
       }
+
+      return AuthResult.failure('Failed to sign in');
+    } on FirebaseAuthException catch (e) {
+      return AuthResult.failure(_getAuthErrorMessage(e));
+    } catch (e) {
+      return AuthResult.failure('Unexpected error: $e');
+    }
   }
 
-  
+  // Sign out
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
+
+  // Reset password
+  Future<AuthResult> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return AuthResult.success(null, message: 'Password reset email sent');
+    } on FirebaseAuthException catch (e) {
+      return AuthResult.failure(_getAuthErrorMessage(e));
+    }
+  }
+
+  // Get User document from firestore
+  Future<UserModel?> getUserDocument(String uid) async {
+    try {
+      final doc = await _firestore.collection('users').doc(uid).get();
+      if (doc.exists) {
+        return UserModel.fromFirestore(doc);
+      }
+    } catch (e) {
+      print('Error getting user document: $e');
+    }
+    return null;
+  }
 }
