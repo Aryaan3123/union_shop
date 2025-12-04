@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/page_layout.dart';
+import '../providers/cart_provider.dart';
+import '../models/product_model.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -11,19 +14,17 @@ class ProductPage extends StatelessWidget {
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
   }
-
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> productData =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
-    final String title = productData['title'] ?? 'Placeholder Product Name';
-    final String price = productData['price'] ?? '£15.00';
-    final String imageUrl = productData['imageUrl'] ??
+    final Map<String, dynamic>? productData =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final String title = productData?['title'] ?? 'Placeholder Product Name';
+    final String price = productData?['price'] ?? '£15.00';
+    final String imageUrl = productData?['imageUrl'] ??
         'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282';
-    final String category = productData['category'] ?? 'Unknown Category';
-    final int popularity = productData['popularity'] ?? 0;
-    final bool featured = productData['featured'] ?? false;
+    final String category = productData?['category'] ?? 'Unknown Category';
+    final int popularity = productData?['popularity'] ?? 0;
+    final bool featured = productData?['featured'] ?? false;
 
     return PageLayout(
       child: Column(
@@ -184,7 +185,23 @@ class ProductPage extends StatelessWidget {
             padding: const EdgeInsets.all(24),
             child: Column(children: [
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  final cartProvider = Provider.of<CartProvider>(context,
+                      listen: false); // Create a Product object from the data
+                  final product = Product(
+                    id: productData?['id'] ??
+                        title.replaceAll(' ', '_').toLowerCase(),
+                    title: title,
+                    price: double.tryParse(price.replaceAll('£', '')) ?? 15.0,
+                    imageUrls: [imageUrl],
+                    colors: ['Default'],
+                    sizes: ['One Size'],
+                  );
+
+                  // Add to cart with default color and size
+                  await cartProvider.addToCart(
+                      product, 'Default', 'One Size', 1);
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('$title added to cart!'),
