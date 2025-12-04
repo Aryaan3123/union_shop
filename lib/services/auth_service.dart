@@ -144,3 +144,19 @@ class AuthService {
     }
   }
 }
+
+class AuthResult {
+  final bool success;
+  final User? user;
+  final String? error;
+  final String? message;
+
+  AuthResult.success(this.user, {this.message})
+      : success = true,
+        error = null;
+
+  AuthResult.failure(this.error)
+      : success = false,
+        message = null,
+        user = null;
+}
