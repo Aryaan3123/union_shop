@@ -10,6 +10,9 @@
 .svn/
 migrate_working_dir/
 
+# Firebase CLI - too large for GitHub
+firebase-tools.exe
+
 # IntelliJ related
 *.iml
 *.ipr
