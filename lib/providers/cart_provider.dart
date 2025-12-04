@@ -8,6 +8,18 @@ class CartProvider extends ChangeNotifier {
   List<CartItem> _items = []; // List of items in the cart
   bool _loading = false;
 
+  CartProvider() {
+    // Listen to auth state changes and load cart when user logs in
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        loadCart();
+      } else {
+        _items = [];
+        notifyListeners();
+      }
+    });
+  }
+
   List<CartItem> get items => _items; //
   bool get loading => _loading;
   int get itemCount => _items.fold(0, (sum, item) => sum + item.quantity);
@@ -30,14 +42,23 @@ class CartProvider extends ChangeNotifier {
 
     _loading = true;
     notifyListeners();
-
     try {
       final snapshot = await _cartRef!.get(); // Fetch cart items
       _items = snapshot.docs
-          .map((doc) => CartItem.fromMap(doc.data() as Map<String, dynamic>))
-          .toList(); // Map to CartItem
+          .where((doc) => doc.data() != null) // Filter out null documents
+          .map((doc) {
+            final data = doc.data();
+            if (data is Map<String, dynamic>) {
+              return CartItem.fromMap(data);
+            }
+            return null;
+          })
+          .where((item) => item != null) // Remove any null items
+          .cast<CartItem>() // Cast to CartItem list
+          .toList();
     } catch (e) {
       print('Error loading cart: $e');
+      _items = []; // Reset to empty list on error
     }
 
     _loading = false;
