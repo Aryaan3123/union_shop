@@ -15,7 +15,7 @@ class FirebaseService {
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
   }
 
-  // Get Products by Category
+  // Get Products by Category with error handling
   static Stream<List<Product>> getProductsByCategory(String category) {
     return _firestore
         .collection('products')
@@ -23,7 +23,57 @@ class FirebaseService {
         .orderBy('popularity', descending: true)
         .snapshots()
         .map((snapshot) =>
-            snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
+            snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList())
+        .handleError((error) {
+      print('⚠️ Firestore query failed, using local fallback: $error');
+      // Don't rethrow, let the UI handle this gracefully
+    });
+  }
+
+  // Fallback method using local data when Firebase isn't ready
+  static Stream<List<Product>> getProductsByCategoryFallback(String category) {
+    return Stream.fromIterable([
+      ProductsData.getAllProducts()
+          .where((product) => _matchesCategory(product.category, category))
+          .toList()
+        ..sort((a, b) => b.popularity.compareTo(a.popularity))
+    ]);
+  }
+
+  // Smart method that tries Firebase first, falls back to local data
+  static Stream<List<Product>> getProductsByCategorySmart(
+      String category) async* {
+    try {
+      // Try Firebase first
+      await for (final products in getProductsByCategory(category)) {
+        if (products.isNotEmpty) {
+          yield products;
+          return;
+        }
+      }
+    } catch (e) {
+      print('🔄 Firebase not ready, using local data: $e');
+    }
+
+    // Fallback to local data
+    yield* getProductsByCategoryFallback(category);
+  }
+
+  // Helper method to match categories flexibly
+  static bool _matchesCategory(
+      String productCategory, String requestedCategory) {
+    // Handle category mapping
+    switch (requestedCategory) {
+      case 'Clothing':
+        return productCategory == 'Clothing';
+      case 'Merchandise':
+        return ['Merchandise', 'Stationery', 'Accessories', 'Bags', 'Tech']
+            .contains(productCategory);
+      case 'Signature Essentials':
+        return ['Essentials', 'Premium', 'Basics'].contains(productCategory);
+      default:
+        return productCategory == requestedCategory;
+    }
   }
 
   // Get Featured Products

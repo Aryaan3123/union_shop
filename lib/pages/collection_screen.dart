@@ -19,15 +19,14 @@ class _CollectionScreenState extends State<CollectionScreen> {
   int itemsPerPage = 9;
   String currentFilter = 'All';
   String currentSort = 'Popularity';
-
   Stream<List<Product>> get productStream {
     if (currentFilter == 'All') {
-      return FirebaseService.getProductsByCategory(
-          widget.categoryName); // Use the category passed in
+      return FirebaseService.getProductsByCategorySmart(
+          widget.categoryName); // Use smart fallback method
     } else if (currentFilter == 'Featured') {
       return FirebaseService.getFeaturedProducts();
     } else {
-      return FirebaseService.getProductsByCategory(widget.categoryName);
+      return FirebaseService.getProductsByCategorySmart(widget.categoryName);
     }
   }
 
@@ -131,12 +130,39 @@ class _CollectionScreenState extends State<CollectionScreen> {
                         ),
                       ),
                     );
-                  }
-
-                  // Professional error handling
+                  }                  // Professional error handling with graceful fallback
                   if (snapshot.hasError) {
                     ErrorService.logError('StreamBuilder error', snapshot.error,
                         null, 'CollectionScreen');
+                    
+                    // If it's a Firebase index error, show a more helpful message
+                    if (snapshot.error.toString().contains('failed-precondition') || 
+                        snapshot.error.toString().contains('index')) {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(64.0),
+                          child: Column(
+                            children: [
+                              Icon(Icons.cloud_sync, size: 64, color: Colors.orange[300]),
+                              SizedBox(height: 16),
+                              Text('Setting up database...',
+                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                              SizedBox(height: 8),
+                              Text('Firebase is preparing your data. This may take a few minutes.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.grey[600])),
+                              SizedBox(height: 16),
+                              ElevatedButton(
+                                onPressed: () => setState(() {}),
+                                child: Text('Try Again'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                    
+                    // For other errors, show generic error
                     return Center(
                       child: Padding(
                         padding: const EdgeInsets.all(64.0),
