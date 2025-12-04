@@ -184,4 +184,129 @@ class CartScreen extends StatelessWidget {
       ],
     );
   }
+
+  Widget _buildCartItem(BuildContext context, CartItem item, CartProvider cartProvider) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Product image
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: item.imageUrl.isNotEmpty
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      item.imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(Icons.image_not_supported, color: Colors.grey);
+                      },
+                    ),
+                  )
+                : const Icon(Icons.image_not_supported, color: Colors.grey),
+          ),
+          
+          const SizedBox(width: 16),
+          
+          // Product details
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.title,
+                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Color: ${item.color}',
+                  style: const TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+                Text(
+                  'Size: ${item.size}',
+                  style: const TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    // Quantity controls
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              if (item.quantity > 1) {
+                                cartProvider.updateQuantity(item.id, item.quantity - 1);
+                              } else {
+                                cartProvider.removeFromCart(item.id);
+                              }
+                            },
+                            icon: const Icon(Icons.remove, size: 16),
+                            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                          ),
+                          Text(
+                            '${item.quantity}',
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              cartProvider.updateQuantity(item.id, item.quantity + 1);
+                            },
+                            icon: const Icon(Icons.add, size: 16),
+                            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer(),
+                    // Remove button
+                    TextButton(
+                      onPressed: () => cartProvider.removeFromCart(item.id),
+                      child: const Text(
+                        'Remove',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          
+          // Price
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                '£${item.price.toStringAsFixed(2)}',
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+              if (item.quantity > 1) ...[
+                const SizedBox(height: 4),
+                Text(
+                  '£${item.totalPrice.toStringAsFixed(2)}',
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                ),
+              ],
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
