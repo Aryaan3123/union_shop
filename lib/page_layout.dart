@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
+import 'widgets/cart_badge_icon.dart';
 
 class PageLayout extends StatefulWidget {
   final Widget child;
@@ -411,15 +412,16 @@ class _PageLayoutState extends State<PageLayout> {
                                     ),
                                     IconButton(
                                       icon: const Icon(
-                                        Icons.shopping_bag_outlined,
+                                        Icons.search,
                                         size: 18,
-                                        color: Colors.grey,
+                                        color: Colors.black,
                                       ),
                                       padding: const EdgeInsets.all(8),
                                       constraints: const BoxConstraints(
                                           minWidth: 32, minHeight: 32),
                                       onPressed: placeholderCallbackForButtons,
                                     ),
+                                    const CartBadgeIcon(),
                                     IconButton(
                                       icon: const Icon(
                                         Icons.menu,
@@ -437,6 +439,17 @@ class _PageLayoutState extends State<PageLayout> {
                             ] else ...[
                               // Mobile Navigation
                               const Spacer(),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.search,
+                                  size: 20,
+                                  color: Colors.black,
+                                ),
+                                padding: const EdgeInsets.all(4),
+                                constraints: const BoxConstraints(
+                                    minWidth: 28, minHeight: 28),
+                                onPressed: placeholderCallbackForButtons,
+                              ),
                               Consumer<AuthProvider>(
                                 builder: (context, authProvider, child) {
                                   return IconButton(
@@ -457,16 +470,7 @@ class _PageLayoutState extends State<PageLayout> {
                                   );
                                 },
                               ),
-                              IconButton(
-                                icon: const Icon(Icons.shopping_bag_outlined,
-                                    size: 20, color: Colors.black),
-                                onPressed: placeholderCallbackForButtons,
-                                padding: const EdgeInsets.all(4),
-                                constraints: const BoxConstraints(
-                                  minWidth: 28,
-                                  minHeight: 28,
-                                ),
-                              ),
+                              const CartBadgeIcon(),
                               IconButton(
                                 icon: Icon(
                                   isMobileMenuExpanded
