@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../models/cart_item.dart';
 import '../models/product_model.dart';
 
-class CartProvider {
+class CartProvider extends ChangeNotifier {
   List<CartItem> _items = []; // List of items in the cart
   bool _loading = false;
 
@@ -45,14 +45,15 @@ class CartProvider {
   }
 
   // Add item to cart
-  Future<void> addToCart(Product product, String color, String size, int quantity) async {
+  Future<void> addToCart(
+      Product product, String color, String size, int quantity) async {
     if (_cartRef == null) return;
 
     final itemId = '${product.id}_${color}_$size';
-    
+
     // Check if item already exists
     final existingIndex = _items.indexWhere((item) => item.id == itemId);
-    
+
     if (existingIndex >= 0) {
       // Update existing item
       final existingItem = _items[existingIndex];
@@ -66,7 +67,7 @@ class CartProvider {
         size: existingItem.size,
         imageUrl: existingItem.imageUrl,
       );
-      
+
       _items[existingIndex] = updatedItem;
       await _cartRef!.doc(itemId).set(updatedItem.toMap());
     } else {
@@ -81,11 +82,21 @@ class CartProvider {
         size: size,
         imageUrl: product.imageUrls.isNotEmpty ? product.imageUrls.first : '',
       );
-      
+
       _items.add(newItem);
       await _cartRef!.doc(itemId).set(newItem.toMap());
     }
-    
+
+    notifyListeners();
+  }
+
+  // Remove item from cart
+
+  Future<void> removeFromCart(String itemId) async {
+    if (_cartRef == null) return;
+
+    _items.removeWhere((item) => item.id == itemId);
+    await _cartRef!.doc(itemId).delete();
     notifyListeners();
   }
 }

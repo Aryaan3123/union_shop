@@ -12,6 +12,7 @@ import 'providers/auth_provider.dart';
 import 'pages/auth/login_screen.dart';
 import 'pages/auth/register_screen.dart';
 import 'pages/user/orders_screen.dart';
+import 'providers/cart_provider.dart';
 
 /// Professional app initialization with Firebase and data migration
 void main() async {
@@ -62,12 +63,14 @@ class ErrorApp extends StatelessWidget {
 
 class UnionShopApp extends StatelessWidget {
   const UnionShopApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    // Wrap MaterialApp with ChangeNotifierProvider
-    return ChangeNotifierProvider(
-      create: (context) => AuthProvider(),
+    // Wrap MaterialApp with MultiProvider for multiple providers
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
       child: MaterialApp(
         scrollBehavior: const MaterialScrollBehavior().copyWith(
           dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
