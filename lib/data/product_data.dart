@@ -668,6 +668,249 @@ class ProductsData {
         imageUrl:
             'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
       ),
+
+      // HALLOWEEN PRODUCTS (5 products)
+      Product(
+        id: 'halloween_1',
+        title: 'Halloween Pumpkin Hoodie',
+        price: '£29.99',
+        priceValue: 29.99,
+        category: 'Halloween',
+        popularity: 85,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'halloween_2',
+        title: 'Ghost Face Mask',
+        price: '£8.99',
+        priceValue: 8.99,
+        category: 'Halloween',
+        popularity: 78,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'halloween_3',
+        title: 'Spooky T-Shirt',
+        price: '£16.99',
+        priceValue: 16.99,
+        category: 'Halloween',
+        popularity: 72,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'halloween_4',
+        title: 'Witch Hat',
+        price: '£12.99',
+        priceValue: 12.99,
+        category: 'Halloween',
+        popularity: 65,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'halloween_5',
+        title: 'Skeleton Gloves',
+        price: '£9.99',
+        priceValue: 9.99,
+        category: 'Halloween',
+        popularity: 68,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+
+      // PRIDE COLLECTION PRODUCTS (5 products)
+      Product(
+        id: 'pride_1',
+        title: 'Rainbow Pride T-Shirt',
+        price: '£18.99',
+        priceValue: 18.99,
+        category: 'Pride Collection',
+        popularity: 88,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'pride_2',
+        title: 'Love is Love Pin Badge',
+        price: '£5.99',
+        priceValue: 5.99,
+        category: 'Pride Collection',
+        popularity: 82,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'pride_3',
+        title: 'Pride Flag Wristband',
+        price: '£7.99',
+        priceValue: 7.99,
+        category: 'Pride Collection',
+        popularity: 75,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'pride_4',
+        title: 'Rainbow Hoodie',
+        price: '£32.99',
+        priceValue: 32.99,
+        category: 'Pride Collection',
+        popularity: 90,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'pride_5',
+        title: 'Equality Tote Bag',
+        price: '£14.99',
+        priceValue: 14.99,
+        category: 'Pride Collection',
+        popularity: 79,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+
+      // GRADUATION PRODUCTS (5 products)
+      Product(
+        id: 'grad_1',
+        title: 'Graduation Cap Kit',
+        price: '£15.99',
+        priceValue: 15.99,
+        category: 'Graduation',
+        popularity: 92,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'grad_2',
+        title: 'Class of 2025 Mug',
+        price: '£11.99',
+        priceValue: 11.99,
+        category: 'Graduation',
+        popularity: 84,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'grad_3',
+        title: 'Graduation Stole',
+        price: '£24.99',
+        priceValue: 24.99,
+        category: 'Graduation',
+        popularity: 87,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'grad_4',
+        title: 'Diploma Frame',
+        price: '£39.99',
+        priceValue: 39.99,
+        category: 'Graduation',
+        popularity: 89,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'grad_5',
+        title: 'Graduation Bear',
+        price: '£19.99',
+        priceValue: 19.99,
+        category: 'Graduation',
+        popularity: 76,
+        featured: false,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+
+      // SALE PRODUCTS (5 products with onSale: true)
+      Product(
+        id: 'sale_1',
+        title: 'SALE Hoodie - 50% Off',
+        price: '£12.50',
+        priceValue: 12.50,
+        category: 'Clothing',
+        popularity: 95,
+        featured: true,
+        onSale: true,
+        originalPrice: '£25.00',
+        discountPercentage: 50.0,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'sale_2',
+        title: 'SALE Sweatshirt - 30% Off',
+        price: '£16.10',
+        priceValue: 16.10,
+        category: 'Clothing',
+        popularity: 88,
+        featured: false,
+        onSale: true,
+        originalPrice: '£23.00',
+        discountPercentage: 30.0,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'sale_3',
+        title: 'SALE Backpack - 40% Off',
+        price: '£21.59',
+        priceValue: 21.59,
+        category: 'Bags',
+        popularity: 92,
+        featured: true,
+        onSale: true,
+        originalPrice: '£35.99',
+        discountPercentage: 40.0,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'sale_4',
+        title: 'SALE Mug Set - 25% Off',
+        price: '£8.99',
+        priceValue: 8.99,
+        category: 'Accessories',
+        popularity: 78,
+        featured: false,
+        onSale: true,
+        originalPrice: '£11.99',
+        discountPercentage: 25.0,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
+      Product(
+        id: 'sale_5',
+        title: 'SALE T-Shirt - 35% Off',
+        price: '£9.75',
+        priceValue: 9.75,
+        category: 'Clothing',
+        popularity: 85,
+        featured: false,
+        onSale: true,
+        originalPrice: '£15.00',
+        discountPercentage: 35.0,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
     ];
   }
 }
