@@ -529,7 +529,7 @@ class _PageLayoutState extends State<PageLayout> {
                                   ),
                                   const SizedBox(
                                       width:
-                                          20), // Add spacing between Shop and Print Shack
+                                          16), 
                                   PopupMenuButton<String>(
                                     onSelected: (value) {
                                       Navigator.pushNamed(
