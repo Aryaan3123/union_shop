@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Order;
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/order.dart';
 import '../models/cart_item.dart';
@@ -26,7 +26,7 @@ class OrderProvider extends ChangeNotifier {
   // Available discount codes
   final Map<String, double> _discountCodes = {
     'WELCOME10': 0.10, // 10% discount
-    'SAVE20': 0.20,    // 20% discount
+    'SAVE20': 0.20, // 20% discount
     'STUDENT15': 0.15, // 15% discount
   };
 
@@ -84,7 +84,7 @@ class OrderProvider extends ChangeNotifier {
     try {
       // Calculate totals
       final shippingCost = calculateShippingCost(subtotal);
-      final discountAmount = discountCode != null 
+      final discountAmount = discountCode != null
           ? (validateDiscountCode(discountCode) ?? 0.0) * subtotal
           : 0.0;
       final totalAmount = subtotal + shippingCost - discountAmount;

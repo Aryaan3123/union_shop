@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/order_provider.dart';
 import '../../models/order.dart';
-import 'order_details_screen.dart';
+import '../checkout/order_details_screen.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({super.key});
@@ -181,9 +181,9 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             // Order info
             Row(
               children: [
@@ -216,36 +216,42 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Order items preview
             SizedBox(
               height: 60,
               child: Row(
                 children: [
                   // Show first few item images
-                  ...order.items.take(3).map((item) => Container(
-                    width: 50,
-                    height: 50,
-                    margin: const EdgeInsets.only(right: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: item.imageUrl.isNotEmpty
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              item.imageUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.image_not_supported, size: 20),
+                  ...order.items
+                      .take(3)
+                      .map((item) => Container(
+                            width: 50,
+                            height: 50,
+                            margin: const EdgeInsets.only(right: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                          )
-                        : const Icon(Icons.image_not_supported, size: 20),
-                  )).toList(),
-                  
+                            child: item.imageUrl.isNotEmpty
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      item.imageUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error,
+                                              stackTrace) =>
+                                          const Icon(Icons.image_not_supported,
+                                              size: 20),
+                                    ),
+                                  )
+                                : const Icon(Icons.image_not_supported,
+                                    size: 20),
+                          ))
+                      .toList(),
+
                   // Show count if more items
                   if (order.items.length > 3)
                     Container(
@@ -265,9 +271,9 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                         ),
                       ),
                     ),
-                  
+
                   const Spacer(),
-                  
+
                   // Total amount
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -293,9 +299,9 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             // Action buttons
             Row(
               children: [
@@ -305,7 +311,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OrderDetailsScreen(orderId: order.id),
+                          builder: (context) =>
+                              OrderDetailsScreen(orderId: order.id),
                         ),
                       );
                     },

@@ -46,4 +46,30 @@ class CartItem {
   }
 
   double get totalPrice => price * quantity;
+
+  // Firestore methods
+  factory CartItem.fromFirestore(Map<String, dynamic> data, String id) {
+    return CartItem(
+      id: id,
+      productId: data['productId'] ?? '',
+      title: data['title'] ?? '',
+      price: (data['price'] ?? 0).toDouble(),
+      quantity: data['quantity'] ?? 1,
+      color: data['color'] ?? '',
+      size: data['size'] ?? '',
+      imageUrl: data['imageUrl'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'productId': productId,
+      'title': title,
+      'price': price,
+      'quantity': quantity,
+      'color': color,
+      'size': size,
+      'imageUrl': imageUrl,
+    };
+  }
 }

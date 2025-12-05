@@ -43,7 +43,7 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _buildEmptyCart(BuildContext context) {
     return Center(
       child: Column(
@@ -95,7 +95,7 @@ class CartScreen extends StatelessWidget {
             ],
           ),
         ),
-        
+
         // Cart items list
         Expanded(
           child: ListView.builder(
@@ -107,7 +107,7 @@ class CartScreen extends StatelessWidget {
             },
           ),
         ),
-        
+
         // Order note section
         Container(
           padding: const EdgeInsets.all(16),
@@ -132,7 +132,7 @@ class CartScreen extends StatelessWidget {
             ],
           ),
         ),
-        
+
         // Subtotal and checkout
         Container(
           padding: const EdgeInsets.all(16),
@@ -150,7 +150,8 @@ class CartScreen extends StatelessWidget {
                   ),
                   Text(
                     '£${cartProvider.totalAmount.toStringAsFixed(2)}',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -162,7 +163,8 @@ class CartScreen extends StatelessWidget {
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(                  onPressed: () {
+                child: ElevatedButton(
+                  onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -176,7 +178,8 @@ class CartScreen extends StatelessWidget {
                   ),
                   child: const Text(
                     'CHECK OUT',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -187,7 +190,8 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCartItem(BuildContext context, CartItem item, CartProvider cartProvider) {
+  Widget _buildCartItem(
+      BuildContext context, CartItem item, CartProvider cartProvider) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
       decoration: const BoxDecoration(
@@ -211,15 +215,16 @@ class CartScreen extends StatelessWidget {
                       item.imageUrl,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        return const Icon(Icons.image_not_supported, color: Colors.grey);
+                        return const Icon(Icons.image_not_supported,
+                            color: Colors.grey);
                       },
                     ),
                   )
                 : const Icon(Icons.image_not_supported, color: Colors.grey),
           ),
-          
+
           const SizedBox(width: 16),
-          
+
           // Product details
           Expanded(
             child: Column(
@@ -227,7 +232,8 @@ class CartScreen extends StatelessWidget {
               children: [
                 Text(
                   item.title,
-                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, fontSize: 16),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -253,13 +259,15 @@ class CartScreen extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                               if (item.quantity > 1) {
-                                cartProvider.updateQuantity(item.id, item.quantity - 1);
+                                cartProvider.updateQuantity(
+                                    item.id, item.quantity - 1);
                               } else {
                                 cartProvider.removeFromCart(item.id);
                               }
                             },
                             icon: const Icon(Icons.remove, size: 16),
-                            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                            constraints: const BoxConstraints(
+                                minWidth: 32, minHeight: 32),
                           ),
                           Text(
                             '${item.quantity}',
@@ -267,10 +275,12 @@ class CartScreen extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
-                              cartProvider.updateQuantity(item.id, item.quantity + 1);
+                              cartProvider.updateQuantity(
+                                  item.id, item.quantity + 1);
                             },
                             icon: const Icon(Icons.add, size: 16),
-                            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                            constraints: const BoxConstraints(
+                                minWidth: 32, minHeight: 32),
                           ),
                         ],
                       ),
@@ -289,7 +299,7 @@ class CartScreen extends StatelessWidget {
               ],
             ),
           ),
-          
+
           // Price
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,

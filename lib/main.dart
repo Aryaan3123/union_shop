@@ -64,7 +64,8 @@ class ErrorApp extends StatelessWidget {
 }
 
 class UnionShopApp extends StatelessWidget {
-  const UnionShopApp({super.key});  @override
+  const UnionShopApp({super.key});
+  @override
   Widget build(BuildContext context) {
     // Wrap MaterialApp with MultiProvider for multiple providers
     return MultiProvider(

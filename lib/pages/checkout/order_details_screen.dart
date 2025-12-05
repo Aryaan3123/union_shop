@@ -63,31 +63,32 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 children: [
                   // Order header
                   _buildOrderHeader(),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Order tracking
                   _buildOrderTracking(),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Order items
                   _buildOrderItems(),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Order summary
                   _buildOrderSummary(),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Shipping information
                   _buildShippingInformation(),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Order notes
-                  if (_order!.orderNote != null && _order!.orderNote!.isNotEmpty)
+                  if (_order!.orderNote != null &&
+                      _order!.orderNote!.isNotEmpty)
                     _buildOrderNotes(),
                 ],
               ),
@@ -145,10 +146,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           const SizedBox(height: 8),
           _buildInfoRow('Payment Method', _order!.paymentMethod.toUpperCase()),
           const SizedBox(height: 8),
-          _buildInfoRow('Total Items', '${_order!.items.fold<int>(0, (sum, item) => sum + item.quantity)}'),
+          _buildInfoRow('Total Items',
+              '${_order!.items.fold<int>(0, (sum, item) => sum + item.quantity)}'),
           if (_order!.discountCode != null) ...[
             const SizedBox(height: 8),
-            _buildInfoRow('Discount Code', _order!.discountCode!, valueColor: Colors.green),
+            _buildInfoRow('Discount Code', _order!.discountCode!,
+                valueColor: Colors.green),
           ],
         ],
       ),
@@ -175,15 +178,21 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           ),
           const SizedBox(height: 20),
           _buildTrackingStep('Order Placed', true, isActive: true),
-          _buildTrackingStep('Processing', _order!.status == 'processing' || _isStatusAfter('processing'), isActive: _order!.status == 'processing'),
-          _buildTrackingStep('Shipped', _order!.status == 'shipped' || _isStatusAfter('shipped'), isActive: _order!.status == 'shipped'),
-          _buildTrackingStep('Delivered', _order!.status == 'delivered', isActive: _order!.status == 'delivered', isLast: true),
+          _buildTrackingStep('Processing',
+              _order!.status == 'processing' || _isStatusAfter('processing'),
+              isActive: _order!.status == 'processing'),
+          _buildTrackingStep('Shipped',
+              _order!.status == 'shipped' || _isStatusAfter('shipped'),
+              isActive: _order!.status == 'shipped'),
+          _buildTrackingStep('Delivered', _order!.status == 'delivered',
+              isActive: _order!.status == 'delivered', isLast: true),
         ],
       ),
     );
   }
 
-  Widget _buildTrackingStep(String title, bool isCompleted, {bool isActive = false, bool isLast = false}) {
+  Widget _buildTrackingStep(String title, bool isCompleted,
+      {bool isActive = false, bool isLast = false}) {
     return Column(
       children: [
         Row(
@@ -193,7 +202,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               height: 24,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isCompleted 
+                color: isCompleted
                     ? (isActive ? const Color(0xFF4d2963) : Colors.green)
                     : Colors.grey[300],
               ),
@@ -244,100 +253,103 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          ..._order!.items.map((item) => Container(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey[200]!,
-                  width: 0.5,
-                ),
-              ),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: item.imageUrl.isNotEmpty
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            item.imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.image_not_supported),
+          ..._order!.items
+              .map((item) => Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.grey[200]!,
+                          width: 0.5,
+                        ),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        )
-                      : const Icon(Icons.image_not_supported),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        item.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
+                          child: item.imageUrl.isNotEmpty
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    item.imageUrl,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error,
+                                            stackTrace) =>
+                                        const Icon(Icons.image_not_supported),
+                                  ),
+                                )
+                              : const Icon(Icons.image_not_supported),
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Color: ${item.color}',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 14,
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item.title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Color: ${item.color}',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Text(
+                                'Size: ${item.size}',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Quantity: ${item.quantity}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Size: ${item.size}',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 14,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              '£${item.price.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 14,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '£${item.totalPrice.toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Quantity: ${item.quantity}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '£${item.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 14,
-                      ),
+                      ],
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '£${item.totalPrice.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )).toList(),
+                  ))
+              .toList(),
         ],
       ),
     );
@@ -362,7 +374,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          _buildSummaryRow('Subtotal', '£${_order!.subtotal.toStringAsFixed(2)}'),
+          _buildSummaryRow(
+              'Subtotal', '£${_order!.subtotal.toStringAsFixed(2)}'),
           if (_order!.discountAmount > 0) ...[
             const SizedBox(height: 8),
             _buildSummaryRow(
@@ -374,8 +387,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           const SizedBox(height: 8),
           _buildSummaryRow(
             'Shipping',
-            _order!.shippingCost == 0 
-                ? 'Free' 
+            _order!.shippingCost == 0
+                ? 'Free'
                 : '£${_order!.shippingCost.toStringAsFixed(2)}',
           ),
           const Divider(height: 24),
@@ -487,7 +500,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     );
   }
 
-  Widget _buildSummaryRow(String label, String value, {bool isTotal = false, Color? valueColor}) {
+  Widget _buildSummaryRow(String label, String value,
+      {bool isTotal = false, Color? valueColor}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/order_provider.dart';
 import '../../models/order.dart';
-import '../home_screen.dart';
+import '../home_page.dart';
 import '../profile/order_history_screen.dart';
 
 class OrderConfirmationScreen extends StatefulWidget {

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Order {
   final String id;
   final String userId;
@@ -6,7 +8,8 @@ class Order {
   final double shippingCost;
   final double discountAmount;
   final double totalAmount;
-  final String status; // 'pending', 'processing', 'shipped', 'delivered', 'cancelled'
+  final String
+      status; // 'pending', 'processing', 'shipped', 'delivered', 'cancelled'
   final DateTime orderDate;
   final ShippingAddress shippingAddress;
   final String? orderNote;
@@ -42,7 +45,7 @@ class Order {
       discountAmount: (data['discountAmount'] ?? 0.0).toDouble(),
       totalAmount: (data['totalAmount'] ?? 0.0).toDouble(),
       status: data['status'] ?? 'pending',
-      orderDate: data['orderDate'] != null 
+      orderDate: data['orderDate'] != null
           ? (data['orderDate'] as Timestamp).toDate()
           : DateTime.now(),
       shippingAddress: ShippingAddress.fromMap(

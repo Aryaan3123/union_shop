@@ -204,21 +204,23 @@ class ProductPage extends StatelessWidget {
                     id: productData?['id'] ??
                         title.replaceAll(' ', '_').toLowerCase(),
                     title: title,
-                    price: price, 
-                    priceValue: double.tryParse(price.replaceAll('£', '')) ??
-                        15.0, 
-                    category: category, 
-                    popularity: popularity, 
-                    featured: featured, 
-                    imageUrl: imageUrl, 
+                    price: price,
+                    priceValue:
+                        double.tryParse(price.replaceAll('£', '')) ?? 15.0,
+                    category: category,
+                    popularity: popularity,
+                    featured: featured,
+                    imageUrl: imageUrl,
                     colors: ['Default'],
                     sizes: ['One Size'],
-                    imageUrls: [imageUrl], 
-                  );
-
-                  // Add to cart with default color and size
+                    imageUrls: [imageUrl],
+                  ); // Add to cart with default color and size
                   await cartProvider.addToCart(
-                      product, 'Default', 'One Size', 1);
+                    product: product,
+                    color: 'Default',
+                    size: 'One Size',
+                    quantity: 1,
+                  );
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
