@@ -225,4 +225,240 @@ class _OrdersScreenState extends State<OrdersScreen> {
       ),
     );
   }
+
+  Widget _buildOrderCard(Order order) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrderDetailsScreen(orderId: order.id),
+          ),
+        );
+      },
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey[300]!),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Order header
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Order #${order.id.substring(0, 8).toUpperCase()}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _getStatusColor(order.status).withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: _getStatusColor(order.status),
+                      width: 1,
+                    ),
+                  ),
+                  child: Text(
+                    order.status.toUpperCase(),
+                    style: TextStyle(
+                      color: _getStatusColor(order.status),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            // Order info
+            Row(
+              children: [
+                Icon(
+                  Icons.calendar_today,
+                  size: 16,
+                  color: Colors.grey[600],
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  _formatDate(order.orderDate),
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(width: 24),
+                Icon(
+                  Icons.shopping_bag,
+                  size: 16,
+                  color: Colors.grey[600],
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '${order.items.fold<int>(0, (sum, item) => sum + item.quantity)} item${order.items.fold<int>(0, (sum, item) => sum + item.quantity) != 1 ? 's' : ''}',
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Order items preview (first 3 items)
+            SizedBox(
+              height: 60,
+              child: Row(
+                children: [
+                  // Show first few item images
+                  ...order.items
+                      .take(3)
+                      .map((item) => Container(
+                            width: 50,
+                            height: 50,
+                            margin: const EdgeInsets.only(right: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: item.imageUrl.isNotEmpty
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      item.imageUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error,
+                                              stackTrace) =>
+                                          const Icon(Icons.image_not_supported,
+                                              size: 20),
+                                    ),
+                                  )
+                                : const Icon(Icons.image_not_supported,
+                                    size: 20),
+                          ))
+                      .toList(),
+
+                  // Show count if more items
+                  if (order.items.length > 3)
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '+${order.items.length - 3}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  const Spacer(),
+
+                  // Total amount
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '£${order.totalAmount.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      if (order.discountAmount > 0)
+                        Text(
+                          'Saved £${order.discountAmount.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            color: Colors.green,
+                            fontSize: 12,
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Action buttons
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              OrderDetailsScreen(orderId: order.id),
+                        ),
+                      );
+                    },
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Color(0xFF4d2963)),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                    child: const Text(
+                      'View Details',
+                      style: TextStyle(color: Color(0xFF4d2963)),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                if (order.status == 'delivered')
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // TODO: Implement reorder functionality
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Reorder coming soon!')),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4d2963),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                      ),
+                      child: const Text(
+                        'Reorder',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
