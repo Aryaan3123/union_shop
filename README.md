@@ -92,7 +92,7 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/union_shop.git
+   git clone https://github.com/Aryaan3123/union_shop.git
    cd union_shop
    ```
 
@@ -215,14 +215,6 @@ The application follows Material Design 3 principles with a focus on:
 
 ## 🔧 Configuration & Setup
 
-### Environment Variables
-Create a `.env` file in the root directory (optional):
-```env
-FIREBASE_API_KEY=your_api_key_here
-FIREBASE_PROJECT_ID=your_project_id_here
-FIREBASE_STORAGE_BUCKET=your_bucket_here
-```
-
 ### Firebase Configuration
 The app includes demo Firebase configuration. For production use:
 1. Create a new Firebase project at [console.firebase.google.com](https://console.firebase.google.com)
@@ -279,7 +271,7 @@ Go to the repository containing the code for the coursework and click on the for
 
 ![Fork Button](https://raw.githubusercontent.com/manighahrmani/sandwich_shop/refs/heads/main/images/screenshot_fork_button.png)
 
-Do not change anything and click on the Create fork button. You should then have a public fork of my repository with a URL like (YOUR-USERNAME replaced with your username): [github.com/YOUR-USERNAME/union_shop](https://github.com/YOUR-USERNAME/union_shop)
+Do not change anything and click on the Create fork button. You should then have a public fork of my repository with a URL like (Aryaan3123 replaced with your username): [github.com/Aryaan3123/union_shop](https://github.com/Aryaan3123/union_shop)
 
 ![Fork Settings](https://raw.githubusercontent.com/manighahrmani/sandwich_shop/refs/heads/main/images/screenshot_fork_settings.png)
 
@@ -292,11 +284,11 @@ If you are using Firebase Studio, head to [idx.google.com](https://idx.google.co
 Otherwise, open a terminal, change to your desired directory, and run the following commands:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/union_shop.git
+git clone https://github.com/Aryaan3123/union_shop.git
 cd union_shop
 ```
 
-Replace `YOUR-USERNAME` with your actual GitHub username.
+Replace `Aryaan3123` with your actual GitHub username.
 
 ### Install Dependencies
 
@@ -672,14 +664,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Get Help
 - 📚 **Documentation** - Check this README and code comments
-- 🐛 **Bug Reports** - [Create an issue](https://github.com/your-username/union_shop/issues)
+- 🐛 **Bug Reports** - [Create an issue](https://github.com/Aryaan3123/union_shop/issues)
 - 💬 **Questions** - Use GitHub Discussions
-- 📧 **Email** - your.email@university.ac.uk
+- 📧 **Email** - up2213123@myport.ac.uk
 
 ### Project Links
 - 🌐 **Live Demo** - [View Application](https://your-app-url.web.app)
-- 📱 **Repository** - [GitHub Repo](https://github.com/your-username/union_shop)
-- 📊 **Project Board** - [Development Progress](https://github.com/your-username/union_shop/projects)
+- 📱 **Repository** - [GitHub Repo](https://github.com/Aryaan3123/union_shop)
+- 📊 **Project Board** - [Development Progress](https://github.com/Aryaan3123/union_shop/projects)
 
 ---
 
