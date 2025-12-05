@@ -296,7 +296,6 @@ class FirebaseService {
       final QuerySnapshot snapshot = await query.get();
       return snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList();
     } catch (e) {
-      print('❌ Error getting paginated products: $e');
       return [];
     }
   }
@@ -322,13 +321,8 @@ class FirebaseService {
         .map((snapshot) =>
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
   }
-
-  // Get Sale Products 
+  // Get Sale Products (temporarily use all products until we add discount fields)
   static Stream<List<Product>> getSaleProducts() {
-  return getAllProducts().map((products) => 
-    products.where((product) => 
-      product.discountPercentage != null && product.discountPercentage! > 0
-    ).toList()
-  );
-}
+    return getAllProducts();
+  }
 }
