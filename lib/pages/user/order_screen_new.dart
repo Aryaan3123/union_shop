@@ -108,4 +108,121 @@ class _OrdersScreenState extends State<OrdersScreen> {
           ],
         ),
       ),
-      
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu, color: Colors.black),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
+        title: const Text(
+          'My Orders',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: Consumer<OrderProvider>(
+        builder: (context, orderProvider, child) {
+          if (orderProvider.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (orderProvider.orders.isEmpty) {
+            return _buildEmptyOrdersState();
+          }
+
+          return _buildOrdersList(orderProvider.orders);
+        },
+      ),
+    );
+  }
+
+  Widget _buildMenuItem(String title, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.black87,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyOrdersState() {
+    return Container(
+      color: Colors.grey[100],
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.shopping_bag_outlined,
+            size: 80,
+            color: Colors.grey[400],
+          ),
+          const SizedBox(height: 24),
+          Text(
+            'No orders yet',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[600],
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'When you place your first order,\nit will appear here.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[500],
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 32),
+          ElevatedButton(
+            onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                context, '/', (route) => false),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF4d2963),
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+            ),
+            child: const Text(
+              'START SHOPPING',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOrdersList(List<Order> orders) {
+    return Container(
+      color: Colors.grey[50],
+      child: ListView.separated(
+        padding: const EdgeInsets.all(16),
+        itemCount: orders.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 16),
+        itemBuilder: (context, index) {
+          final order = orders[index];
+          return _buildOrderCard(order);
+        },
+      ),
+    );
+  }
+}
