@@ -24,7 +24,6 @@ class _CollectionScreenState extends State<CollectionScreen> {
     // First filter by the page's category, then apply additional filters
     Stream<List<Product>> baseStream;
 
-    // Get products for this specific category page
     switch (widget.categoryName) {
       case 'Clothing':
         baseStream = FirebaseService.getProductsByCategorySmart('Clothing');
@@ -37,7 +36,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
             FirebaseService.getProductsByCategorySmart('Signature Essentials');
         break;
       case 'Portsmouth City':
-        baseStream = FirebaseService.getPSUTProducts();
+        baseStream = FirebaseService.getPSUTProducts(); // Already exists
         break;
       case 'Pride Collection':
         baseStream =
@@ -46,10 +45,14 @@ class _CollectionScreenState extends State<CollectionScreen> {
       case 'Graduation':
         baseStream = FirebaseService.getProductsByCategorySmart('Graduation');
         break;
+      case 'SALE':
+        baseStream = FirebaseService.getSaleProducts(); // New method needed
+        break;
       default:
         baseStream = FirebaseService.getAllProducts();
         break;
     }
+    
     // Apply additional filtering based on dropdown selection
     if (currentFilter == 'All') {
       return baseStream;
@@ -275,8 +278,8 @@ class _CollectionScreenState extends State<CollectionScreen> {
                             children: [
                               Icon(Icons.cloud_sync,
                                   size: 64, color: Colors.orange[300]),
-                              SizedBox(height: 16),
-                              Text('Setting up database...',
+                              const SizedBox(height: 16),
+                              const Text('Setting up database...',
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold)),
@@ -285,10 +288,10 @@ class _CollectionScreenState extends State<CollectionScreen> {
                                   'Firebase is preparing your data. This may take a few minutes.',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(color: Colors.grey[600])),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               ElevatedButton(
                                 onPressed: () => setState(() {}),
-                                child: Text('Try Again'),
+                                child: const Text('Try Again'),
                               ),
                             ],
                           ),
@@ -501,11 +504,13 @@ class _CollectionScreenState extends State<CollectionScreen> {
       case 'signature essentials':
         return 'Essential university items at great prices';
       case 'portsmouth city':
-        return 'Portsmouth City collection items';
+        return 'We\'re excited to launch the Portsmouth City Collection, featuring products by renowned British illustrator Julia Gash, now available in our Students\' Union Shop!';
       case 'pride collection':
-        return 'Pride month celebration items';
+        return 'Celebrate diversity and inclusion with our Pride Collection';
       case 'graduation':
-        return 'Graduation ceremony essentials';
+        return 'Graduation ceremony essentials and commemorative items';
+      case 'sale':
+        return 'Don\'t miss out! Get yours before they\'re all gone!';
       default:
         return 'Quality university products';
     }

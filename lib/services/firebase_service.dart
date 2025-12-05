@@ -322,4 +322,11 @@ class FirebaseService {
         .map((snapshot) =>
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
   }
+
+  // Get Sale Products 
+  static Stream<List<Product>> getSaleProducts() {
+  return getAllProducts().map((products) => 
+    products.where((product) => product.onSale == true || product.discountPercentage > 0).toList()
+  );
+}
 }

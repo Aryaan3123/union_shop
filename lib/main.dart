@@ -105,6 +105,7 @@ class UnionShopApp extends StatelessWidget {
           '/register': (context) => const RegisterScreen(),
           '/orders': (context) => const OrdersScreen(),
           '/cart': (context) => const CartScreen(),
+          '/sale': (context) => const CollectionScreen(categoryName: 'SALE'),
         },
       ),
     );
