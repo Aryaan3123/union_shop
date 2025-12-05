@@ -7,7 +7,7 @@ void main() {
       // Arrange
       final createdAt = DateTime.now();
       final lastLoginAt = DateTime.now();
-      
+
       final userModel = UserModel(
         uid: 'test_uid_123',
         email: 'test@example.com',
@@ -39,7 +39,7 @@ void main() {
     test('should create UserModel with minimal required fields', () {
       // Arrange
       final createdAt = DateTime.now();
-      
+
       final userModel = UserModel(
         uid: 'test_uid_minimal',
         email: 'minimal@example.com',
@@ -57,7 +57,6 @@ void main() {
       expect(userModel.shippingAddress, isNull);
       expect(userModel.emailVerified, false);
     });
-
     test('should convert to Map correctly', () {
       // Arrange
       final userModel = UserModel(
@@ -81,8 +80,9 @@ void main() {
       expect(userMap['favoriteProducts'], ['product_1']);
       expect(userMap['shippingAddress'], {'street': '123 Test St'});
       expect(userMap['emailVerified'], true);
+      // Note: uid is not included in toMap() as it's handled separately in Firestore
+      expect(userMap.containsKey('uid'), false);
     });
-
     test('should copy with new values correctly', () {
       // Arrange
       final originalUser = UserModel(
@@ -107,11 +107,83 @@ void main() {
       expect(updatedUser.displayName, 'Updated Name');
       expect(updatedUser.favoriteProducts, ['product_1', 'product_2']);
       expect(updatedUser.emailVerified, true);
-        email: 'jane@example.com',
+    });
+
+    test('should handle equality correctly', () {
+      // Arrange
+      final createdAt = DateTime.now();
+
+      final user1 = UserModel(
+        uid: 'same_uid',
+        email: 'test@example.com',
+        displayName: 'Test User',
+        createdAt: createdAt,
       );
 
+      final user2 = UserModel(
+        uid: 'same_uid',
+        email: 'test@example.com',
+        displayName: 'Test User',
+        createdAt: createdAt,
+      );
+
+      final user3 = UserModel(
+        uid: 'different_uid',
+        email: 'jane@example.com',
+        displayName: 'Jane Doe',
+        createdAt: createdAt,
+      );
+
+      // Assert
       expect(user1.uid, equals(user2.uid));
       expect(user1.uid, isNot(equals(user3.uid)));
+    });
+
+    test('should handle favorite products operations', () {
+      // Arrange
+      final user = UserModel(
+        uid: 'test_uid',
+        email: 'test@example.com',
+        displayName: 'Test User',
+        createdAt: DateTime.now(),
+        favoriteProducts: ['product_1'],
+      );
+
+      // Act - Add a product
+      final updatedUser = user.copyWith(
+        favoriteProducts: [...user.favoriteProducts, 'product_2'],
+      );
+
+      // Assert
+      expect(updatedUser.favoriteProducts, contains('product_1'));
+      expect(updatedUser.favoriteProducts, contains('product_2'));
+      expect(updatedUser.favoriteProducts.length, 2);
+    });
+
+    test('should handle shipping address updates', () {
+      // Arrange
+      final user = UserModel(
+        uid: 'test_uid',
+        email: 'test@example.com',
+        displayName: 'Test User',
+        createdAt: DateTime.now(),
+      );
+
+      final shippingAddress = {
+        'street': '123 Test Street',
+        'city': 'Portsmouth',
+        'zip': 'PO1 2AB',
+        'country': 'UK',
+      };
+
+      // Act
+      final updatedUser = user.copyWith(shippingAddress: shippingAddress);
+
+      // Assert
+      expect(updatedUser.shippingAddress, isNotNull);
+      expect(updatedUser.shippingAddress!['street'], '123 Test Street');
+      expect(updatedUser.shippingAddress!['city'], 'Portsmouth');
+      expect(updatedUser.shippingAddress!['zip'], 'PO1 2AB');
     });
   });
 }
