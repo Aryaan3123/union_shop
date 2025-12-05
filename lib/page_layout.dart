@@ -271,11 +271,145 @@ class _PageLayoutState extends State<PageLayout> {
     );
   }
 
+  Widget _buildDesktopSideMenu() {
+    return Drawer(
+      width: 280,
+      child: Column(
+        children: [
+          // Header
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(24),
+            decoration: const BoxDecoration(
+              color: Color(0xFF4d2963),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Menu',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Navigation & Account',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Menu Items
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              children: [
+                _buildDrawerItem(
+                  icon: Icons.home,
+                  title: 'Home',
+                  onTap: () {
+                    Navigator.pop(context); // Close drawer
+                    navigateToHome(context);
+                  },
+                ),
+                _buildDrawerItem(
+                  icon: Icons.shopping_bag,
+                  title: 'Shop',
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/shop/clothing');
+                  },
+                ),
+                _buildDrawerItem(
+                  icon: Icons.print,
+                  title: 'The Print Shack',
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/print-shack/about');
+                  },
+                ),
+                _buildDrawerItem(
+                  icon: Icons.local_offer,
+                  title: 'SALE!',
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/sale');
+                  },
+                ),
+                _buildDrawerItem(
+                  icon: Icons.info,
+                  title: 'About',
+                  onTap: () {
+                    Navigator.pop(context);
+                    navigateToAbout(context);
+                  },
+                ),
+                const Divider(),
+                Consumer<AuthProvider>(
+                  builder: (context, authProvider, child) {
+                    return _buildDrawerItem(
+                      icon: authProvider.isLoggedIn
+                          ? Icons.account_circle
+                          : Icons.login,
+                      title: authProvider.isLoggedIn ? 'My Orders' : 'Login',
+                      onTap: () {
+                        Navigator.pop(context);
+                        if (authProvider.isLoggedIn) {
+                          Navigator.pushNamed(context, '/orders');
+                        } else {
+                          Navigator.pushNamed(context, '/login');
+                        }
+                      },
+                    );
+                  },
+                ),
+                _buildDrawerItem(
+                  icon: Icons.shopping_cart,
+                  title: 'View Cart',
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/cart');
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDrawerItem({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.grey[700]),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: Colors.grey[800],
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onTap: onTap,
+      hoverColor: Colors.grey[100],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       bool isMobile = constraints.maxWidth < 600;
       return Scaffold(
+        endDrawer: _buildDesktopSideMenu(),
         body: Builder(
           builder: (BuildContext scaffoldContext) {
             return SingleChildScrollView(
@@ -393,6 +527,9 @@ class _PageLayoutState extends State<PageLayout> {
                                       ),
                                     ],
                                   ),
+                                  const SizedBox(
+                                      width:
+                                          20), // Add spacing between Shop and Print Shack
                                   PopupMenuButton<String>(
                                     onSelected: (value) {
                                       Navigator.pushNamed(
@@ -494,7 +631,10 @@ class _PageLayoutState extends State<PageLayout> {
                                       padding: const EdgeInsets.all(8),
                                       constraints: const BoxConstraints(
                                           minWidth: 32, minHeight: 32),
-                                      onPressed: placeholderCallbackForButtons,
+                                      onPressed: () {
+                                        Scaffold.of(scaffoldContext)
+                                            .openEndDrawer();
+                                      },
                                     ),
                                   ],
                                 ),
