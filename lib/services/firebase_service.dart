@@ -126,6 +126,7 @@ class FirebaseService {
         '📦 Using local fallback: ${localProducts.length} products for $category');
     yield localProducts;
   }
+
   // Helper method to match categories flexibly
   static bool _matchesCategory(
       String productCategory, String requestedCategory) {
@@ -158,7 +159,7 @@ class FirebaseService {
     return _firestore
         .collection('products')
         .where('featured', isEqualTo: true)
-        .orderBy('popularity', descending: true)
+        // .orderBy('popularity', descending: true)
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
@@ -314,7 +315,7 @@ class FirebaseService {
     return _firestore
         .collection('products')
         .where('popularity', isGreaterThanOrEqualTo: 80)
-        .orderBy('popularity', descending: true)
+        // .orderBy('popularity', descending: true)  // Removed to avoid index requirement
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
@@ -325,16 +326,18 @@ class FirebaseService {
     return _firestore
         .collection('products')
         .where('category', isEqualTo: 'PSUT')
-        .orderBy('popularity', descending: true)
+        // .orderBy('popularity', descending: true)  // Removed to avoid index requirement
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
-  }  /// Get Sale Products (filtering by onSale field)
+  }
+
+  /// Get Sale Products (filtering by onSale field)
   static Stream<List<Product>> getSaleProducts() {
     return _firestore
         .collection('products')
         .where('onSale', isEqualTo: true)
-        .orderBy('popularity', descending: true)
+        // .orderBy('popularity', descending: true)  // Removed to avoid index requirement
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());

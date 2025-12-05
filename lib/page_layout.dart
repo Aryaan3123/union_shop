@@ -15,6 +15,7 @@ class PageLayout extends StatefulWidget {
 class _PageLayoutState extends State<PageLayout> {
   bool isMobileMenuExpanded = false;
   bool isShopSubmenuOpen = false;
+  bool isPrintShackSubmenuOpen = false;
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -52,6 +53,19 @@ class _PageLayoutState extends State<PageLayout> {
     });
   }
 
+  void openPrintShackSubmenu() {
+    setState(() {
+      isPrintShackSubmenuOpen = true;
+      isShopSubmenuOpen = false; // Close other submenu
+    });
+  }
+
+  void closePrintShackSubmenu() {
+    setState(() {
+      isPrintShackSubmenuOpen = false;
+    });
+  }
+
   Widget _buildMobileMenuOptions() {
     return Container(
       width: double.infinity,
@@ -62,7 +76,7 @@ class _PageLayoutState extends State<PageLayout> {
           transitionBuilder: (Widget child, Animation<double> animation) {
             return SlideTransition(
               position: Tween<Offset>(
-                begin: isShopSubmenuOpen
+                begin: (isShopSubmenuOpen || isPrintShackSubmenuOpen)
                     ? const Offset(-1.0, 0.0)
                     : const Offset(1.0, 0.0),
                 end: Offset.zero,
@@ -70,7 +84,11 @@ class _PageLayoutState extends State<PageLayout> {
               child: child,
             );
           },
-          child: isShopSubmenuOpen ? _buildShopSubmenu() : _buildMainMenu(),
+          child: isShopSubmenuOpen
+              ? _buildShopSubmenu()
+              : isPrintShackSubmenuOpen
+                  ? _buildPrintShackSubmenu()
+                  : _buildMainMenu(),
         ),
       ),
     );
@@ -98,10 +116,8 @@ class _PageLayoutState extends State<PageLayout> {
           ),
           _buildHoverableListTile(
             title: 'The Print Shack',
-            onTap: () {
-              toggleMobileMenu();
-              placeholderCallbackForButtons();
-            },
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            onTap: openPrintShackSubmenu,
           ),
           _buildHoverableListTile(
             title: 'SALE!',
@@ -183,6 +199,39 @@ class _PageLayoutState extends State<PageLayout> {
             onTap: () {
               toggleMobileMenu();
               Navigator.pushNamed(context, '/shop/graduation');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPrintShackSubmenu() {
+    return Container(
+      key: const ValueKey('print_shack_submenu'),
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildHoverableListTile(
+            title: 'Back to Menu',
+            leading: const Icon(Icons.arrow_back_ios, size: 16),
+            onTap: closePrintShackSubmenu,
+          ),
+          const Divider(),
+          _buildHoverableListTile(
+            title: 'About Us',
+            onTap: () {
+              toggleMobileMenu();
+              Navigator.pushNamed(context, '/print-shack/about');
+            },
+          ),
+          _buildHoverableListTile(
+            title: 'Personalisation',
+            onTap: () {
+              toggleMobileMenu();
+              Navigator.pushNamed(context, '/print-shack/personalisation');
             },
           ),
         ],
@@ -344,8 +393,11 @@ class _PageLayoutState extends State<PageLayout> {
                                       ),
                                     ],
                                   ),
-                                  TextButton(
-                                    onPressed: placeholderCallbackForButtons,
+                                  PopupMenuButton<String>(
+                                    onSelected: (value) {
+                                      Navigator.pushNamed(
+                                          context, '/print-shack/$value');
+                                    },
                                     child: const Text(
                                       'The Print Shack',
                                       style: TextStyle(
@@ -353,9 +405,20 @@ class _PageLayoutState extends State<PageLayout> {
                                         fontSize: 14,
                                       ),
                                     ),
+                                    itemBuilder: (BuildContext context) => [
+                                      const PopupMenuItem<String>(
+                                        value: 'about',
+                                        child: Text('About Us'),
+                                      ),
+                                      const PopupMenuItem<String>(
+                                        value: 'personalisation',
+                                        child: Text('Personalisation'),
+                                      ),
+                                    ],
                                   ),
                                   TextButton(
-                                    onPressed: () => Navigator.pushNamed(context, '/sale'),
+                                    onPressed: () =>
+                                        Navigator.pushNamed(context, '/sale'),
                                     child: const Text(
                                       'SALE!',
                                       style: TextStyle(

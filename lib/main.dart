@@ -15,6 +15,8 @@ import 'pages/auth/login_screen.dart';
 import 'pages/auth/register_screen.dart';
 import 'pages/user/orders_screen.dart';
 import 'pages/cart_screen.dart';
+import 'pages/print_shack_about_page.dart';
+import 'pages/personalisation_page.dart';
 
 /// Professional app initialization with Firebase and data migration
 void main() async {
@@ -106,6 +108,9 @@ class UnionShopApp extends StatelessWidget {
           '/orders': (context) => const OrdersScreen(),
           '/cart': (context) => const CartScreen(),
           '/sale': (context) => const CollectionScreen(categoryName: 'SALE'),
+          '/print-shack/about': (context) => const PrintShackAboutPage(),
+          '/print-shack/personalisation': (context) =>
+              const PersonalisationPage(),
         },
       ),
     );

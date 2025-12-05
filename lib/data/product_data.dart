@@ -911,6 +911,19 @@ class ProductsData {
         imageUrl:
             'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
       ),
+
+      // PERSONALISATION PRODUCT
+      Product(
+        id: 'personalisation_1',
+        title: 'Personalisation',
+        price: '£3.00',
+        priceValue: 3.00,
+        category: 'Print Shack',
+        popularity: 95,
+        featured: true,
+        imageUrl:
+            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      ),
     ];
   }
 }
