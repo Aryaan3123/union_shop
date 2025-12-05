@@ -351,6 +351,12 @@ class _CollectionScreenState extends State<CollectionScreen> {
 
                   List<Product> products =
                       snapshot.data!; // Get the products from snapshot
+                  print(
+                      '🔥 DEBUG: Received ${products.length} products from Firebase');
+                  for (int i = 0; i < products.length && i < 5; i++) {
+                    print(
+                        '📦 Product $i: ${products[i].title} (${products[i].category})');
+                  }
                   _sortProducts(products);
 
                   final totalProducts = products.length;

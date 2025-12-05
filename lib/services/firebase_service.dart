@@ -17,6 +17,17 @@ class FirebaseService {
 
   // Get Products by Category with error handling
   static Stream<List<Product>> getProductsByCategory(String category) {
+    // Handle special categories that map to multiple subcategories
+    if (category == 'Merchandise') {
+      return getProductsByMultipleCategories(
+          ['Stationery', 'Accessories', 'Bags', 'Tech']);
+    }
+    if (category == 'Signature Essentials') {
+      return getProductsByMultipleCategories(
+          ['Essentials', 'Premium', 'Basics']);
+    }
+
+    // Default single category query
     return _firestore
         .collection('products')
         .where('category', isEqualTo: category)
@@ -27,6 +38,21 @@ class FirebaseService {
         .handleError((error) {
       print('⚠️ Firestore query failed, using local fallback: $error');
       // Don't rethrow, let the UI handle this gracefully
+    });
+  }
+
+  // Get Products by Multiple Categories (for complex category mappings)
+  static Stream<List<Product>> getProductsByMultipleCategories(
+      List<String> categories) {
+    return _firestore
+        .collection('products')
+        .where('category', whereIn: categories)
+        .orderBy('popularity', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList())
+        .handleError((error) {
+      print('⚠️ Firestore multi-category query failed: $error');
     });
   }
 
