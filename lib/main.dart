@@ -9,6 +9,7 @@ import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/pages/home_page.dart';
 import 'package:union_shop/pages/collection_screen.dart';
 import 'providers/auth_provider.dart';
+import 'providers/order_provider.dart';
 import 'pages/auth/login_screen.dart';
 import 'pages/auth/register_screen.dart';
 import 'pages/user/orders_screen.dart';
@@ -63,14 +64,14 @@ class ErrorApp extends StatelessWidget {
 }
 
 class UnionShopApp extends StatelessWidget {
-  const UnionShopApp({super.key});
-  @override
+  const UnionShopApp({super.key});  @override
   Widget build(BuildContext context) {
     // Wrap MaterialApp with MultiProvider for multiple providers
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => OrderProvider()),
       ],
       child: MaterialApp(
         scrollBehavior: const MaterialScrollBehavior().copyWith(
