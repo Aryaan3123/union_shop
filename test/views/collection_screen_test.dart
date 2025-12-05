@@ -23,51 +23,40 @@ void main() {
 
     testWidgets('should render collection screen with basic elements',
         (WidgetTester tester) async {
-      // Arrange & Act
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
-      // Assert
       expect(find.byType(Scaffold), findsOneWidget);
       expect(find.byType(CollectionScreen), findsOneWidget);
     });
 
-    testWidgets('should display category name', (WidgetTester tester) async {
-      // Arrange & Act
+    testWidgets('should display category name in the app bar', (WidgetTester tester) async {
       await tester.pumpWidget(createTestWidget(categoryName: 'SALE'));
       await tester.pumpAndSettle();
 
-      // Assert - Should render without errors
-      expect(find.byType(CollectionScreen), findsOneWidget);
+      expect(find.text('SALE'), findsWidgets);
     });
 
-    testWidgets('should handle different categories',
-        (WidgetTester tester) async {
-      // Test Pride Collection
-      await tester
-          .pumpWidget(createTestWidget(categoryName: 'Pride Collection'));
+    testWidgets('should handle different categories and display their names', (WidgetTester tester) async {
+      await tester.pumpWidget(createTestWidget(categoryName: 'Pride Collection'));
       await tester.pumpAndSettle();
-      expect(find.byType(CollectionScreen), findsOneWidget);
+      expect(find.text('Pride Collection'), findsWidgets);
 
-      // Test Portsmouth City
-      await tester
-          .pumpWidget(createTestWidget(categoryName: 'Portsmouth City'));
+      await tester.pumpWidget(createTestWidget(categoryName: 'Portsmouth City'));
       await tester.pumpAndSettle();
-      expect(find.byType(CollectionScreen), findsOneWidget);
+      expect(find.text('Portsmouth City'), findsWidgets);
 
-      // Test Graduation
       await tester.pumpWidget(createTestWidget(categoryName: 'Graduation'));
       await tester.pumpAndSettle();
-      expect(find.byType(CollectionScreen), findsOneWidget);
+      expect(find.text('Graduation'), findsWidgets);
     });
 
-    testWidgets('should display products grid', (WidgetTester tester) async {
-      // Arrange & Act
+    testWidgets('should display products grid or list', (WidgetTester tester) async {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
-      // Assert - Basic rendering test
-      expect(find.byType(MaterialApp), findsOneWidget);
+      // Try to find a GridView or ListView, depending on your implementation
+      expect(find.byType(GridView), findsOneWidget);
     });
   });
 }

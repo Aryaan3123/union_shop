@@ -5,58 +5,34 @@ import 'package:union_shop/views/login_screen.dart';
 import 'package:union_shop/providers/auth_provider.dart';
 
 void main() {
-  group('LoginScreen Widget Tests', () {
-    late AuthProvider mockAuthProvider;
-
-    setUp(() {
-      mockAuthProvider = AuthProvider();
-    });
-
+  group('LoginScreen UI Tests', () {
     Widget createTestWidget() {
-      return ChangeNotifierProvider<AuthProvider>.value(
-        value: mockAuthProvider,
+      return ChangeNotifierProvider<AuthProvider>(
+        create: (_) => AuthProvider(),
         child: const MaterialApp(
           home: LoginScreen(),
         ),
       );
     }
 
-    testWidgets('should render login screen with basic elements',
-        (WidgetTester tester) async {
-      // Arrange & Act
+    testWidgets('renders Scaffold and LoginScreen', (WidgetTester tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pumpAndSettle();
-
-      // Assert
       expect(find.byType(Scaffold), findsOneWidget);
       expect(find.byType(LoginScreen), findsOneWidget);
     });
 
-    testWidgets('should display email and password fields',
-        (WidgetTester tester) async {
-      // Arrange & Act
+    testWidgets('shows email and password TextFormFields', (WidgetTester tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pumpAndSettle();
-
-      // Assert - Look for text form fields
-      expect(find.byType(TextFormField), findsWidgets);
+      expect(find.byType(TextFormField), findsNWidgets(2));
     });
 
-    testWidgets('should have login button', (WidgetTester tester) async {
-      // Arrange & Act
+    testWidgets('shows login button', (WidgetTester tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pumpAndSettle();
-
-      // Assert - Should render without errors
-      expect(find.byType(LoginScreen), findsOneWidget);
+      expect(find.widgetWithText(ElevatedButton, 'Login'), findsOneWidget);
     });
 
-    testWidgets('should handle form validation', (WidgetTester tester) async {
-      // Arrange & Act
+    testWidgets('shows MaterialApp', (WidgetTester tester) async {
       await tester.pumpWidget(createTestWidget());
-      await tester.pumpAndSettle();
-
-      // Assert - Basic rendering test
       expect(find.byType(MaterialApp), findsOneWidget);
     });
   });

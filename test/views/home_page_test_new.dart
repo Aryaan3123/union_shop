@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('OrderConfirmationScreen Widget Tests', () {
+  group('HomePage Widget Tests', () {
     
-    testWidgets('should create OrderConfirmationScreen without errors', (WidgetTester tester) async {
+    testWidgets('should create HomePage without errors', (WidgetTester tester) async {
       // This is a basic smoke test that just checks the constructor doesn't throw
       // We can't test the full widget without Firebase setup
       expect(() {
@@ -18,16 +18,16 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            appBar: AppBar(title: Text('Test Order Confirmation')),
+            appBar: AppBar(title: Text('Union Shop')),
             body: Center(
-              child: Text('Order confirmation placeholder'),
+              child: Text('Welcome to Union Shop'),
             ),
           ),
         ),
       );
 
-      expect(find.text('Test Order Confirmation'), findsOneWidget);
-      expect(find.text('Order confirmation placeholder'), findsOneWidget);
+      expect(find.text('Union Shop'), findsOneWidget);
+      expect(find.text('Welcome to Union Shop'), findsOneWidget);
     });
 
     testWidgets('should find basic Flutter widgets', (WidgetTester tester) async {
@@ -36,10 +36,10 @@ void main() {
           home: Scaffold(
             body: Column(
               children: [
-                Text('Order Status: Confirmed'),
+                Text('Featured Products'),
                 ElevatedButton(
                   onPressed: () {},
-                  child: Text('Continue Shopping'),
+                  child: Text('Shop Now'),
                 ),
               ],
             ),
@@ -48,15 +48,15 @@ void main() {
       );
 
       expect(find.byType(Scaffold), findsOneWidget);
-      expect(find.text('Order Status: Confirmed'), findsOneWidget);
+      expect(find.text('Featured Products'), findsOneWidget);
       expect(find.byType(ElevatedButton), findsOneWidget);
     });
 
     test('should pass basic unit test', () {
       // Basic unit test to ensure test framework works
       expect(1 + 1, equals(2));
-      expect('Order', isA<String>());
-      expect(['order1', 'order2'], hasLength(2));
+      expect('Home', isA<String>());
+      expect(['product1', 'product2'], hasLength(2));
     });
   });
 }
