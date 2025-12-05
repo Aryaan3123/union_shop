@@ -10,11 +10,11 @@ import 'package:union_shop/pages/home_page.dart';
 import 'package:union_shop/pages/collection_screen.dart';
 import 'providers/auth_provider.dart';
 import 'providers/order_provider.dart';
+import 'providers/cart_provider.dart';
 import 'pages/auth/login_screen.dart';
 import 'pages/auth/register_screen.dart';
 import 'pages/user/orders_screen.dart';
-import 'providers/cart_provider.dart';
-import '../pages/cart_screen.dart';
+import 'pages/cart_screen.dart';
 
 /// Professional app initialization with Firebase and data migration
 void main() async {
