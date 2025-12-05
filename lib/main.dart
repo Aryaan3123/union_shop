@@ -2,21 +2,21 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'firebase_options.dart';
+import 'services/firebase_options.dart';
 import 'services/migration_service.dart';
-import 'package:union_shop/pages/about_page.dart';
-import 'package:union_shop/pages/product_page.dart';
-import 'package:union_shop/pages/home_page.dart';
-import 'package:union_shop/pages/collection_screen.dart';
+import 'package:union_shop/views/about_page.dart';
+import 'package:union_shop/views/product_page.dart';
+import 'package:union_shop/views/home_page.dart';
+import 'package:union_shop/views/collection_screen.dart';
 import 'providers/auth_provider.dart';
 import 'providers/order_provider.dart';
 import 'providers/cart_provider.dart';
-import 'pages/auth/login_screen.dart';
-import 'pages/auth/register_screen.dart';
+import 'views/login_screen.dart';
+import 'views/register_screen.dart';
 import 'pages/user/orders_screen.dart';
-import 'pages/cart_screen.dart';
-import 'pages/print_shack_about_page.dart';
-import 'pages/personalisation_page.dart';
+import 'views/cart_screen.dart';
+import 'views/print_shack_about_page.dart';
+import 'views/personalisation_page.dart';
 
 /// Professional app initialization with Firebase and data migration
 void main() async {

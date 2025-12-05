@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'providers/auth_provider.dart';
-import 'widgets/cart_badge_icon.dart';
+import '../providers/auth_provider.dart';
+import 'cart_badge_icon.dart';
 
 class PageLayout extends StatefulWidget {
   final Widget child;

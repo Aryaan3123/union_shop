@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:union_shop/page_layout.dart';
-import 'package:union_shop/main.dart'; // ← Import ProductCard from main
+import 'package:union_shop/widgets/page_layout.dart';
+import 'package:union_shop/main.dart'; 
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late Timer _timer;
   int _currentPage = 0;
 
+  @override
   void initState() {
     super.initState();
     _pageController = PageController();

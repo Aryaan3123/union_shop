@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/auth_provider.dart';
-import '../../providers/order_provider.dart';
-import '../../models/order.dart';
-import '../checkout/order_details_screen.dart';
+import '../providers/order_provider.dart';
+import '../models/order.dart';
+import 'order_details_screen.dart';
 
-class OrdersScreen extends StatefulWidget {
-  const OrdersScreen({super.key});
+class OrderHistoryScreen extends StatefulWidget {
+  const OrderHistoryScreen({super.key});
 
   @override
-  State<OrdersScreen> createState() => _OrdersScreenState();
+  State<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
 }
 
-class _OrdersScreenState extends State<OrdersScreen> {
+class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
   @override
   void initState() {
     super.initState();
@@ -25,106 +24,22 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        backgroundColor: Colors.white,
-        child: Column(
-          children: [
-            // Header with logo
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const Spacer(),
-                  const Text(
-                    'The UNION',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF4d2963),
-                    ),
-                  ),
-                  const Spacer(),
-                  const SizedBox(width: 48), // Balance the close button
-                ],
-              ),
-            ),
-
-            // User email
-            Consumer<AuthProvider>(
-              builder: (context, authProvider, child) {
-                return Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.person_outline, color: Colors.grey),
-                      const SizedBox(width: 12),
-                      Text(
-                        authProvider.firebaseUser?.email ?? 'No email',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-
-            const SizedBox(height: 20),
-
-            // Menu items
-            _buildMenuItem('Shop', () {
-              Navigator.pop(context); // Close drawer first
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-            }),
-            _buildMenuItem('Orders', () {
-              Navigator.pop(context); // Close drawer - current page
-            }),
-
-            const Spacer(),
-
-            // Bottom menu items
-            _buildMenuItem('Profile', () {
-              Navigator.pop(context);
-              // Already on orders page, which is part of profile section
-            }),
-            _buildMenuItem('Settings', () {
-              Navigator.pop(context);
-              // Add settings navigation when ready
-            }),
-            _buildMenuItem('Sign out', () {
-              Navigator.pop(context); // Close drawer first
-              Provider.of<AuthProvider>(context, listen: false).signOut();
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-            }),
-
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'My Orders',
+          'Order History',
           style: TextStyle(
             color: Colors.black,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
+        centerTitle: true,
       ),
       body: Consumer<OrderProvider>(
         builder: (context, orderProvider, child) {
@@ -133,7 +48,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
           }
 
           if (orderProvider.orders.isEmpty) {
-            return _buildEmptyOrdersState();
+            return _buildEmptyState();
           }
 
           return _buildOrdersList(orderProvider.orders);
@@ -142,27 +57,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
     );
   }
 
-  Widget _buildMenuItem(String title, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.black87,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildEmptyOrdersState() {
-    return Container(
-      color: Colors.grey[100],
-      width: double.infinity,
+  Widget _buildEmptyState() {
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -192,8 +88,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
           ),
           const SizedBox(height: 32),
           ElevatedButton(
-            onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                context, '/', (route) => false),
+            onPressed: () => Navigator.pop(context),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF4d2963),
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
@@ -212,17 +107,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
   }
 
   Widget _buildOrdersList(List<Order> orders) {
-    return Container(
-      color: Colors.grey[50],
-      child: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: orders.length,
-        separatorBuilder: (context, index) => const SizedBox(height: 16),
-        itemBuilder: (context, index) {
-          final order = orders[index];
-          return _buildOrderCard(order);
-        },
-      ),
+    return ListView.separated(
+      padding: const EdgeInsets.all(16),
+      itemCount: orders.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 16),
+      itemBuilder: (context, index) {
+        final order = orders[index];
+        return _buildOrderCard(order);
+      },
     );
   }
 
@@ -327,7 +219,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
             const SizedBox(height: 16),
 
-            // Order items preview (first 3 items)
+            // Order items preview
             SizedBox(
               height: 60,
               child: Row(

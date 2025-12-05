@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/product.dart';
-import '../data/product_data.dart';
+import '../models/product_data.dart';
 
 /// Professional data migration service for Firebase Firestore
 /// Ensures database initialization and maintains data integrity

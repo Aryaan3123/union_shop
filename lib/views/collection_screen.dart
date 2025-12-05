@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../page_layout.dart';
+import '../widgets/page_layout.dart';
 import '../services/firebase_service.dart';
 import '../services/error_service.dart';
 import '../models/product.dart';

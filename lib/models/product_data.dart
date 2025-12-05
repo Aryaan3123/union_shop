@@ -1,4 +1,4 @@
-import '../models/product.dart';
+import 'product.dart';
 
 class ProductsData {
   static List<Product> getAllProducts() {
