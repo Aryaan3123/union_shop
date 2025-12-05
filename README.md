@@ -1,124 +1,98 @@
 # Union Shop - Flutter E-commerce Application
 
-A Flutter recreation of the University of Portsmouth Student Union's e-commerce website ([shop.upsu.net](https://shop.upsu.net)).
+<div align="center">
 
-## About
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
 
-This mobile-first Flutter application recreates the core functionality of the UPSU online shop, including product browsing, cart management, and user authentication. Built as coursework for Programming Applications and User Experience Design modules.
+A modern, cross-platform e-commerce application built with Flutter, recreating the University of Portsmouth Student Union's online shop experience.
 
-## Features
+[📖 Documentation](#documentation) • [🐛 Report Bug](https://github.com/Aryaan3123/union_shop/issues) • [✨ Request Feature](https://github.com/Aryaan3123/union_shop/issues)
 
-### ✅ Implemented
-- **Responsive Homepage** - Mobile-first design with hero section
-- **Product Navigation** - Browse products with image cards
-- **Cross-platform Layout** - Adaptive UI for mobile and desktop
-- **Navigation System** - Route-based navigation between pages
-
-### 🚧 In Development
-- **Firebase Authentication** - User login/signup system
-- **Dynamic Product Data** - Firestore database integration
-- **Shopping Cart** - Add/remove items with state management
-- **Search Functionality** - Product search and filtering
-
-### 📋 Planned
-- **User Profiles** - Account management and order history
-- **Checkout System** - Complete purchase workflow
-- **Admin Panel** - Product management interface
-
-## 🎯 Progress Checklist
-
-### **Phase 1: Foundation & Quick Wins (Days 1-3)** 
-*Target: 40% Basic + 25% Software Practices = 65% total marks*
-
-#### **📚 Software Development Practices (25% of total marks)**
-- [ ] **Git Setup**: Fork repository and set up proper git workflow
-- [ ] **README**: Create comprehensive README with progress checklist *(5% marks)*
-- [ ] **First Commits**: Make 5+ meaningful commits with clear messages *(8% marks - ongoing)*
-- [ ] **External Services Planning**: Research Firebase setup for Auth + Firestore *(6% marks - prep)*
-
-#### **🏠 Basic Features - Static UI (40% of total marks)**
-- [x] **Static Homepage**: Layout with hero section and product cards *(5% marks)*
-- [ ] **Static Navbar**: Responsive navigation bar with mobile menu *(5% marks)*
-- [ ] **About Us Page**: Create static about page *(5% marks)*
-- [ ] **Footer Component**: Add footer to all pages *(4% marks)*
-- [ ] **Collections Page**: Static grid of product collections *(5% marks)*
-- [ ] **Collection Detail Page**: Products within a collection *(5% marks)*
-- [ ] **Product Detail Page**: Individual product view *(4% marks)*
-- [ ] **Sale Collection**: Sale items page with discounts *(4% marks)*
-- [ ] **Auth UI**: Login/signup forms (non-functional) *(3% marks)*
-
-### **Phase 2: External Services Integration (Days 4-6)**
-*Target: 6% External Services marks*
-
-#### **🔥 Firebase Setup**
-- [ ] **Firebase Project**: Create new Firebase project
-- [ ] **Firebase Auth**: Set up authentication service
-- [ ] **Firestore Database**: Set up product database
-- [ ] **Flutter Integration**: Add Firebase packages to pubspec.yaml
-- [ ] **Environment Setup**: Configure Firebase in Flutter app
-- [ ] **README Documentation**: Document Firebase integration
-
-### **Phase 3: Dynamic Features (Days 7-9)**
-*Target: 35% Intermediate marks*
-
-#### **🔄 Dynamic Data (Intermediate - 35% marks)**
-- [ ] **Navigation System**: Full app navigation between pages *(3% marks)*
-- [ ] **Dynamic Collections**: Load collections from Firestore *(6% marks)*
-- [ ] **Dynamic Collection Page**: Products loaded from database *(6% marks)*
-- [ ] **Functional Product Pages**: Real data with working widgets *(6% marks)*
-- [ ] **Shopping Cart**: Add to cart, view cart functionality *(6% marks)*
-- [ ] **Print Shack**: Text personalization page *(3% marks)*
-- [ ] **Responsive Design**: Desktop + mobile layouts *(5% marks)*
-
-### **Phase 4: Advanced Features (Days 10-11)**
-*Target: 25% Advanced marks + Final Testing*
-
-#### **🚀 Advanced Features (25% marks)**
-- [ ] **Authentication System**: Full working auth with Google *(8% marks)*
-- [ ] **Cart Management**: Full cart with quantity, persistence *(6% marks)*
-- [ ] **Search System**: Working search functionality *(4% marks)*
-- [ ] **Testing**: Write comprehensive widget tests *(6% marks)*
-- [ ] **Final Polish**: Bug fixes and final commits
-
-### **📊 Current Progress Summary**
-- **Basic Features**: 1/9 completed (5/40% earned)
-- **Software Practices**: 0/4 completed (0/25% earned)
-- **Intermediate Features**: 0/7 completed (0/35% earned)
-- **Advanced Features**: 0/4 completed (0/25% earned)
-- **Overall Progress**: ~5% / 125% total possible
-
-*Last Updated: November 23, 2025*
-
-### **🎯 Daily Targets**
-- **Day 1-3**: Complete all Basic Features (40% marks) + README/Git setup (13% marks)
-- **Day 4-6**: Firebase integration (6% marks) + Start Dynamic Features
-- **Day 7-9**: Complete Intermediate Features (35% marks)
-- **Day 10-11**: Advanced Features (25% marks) + Testing (6% marks)
-
-### **📈 Commit Strategy**
-*Target: 8% marks for regular, meaningful commits*
-- [ ] Commit #1: "Initial README update with progress checklist"
-- [ ] Commit #2: "Add responsive navbar component"
-- [ ] Commit #3: "Create About Us page"
-- [ ] Commit #4: "Add footer component to all pages"
-- [ ] Commit #5: "Create collections page layout"
-- [ ] *Continue with micro-commits for each feature...*
+</div>
 
 ---
 
-## Installation & Setup
+## 📱 About
+
+Union Shop is a comprehensive Flutter e-commerce application that recreates and enhances the core functionality of the UPSU online shop ([shop.upsu.net](https://shop.upsu.net)). This mobile-first application provides a seamless shopping experience with modern UI/UX design principles, real-time data synchronization, and robust state management.
+
+### 🎯 Project Goals
+- Create a modern, responsive e-commerce experience
+- Implement real-time Firebase integration
+- Provide comprehensive shopping cart functionality
+- Ensure cross-platform compatibility (iOS, Android, Web)
+- Demonstrate best practices in Flutter development
+
+## ✨ Features
+
+### 🎉 Fully Implemented
+- ✅ **Responsive Homepage** - Mobile-first design with hero section and featured products
+- ✅ **Product Catalog** - Dynamic product browsing with Firebase integration
+- ✅ **Shopping Collections** - Organized product categories (SALE, Pride Collection, Portsmouth City, Graduation)
+- ✅ **Shopping Cart** - Full cart management with add/remove/update functionality
+- ✅ **User Authentication** - Firebase Auth integration with Google Sign-In
+- ✅ **Product Search** - Real-time search functionality across all products
+- ✅ **Print Shack** - Custom text personalization with live preview
+- ✅ **Order Management** - Complete order history and tracking system
+- ✅ **Cross-platform Layout** - Responsive design for mobile, tablet, and desktop
+- ✅ **State Management** - Robust Provider pattern implementation
+- ✅ **Firebase Integration** - Firestore database with real-time updates
+- ✅ **Navigation System** - Complete route-based navigation
+- ✅ **Testing Suite** - Comprehensive unit and widget tests
+
+### 🚀 Advanced Features
+- ✅ **Real-time Data Sync** - Live product updates and inventory management
+- ✅ **Discount System** - Sale pricing and promotional offers
+- ✅ **User Profiles** - Account management and personal information
+- ✅ **Order History** - Complete purchase tracking and order details
+- ✅ **Cart Persistence** - Shopping cart state maintained across sessions
+- ✅ **Error Handling** - Comprehensive error management and user feedback
+- ✅ **Performance Optimization** - Efficient state management and data loading
+
+## 🛠️ Technology Stack
+
+### Frontend
+- **Flutter 3.0+** - Cross-platform UI framework
+- **Dart 2.17.0+** - Programming language
+- **Material Design 3** - Modern UI components
+
+### Backend & Services
+- **Firebase Authentication** - User authentication and authorization
+- **Cloud Firestore** - NoSQL database for real-time data
+- **Firebase Hosting** - Web application hosting
+- **Firebase Storage** - Image and file storage
+
+### State Management & Architecture
+- **Provider Pattern** - State management solution
+- **MVVM Architecture** - Separation of concerns
+- **Repository Pattern** - Data abstraction layer
+
+### Testing & Quality Assurance
+- **Flutter Test** - Unit and widget testing framework
+- **Integration Tests** - End-to-end testing
+- **Code Coverage** - Test coverage reporting
+- **Static Analysis** - Code quality enforcement
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Flutter SDK (3.0+)
-- Dart SDK (2.17.0+)
-- Android Studio/VS Code
-- Git
 
-### Getting Started
+Before you begin, ensure you have the following installed:
+- **Flutter SDK** (3.0 or higher)
+- **Dart SDK** (2.17.0 or higher)
+- **Git** for version control
+- **VS Code** or **Android Studio** with Flutter extensions
+- **Chrome** for web development
+
+### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/[your-username]/union_shop.git
+   git clone https://github.com/your-username/union_shop.git
    cd union_shop
    ```
 
@@ -127,19 +101,136 @@ This mobile-first Flutter application recreates the core functionality of the UP
    flutter pub get
    ```
 
-3. **Run the application**
+3. **Set up Firebase** (Optional - app works with demo data)
    ```bash
-   flutter run
+   # Install Firebase CLI if not already installed
+   npm install -g firebase-tools
+   
+   # Login to Firebase
+   firebase login
+   
+   # Initialize Firebase (if setting up your own project)
+   firebase init
    ```
 
-4. **For web development**
+4. **Run the application**
    ```bash
-   flutter run -d chrome
+   # For web (recommended)
+   flutter run -d chrome --web-renderer html
+   
+   # For mobile simulator
+   flutter run -d ios        # iOS
+   flutter run -d android    # Android
    ```
-2. **University Windows computers** (via AppsAnywhere)
-3. **Personal computer** (Windows or macOS)
 
-Below is a quick guide for each option. For more information, you can refer to [Worksheet 0 — Introduction to Dart, Git and GitHub](https://manighahrmani.github.io/sandwich_shop/worksheet-0.html) and [Worksheet 1 — Introduction to Flutter](https://manighahrmani.github.io/sandwich_shop/worksheet-1.html).
+5. **Run tests**
+   ```bash
+   # Run all tests
+   flutter test
+   
+   # Run tests with coverage
+   flutter test --coverage
+   ```
+
+### 📱 Development Setup
+
+For the best development experience:
+
+1. **Enable mobile view in Chrome DevTools**
+   - Right-click → Inspect
+   - Click device toolbar icon (📱)
+   - Select mobile device (iPhone 12 Pro recommended)
+
+2. **Hot reload during development**
+   - Press `r` in terminal for hot reload
+   - Press `R` for hot restart
+   - Press `q` to quit
+
+---
+
+## 📁 Project Structure
+
+```
+union_shop/
+├── lib/
+│   ├── main.dart                    # Application entry point
+│   ├── models/                      # Data models
+│   │   ├── cart_item.dart          # Shopping cart item model
+│   │   ├── order.dart              # Order and shipping models
+│   │   ├── product.dart            # Product data model
+│   │   ├── product_data.dart       # Static product data
+│   │   └── user_model.dart         # User profile model
+│   ├── providers/                   # State management
+│   │   ├── auth_provider.dart      # Authentication state
+│   │   ├── cart_provider.dart      # Shopping cart state
+│   │   └── order_provider.dart     # Order management state
+│   ├── services/                    # Business logic layer
+│   │   ├── auth_service.dart       # Authentication service
+│   │   ├── firebase_service.dart   # Database operations
+│   │   ├── storage_service.dart    # Local storage service
+│   │   └── error_service.dart      # Error handling service
+│   ├── views/                       # Application screens
+│   │   ├── home_page.dart          # Homepage with featured products
+│   │   ├── collection_screen.dart  # Product category pages
+│   │   ├── product_page.dart       # Product detail view
+│   │   ├── cart_screen.dart        # Shopping cart
+│   │   ├── login_screen.dart       # User authentication
+│   │   ├── register_screen.dart    # User registration
+│   │   ├── personalisation_page.dart # Print Shack customization
+│   │   └── order_*.dart            # Order management screens
+│   └── widgets/                     # Reusable UI components
+│       ├── page_layout.dart        # App layout wrapper
+│       └── cart_badge_icon.dart    # Cart notification badge
+├── test/                            # Test suite
+│   ├── models/                      # Model unit tests
+│   ├── providers/                   # Provider state tests
+│   ├── services/                    # Service logic tests
+│   ├── views/                       # Widget tests
+│   └── main_test.dart              # Integration tests
+├── assets/                          # Static assets
+│   └── images/                     # Application images
+├── firebase.json                    # Firebase configuration
+├── pubspec.yaml                     # Project dependencies
+└── README.md                        # This file
+```
+## 🎨 User Interface
+
+### Design Philosophy
+The application follows Material Design 3 principles with a focus on:
+- **Mobile-first approach** - Optimized for smartphone usage
+- **Responsive design** - Seamless experience across all screen sizes  
+- **Accessibility** - WCAG 2.1 AA compliance
+- **Performance** - Smooth animations and fast load times
+
+### Key Screens
+- **🏠 Homepage** - Featured products and promotional banners
+- **📱 Collections** - Organized product categories (SALE, Pride, Portsmouth City, Graduation)
+- **🛍️ Product Details** - High-quality images, descriptions, and customization options
+- **🛒 Shopping Cart** - Real-time cart management with pricing calculations
+- **👤 Authentication** - Streamlined login/register flow with Google Sign-In
+- **🎨 Print Shack** - Interactive text personalization with live preview
+- **📦 Orders** - Complete order history and tracking system
+
+---
+
+## 🔧 Configuration & Setup
+
+### Environment Variables
+Create a `.env` file in the root directory (optional):
+```env
+FIREBASE_API_KEY=your_api_key_here
+FIREBASE_PROJECT_ID=your_project_id_here
+FIREBASE_STORAGE_BUCKET=your_bucket_here
+```
+
+### Firebase Configuration
+The app includes demo Firebase configuration. For production use:
+1. Create a new Firebase project at [console.firebase.google.com](https://console.firebase.google.com)
+2. Enable Authentication, Firestore, and Storage
+3. Download configuration files:
+   - `google-services.json` → `android/app/`
+   - `GoogleService-Info.plist` → `ios/Runner/`
+4. Update `lib/services/firebase_options.dart` with your project details
 
 **Firebase Studio:**
 
