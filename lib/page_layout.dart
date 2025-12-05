@@ -390,9 +390,9 @@ class _PageLayoutState extends State<PageLayout> {
                                       const PopupMenuItem<String>(
                                         value: 'graduation',
                                         child: Text('Graduation'),
-                                      ),
-                                    ],
+                                      ),                                    ],
                                   ),
+                                  const SizedBox(width: 20), // Add spacing between Shop and Print Shack
                                   PopupMenuButton<String>(
                                     onSelected: (value) {
                                       Navigator.pushNamed(
