@@ -326,7 +326,9 @@ class FirebaseService {
   // Get Sale Products 
   static Stream<List<Product>> getSaleProducts() {
   return getAllProducts().map((products) => 
-    products.where((product) => product.onSale == true || product.discountPercentage > 0).toList()
+    products.where((product) => 
+      product.discountPercentage != null && product.discountPercentage! > 0
+    ).toList()
   );
 }
 }

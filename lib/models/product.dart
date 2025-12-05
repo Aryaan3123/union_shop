@@ -17,10 +17,14 @@ class Product {
   // Cart/variant fields  
   final List<String> colors;    // ["Default"] or ["Red", "Blue"]
   final List<String> sizes;     // ["One Size"] or ["S", "M", "L"]
-  
-  // Image handling (support both single and multiple)
+    // Image handling (support both single and multiple)
   final String imageUrl;        // Primary image for backward compatibility
   final List<String> imageUrls; // All product images
+  
+  // Sale/discount fields
+  final bool onSale;            // Is this product on sale?
+  final double? discountPercentage; // Discount percentage (e.g., 25.0 for 25%)
+  final String? originalPrice;  // Original price before discount (e.g., "£40.00")
 
   Product({
     required this.id,
@@ -33,6 +37,9 @@ class Product {
     required this.imageUrl,
     this.colors = const ['Default'],
     this.sizes = const ['One Size'],
+    this.onSale = false,
+    this.discountPercentage,
+    this.originalPrice,
     List<String>? imageUrls,
   }) : imageUrls = imageUrls ?? [imageUrl];
 
@@ -40,8 +47,7 @@ class Product {
   factory Product.fromFirestore(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     final imageUrl = data['imageUrl'] ?? '';
-    
-    return Product(
+      return Product(
       id: doc.id,
       title: data['title'] ?? '',
       price: data['price'] ?? '£0.00',
@@ -53,14 +59,16 @@ class Product {
       colors: data['colors']?.cast<String>() ?? ['Default'],
       sizes: data['sizes']?.cast<String>() ?? ['One Size'],
       imageUrls: data['imageUrls']?.cast<String>() ?? [imageUrl],
+      onSale: data['onSale'] ?? false,
+      discountPercentage: data['discountPercentage']?.toDouble(),
+      originalPrice: data['originalPrice'],
     );
   }
 
   // Convert Map to Product (for cart/local storage)
   factory Product.fromMap(Map<String, dynamic> map) {
     final imageUrl = map['imageUrl'] ?? '';
-    
-    return Product(
+      return Product(
       id: map['id'] ?? '',
       title: map['title'] ?? '',
       price: map['price'] ?? '£0.00',
@@ -72,9 +80,11 @@ class Product {
       colors: List<String>.from(map['colors'] ?? ['Default']),
       sizes: List<String>.from(map['sizes'] ?? ['One Size']),
       imageUrls: List<String>.from(map['imageUrls'] ?? [imageUrl]),
+      onSale: map['onSale'] ?? false,
+      discountPercentage: map['discountPercentage']?.toDouble(),
+      originalPrice: map['originalPrice'],
     );
   }
-
   // Convert Product to Map (for Firestore/storage)
   Map<String, dynamic> toMap() {
     return {
@@ -89,6 +99,9 @@ class Product {
       'colors': colors,
       'sizes': sizes,
       'imageUrls': imageUrls,
+      'onSale': onSale,
+      'discountPercentage': discountPercentage,
+      'originalPrice': originalPrice,
     };
   }
 }

@@ -107,7 +107,7 @@ class _PageLayoutState extends State<PageLayout> {
             title: 'SALE!',
             onTap: () {
               toggleMobileMenu();
-              placeholderCallbackForButtons();
+              Navigator.pushNamed(context, '/sale');
             },
           ),
           _buildHoverableListTile(
@@ -355,7 +355,7 @@ class _PageLayoutState extends State<PageLayout> {
                                     ),
                                   ),
                                   TextButton(
-                                    onPressed: placeholderCallbackForButtons,
+                                    onPressed: () => Navigator.pushNamed(context, '/sale'),
                                     child: const Text(
                                       'SALE!',
                                       style: TextStyle(
