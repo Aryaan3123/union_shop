@@ -126,7 +126,6 @@ class FirebaseService {
         '📦 Using local fallback: ${localProducts.length} products for $category');
     yield localProducts;
   }
-
   // Helper method to match categories flexibly
   static bool _matchesCategory(
       String productCategory, String requestedCategory) {
@@ -139,6 +138,16 @@ class FirebaseService {
             .contains(productCategory);
       case 'Signature Essentials':
         return ['Essentials', 'Premium', 'Basics'].contains(productCategory);
+      case 'Halloween':
+        return productCategory == 'Halloween';
+      case 'Pride Collection':
+        return productCategory == 'Pride Collection';
+      case 'Portsmouth City':
+        return productCategory == 'Portsmouth City';
+      case 'Graduation':
+        return productCategory == 'Graduation';
+      case 'SALE':
+        return productCategory == 'SALE';
       default:
         return productCategory == requestedCategory;
     }
@@ -320,9 +329,14 @@ class FirebaseService {
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
-  }
-  // Get Sale Products (temporarily use all products until we add discount fields)
+  }  /// Get Sale Products (filtering by onSale field)
   static Stream<List<Product>> getSaleProducts() {
-    return getAllProducts();
+    return _firestore
+        .collection('products')
+        .where('onSale', isEqualTo: true)
+        .orderBy('popularity', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Product.fromFirestore(doc)).toList());
   }
 }
