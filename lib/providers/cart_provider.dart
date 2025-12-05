@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/cart_item.dart';
-import '../models/product_model.dart';
+import '../models/product.dart';
 
 class CartProvider extends ChangeNotifier {
   List<CartItem> _items = []; // List of items in the cart
@@ -126,7 +126,7 @@ class CartProvider extends ChangeNotifier {
         id: itemId,
         productId: product.id,
         title: product.title,
-        price: product.price,
+        price: product.priceValue,
         quantity: quantity,
         color: color,
         size: size,

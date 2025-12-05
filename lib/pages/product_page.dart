@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:union_shop/page_layout.dart';
 import '../providers/cart_provider.dart';
-import '../models/product_model.dart';
+import '../models/product.dart';
 import '../providers/auth_provider.dart';
 
 class ProductPage extends StatelessWidget {
@@ -204,10 +204,16 @@ class ProductPage extends StatelessWidget {
                     id: productData?['id'] ??
                         title.replaceAll(' ', '_').toLowerCase(),
                     title: title,
-                    price: double.tryParse(price.replaceAll('£', '')) ?? 15.0,
-                    imageUrls: [imageUrl],
+                    price: price, 
+                    priceValue: double.tryParse(price.replaceAll('£', '')) ??
+                        15.0, 
+                    category: category, 
+                    popularity: popularity, 
+                    featured: featured, 
+                    imageUrl: imageUrl, 
                     colors: ['Default'],
                     sizes: ['One Size'],
+                    imageUrls: [imageUrl], 
                   );
 
                   // Add to cart with default color and size
