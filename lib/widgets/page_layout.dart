@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/auth_provider.dart';
-import 'cart_badge_icon.dart';
+import 'package:union_shop/providers/auth_provider.dart';
+import 'package:union_shop/widgets/cart_badge_icon.dart';
 
 class PageLayout extends StatefulWidget {
   final Widget child;
@@ -593,7 +593,7 @@ class _PageLayoutState extends State<PageLayout> {
                                           icon: const Icon(
                                             Icons.person_outline,
                                             size: 18,
-                                            color: Colors.grey,
+                                            color: Colors.black,
                                           ),
                                           padding: const EdgeInsets.all(8),
                                           constraints: const BoxConstraints(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/order_provider.dart';
-import '../models/order.dart';
-import 'home_page.dart';
-import 'order_history_screen.dart';
+import 'package:union_shop/providers/order_provider.dart';
+import 'package:union_shop/models/order.dart';
+import 'package:union_shop/views/home_page.dart';
+import 'package:union_shop/views/order_history_screen.dart';
 
 class OrderConfirmationScreen extends StatefulWidget {
   final String orderId;

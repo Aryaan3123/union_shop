@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/cart_provider.dart';
-import '../providers/order_provider.dart';
-import '../models/order.dart';
-import 'order_confirmation_screen.dart';
+import 'package:union_shop/providers/cart_provider.dart';
+import 'package:union_shop/providers/order_provider.dart';
+import 'package:union_shop/models/order.dart';
+import 'package:union_shop/views/order_confirmation_screen.dart';
 
 class OrderSummaryScreen extends StatefulWidget {
   const OrderSummaryScreen({super.key});

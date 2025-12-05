@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/cart_provider.dart';
-import '../views/cart_screen.dart';
+import 'package:union_shop/providers/cart_provider.dart';
+import 'package:union_shop/views/cart_screen.dart';
 
 class CartBadgeIcon extends StatelessWidget {
   const CartBadgeIcon({super.key});
