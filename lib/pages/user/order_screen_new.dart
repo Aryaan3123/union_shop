@@ -75,8 +75,37 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 );
               },
             ),
-            
-  }
-}
 
-            
+            const SizedBox(height: 20),
+
+            // Menu items
+            _buildMenuItem('Shop', () {
+              Navigator.pop(context); // Close drawer first
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            }),
+            _buildMenuItem('Orders', () {
+              Navigator.pop(context); // Close drawer - current page
+            }),
+
+            const Spacer(),
+
+            // Bottom menu items
+            _buildMenuItem('Profile', () {
+              Navigator.pop(context);
+              // Already on orders page, which is part of profile section
+            }),
+            _buildMenuItem('Settings', () {
+              Navigator.pop(context);
+              // Add settings navigation when ready
+            }),
+            _buildMenuItem('Sign out', () {
+              Navigator.pop(context); // Close drawer first
+              Provider.of<AuthProvider>(context, listen: false).signOut();
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            }),
+
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+      
