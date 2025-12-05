@@ -72,17 +72,59 @@ class FirebaseService {
     try {
       // Try Firebase first
       await for (final products in getProductsByCategory(category)) {
-        if (products.isNotEmpty) {
+        print('Firebase returned ${products.length} products for $category');
+
+        // If we have a good number of products (5+), use Firebase data
+        if (products.length >= 5) {
           yield products;
+          return;
+        }
+        // If we have some products but not many, combine with local data
+        else if (products.isNotEmpty) {
+          final localProducts = ProductsData.getAllProducts()
+              .where((product) => _matchesCategory(product.category, category))
+              .toList()
+            ..sort((a, b) => b.popularity.compareTo(a.popularity));
+
+          // Combine Firebase + Local, removing duplicates by ID
+          final combined = <Product>[];
+          final seenIds = <String>{};
+
+          // Add Firebase products first
+          for (final product in products) {
+            if (!seenIds.contains(product.id)) {
+              combined.add(product);
+              seenIds.add(product.id);
+            }
+          }
+
+          // Add local products that aren't already included
+          for (final product in localProducts) {
+            if (!seenIds.contains(product.id)) {
+              combined.add(product);
+              seenIds.add(product.id);
+            }
+          }
+
+          print(
+              'Packages combined: ${combined.length} products (${products.length} Firebase + ${localProducts.length} local)');
+          yield combined;
           return;
         }
       }
     } catch (e) {
-      print('🔄 Firebase not ready, using local data: $e');
+      print('Firebase not ready, using local data: $e');
     }
 
-    // Fallback to local data
-    yield* getProductsByCategoryFallback(category);
+    // Fallback to local data only
+    final localProducts = ProductsData.getAllProducts()
+        .where((product) => _matchesCategory(product.category, category))
+        .toList()
+      ..sort((a, b) => b.popularity.compareTo(a.popularity));
+
+    print(
+        '📦 Using local fallback: ${localProducts.length} products for $category');
+    yield localProducts;
   }
 
   // Helper method to match categories flexibly
